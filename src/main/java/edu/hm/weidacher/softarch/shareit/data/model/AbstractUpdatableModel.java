@@ -2,6 +2,8 @@ package edu.hm.weidacher.softarch.shareit.data.model;
 
 import java.util.Date;
 
+import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
+
 /**
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
@@ -13,6 +15,17 @@ public abstract class AbstractUpdatableModel extends AbstractModel {
         super();
         update();
     }
+
+    /**
+     * Merges the data of the other Model with this.
+     *
+     * All fields of the other model will be written to this one, except
+     *  for null fields, the original data remains
+     *
+     * @param other the other model
+     * @throws PersistenceException when the type of other does is not compatible to the type of this model
+     */
+    public abstract <T extends AbstractUpdatableModel> void mergeWith(T other) throws PersistenceException;
 
     public Date getLastUpdate() {
 	return lastUpdate;

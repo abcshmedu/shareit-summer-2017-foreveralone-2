@@ -1,5 +1,7 @@
 package edu.hm.weidacher.softarch.shareit.data.model;
 
+import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
+
 /**
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
@@ -9,14 +11,14 @@ public class Disc extends Medium {
 
     private String director;
 
-    private int fsk;
+    private Integer fsk;
 
     public Disc() {
         super();
         //beans
     }
 
-    public Disc(String title, String barcode, String director, int fsk) {
+    public Disc(String title, String barcode, String director, Integer fsk) {
 	super(title);
 	this.barcode = barcode;
 	this.director = director;
@@ -39,12 +41,44 @@ public class Disc extends Medium {
 	this.director = director;
     }
 
-    public int getFsk() {
+    public Integer getFsk() {
 	return fsk;
     }
 
-    public void setFsk(int fsk) {
+    public void setFsk(Integer fsk) {
 	this.fsk = fsk;
+    }
+
+    /**
+     * Merges the data of the other Model with this.
+     * <p>
+     * All fields of the other model will be written to this one, except
+     * for null fields, the original data remains
+     *
+     * @param other the other model
+     * @throws PersistenceException when the type of other does is not compatible to the type of this model
+     */
+    @Override
+    public <T extends AbstractUpdatableModel> void mergeWith(T other) throws PersistenceException {
+	if (!(other instanceof Disc)) {
+	    throw new PersistenceException("Incompatible type given for merging...");
+	}
+
+        super.mergeWith(other);
+
+	Disc o = (Disc)other;
+
+	if (o.getBarcode() != null) {
+	    this.setBarcode(o.getBarcode());
+	}
+
+	if (o.getDirector() != null) {
+	    this.setDirector(o.getDirector());
+	}
+
+	if (o.getFsk() != null) {
+	    this.setFsk(o.getFsk());
+	}
     }
 
     @Override

@@ -1,5 +1,7 @@
 package edu.hm.weidacher.softarch.shareit.data.model;
 
+import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
+
 /**
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
@@ -22,6 +24,28 @@ public abstract class Medium extends AbstractUpdatableModel{
     public void setTitle(String title) {
         update();
 	this.title = title;
+    }
+
+    /**
+     * Merges the data of the other Model with this.
+     * <p>
+     * All fields of the other model will be written to this one, except
+     * for null fields, the original data remains
+     *
+     * @param other the other model
+     * @throws PersistenceException when the type of other does is not compatible to the type of this model
+     */
+    @Override
+    public <T extends AbstractUpdatableModel> void mergeWith(T other) throws PersistenceException {
+	if (!(other instanceof Medium)) {
+	    throw new PersistenceException("Bad model type given for merging.");
+	}
+
+	Medium o = (Medium) other;
+
+	if (o.getTitle() != null) {
+	    this.setTitle(o.getTitle());
+	}
     }
 
     @Override
