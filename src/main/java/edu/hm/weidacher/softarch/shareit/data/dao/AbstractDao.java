@@ -1,6 +1,7 @@
 package edu.hm.weidacher.softarch.shareit.data.dao;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.UUID;
 
 import edu.hm.weidacher.softarch.shareit.data.database.DatabaseFactory;
@@ -34,6 +35,16 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
     protected AbstractDao(Class<T> clazz) {
 	modelClass = clazz;
 	database = DatabaseFactory.getDatabase().getCollectionForType(modelClass);
+    }
+
+    /**
+     * Return all entitys under T
+     *
+     * @return collection containing all available entitys
+     */
+    @Override
+    public Collection<T> getAll() {
+	return Collections.unmodifiableCollection(database);
     }
 
     /**
