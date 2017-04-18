@@ -13,7 +13,7 @@ public class Copy extends AbstractUpdatableModel{
 	super();
 	// beans
     }
-    
+
     public Copy(Medium medium, String owner) {
         super();
 	this.medium = medium;
