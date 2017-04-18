@@ -1,5 +1,11 @@
 package edu.hm.weidacher.softarch.shareit.data.database;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -14,6 +20,8 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
 public class SimpleDatabase implements Database {
+
+    private final static String PERSIST_PATH = "data.db";
 
     /**
      * Map containing collections for each model type.
@@ -54,7 +62,18 @@ public class SimpleDatabase implements Database {
      */
     @Override
     public void persist() throws PersistenceException {
-	// TODO
+        try (
+            final FileOutputStream fos = new FileOutputStream(PERSIST_PATH);
+            final ObjectOutputStream oos = new ObjectOutputStream(fos)
+	) {
+	    oos.writeObject(data);
+        }catch (FileNotFoundException e) {
+	    e.printStackTrace();
+	    throw new PersistenceException(e);
+	} catch (IOException e) {
+	    e.printStackTrace();
+	    throw new PersistenceException(e);
+	}
     }
 
     /**
@@ -63,7 +82,31 @@ public class SimpleDatabase implements Database {
      * @throws PersistenceException if any error occurs during loading (ENOENT, corrupt ...)
      */
     @Override
+    @SuppressWarnings("unchecked")
     public void load() throws PersistenceException {
-	// TODO
+	try (
+	    final FileInputStream fis = new FileInputStream(PERSIST_PATH);
+	    final ObjectInputStream ois = new ObjectInputStream(fis)
+	) {
+	    final Object o = ois.readObject();
+	    if (!(o instanceof Map)) {
+	        throw new PersistenceException("Persisted file corrupted!");
+	    }
+
+	    final Map<Class<? extends AbstractModel>, Collection<? extends AbstractModel>> loaded =
+		(Map<Class<? extends AbstractModel>, Collection<? extends AbstractModel>>) o;
+
+	    data.putAll(loaded);
+
+	} catch (FileNotFoundException e) {
+	    e.printStackTrace();
+	    throw new PersistenceException("No persisted file found", e);
+	} catch (IOException e) {
+	    e.printStackTrace();
+	    throw new PersistenceException(e);
+	} catch (ClassNotFoundException e) {
+	    e.printStackTrace();
+	    throw new PersistenceException("Persisted file corrupted!", e);
+	}
     }
 }
