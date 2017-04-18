@@ -3,24 +3,43 @@ package edu.hm.weidacher.softarch.shareit.data.model;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 
 /**
+ * Model for media in the ShareIt application.
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
 public abstract class Medium extends AbstractUpdatableModel{
 
+    /**
+     * Title of the media.
+     */
     private String title;
 
+    /**
+     * Ctor.
+     */
     public Medium() {
         // beans
     }
 
+    /**
+     * Ctor.
+     * @param title title of the media
+     */
     public Medium(String title) {
 	this.title = title;
     }
 
+    /**
+     * Returns the title of the media.
+     * @return title
+     */
     public String getTitle() {
 	return title;
     }
 
+    /**
+     * Sets the title of the media.
+     * @param title new title
+     */
     public void setTitle(String title) {
         update();
 	this.title = title;
@@ -48,12 +67,22 @@ public abstract class Medium extends AbstractUpdatableModel{
 	}
     }
 
+    /**
+     * Returns a representative string of this entity.
+     * @return string with info
+     */
     @Override
     public String toString() {
 	return "Medium{" + super.toString() +
 	    " title='" + title + "'}";
     }
 
+    /**
+     * Equals.
+     *
+     * @param o object to compare to
+     * @return whether the two objects have the same value
+     */
     @Override
     public boolean equals(Object o) {
 	if (this == o) return true;
@@ -65,6 +94,11 @@ public abstract class Medium extends AbstractUpdatableModel{
 	return getTitle() != null ? getTitle().equals(medium.getTitle()) : medium.getTitle() == null;
     }
 
+    /**
+     * HashCode.
+     *
+     * @return number giving an easy comparable info about the entity
+     */
     @Override
     public int hashCode() {
 	int result = super.hashCode();

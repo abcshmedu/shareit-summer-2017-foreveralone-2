@@ -8,13 +8,29 @@ import edu.hm.weidacher.softarch.shareit.data.model.AbstractModel;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 
 /**
+ * Abstract Dao class.
+ *
+ * All interface-spec methods have an implementation here.
+ *
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
 public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
 
+    /**
+     * The .class object representing the model-type this AbstractDao handles.
+     */
     private final Class<T> modelClass;
+
+    /**
+     * Collection containing all persisted objects of the model.
+     */
     private final Collection<T> database;
 
+    /**
+     * Ctor.
+     *
+     * @param clazz .class object representing the modeltype
+     */
     protected AbstractDao(Class<T> clazz) {
 	modelClass = clazz;
 	database = DatabaseFactory.getDatabase().getCollectionForType(modelClass);
@@ -49,6 +65,11 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
 	database.add(model);
     }
 
+    /**
+     * Returns the collection containing all stored objects of the model handled by this Dao.
+     *
+     * @return all the models!!
+     */
     protected Collection<T> getDatabase() {
 	return database;
     }

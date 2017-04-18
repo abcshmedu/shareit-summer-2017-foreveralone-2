@@ -3,21 +3,42 @@ package edu.hm.weidacher.softarch.shareit.data.model;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 
 /**
+ * Model of a Disc in the ShareIt application.
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
 public class Disc extends Medium {
 
+    /**
+     * The barcode (EAN) of the disc.
+     */
     private String barcode;
 
+    /**
+     * Director of the disc.
+     */
     private String director;
 
+    /**
+     * The lower age-limit of this book.
+     * People below this age (in years) are not allowed to consume this media.
+     */
     private Integer fsk;
 
+    /**
+     * Ctor.
+     */
     public Disc() {
         super();
         //beans
     }
 
+    /**
+     * Ctor.
+     * @param title title of the disc
+     * @param barcode barcode of the disc
+     * @param director director of the disc
+     * @param fsk fsk of the disc
+     */
     public Disc(String title, String barcode, String director, Integer fsk) {
 	super(title);
 	this.barcode = barcode;
@@ -25,26 +46,50 @@ public class Disc extends Medium {
 	this.fsk = fsk;
     }
 
+    /**
+     * Returns the barcode of the disc.
+     * @return barcode
+     */
     public String getBarcode() {
 	return barcode;
     }
 
+    /**
+     * Sets the barcode of this disc.
+     * @param barcode new barcode
+     */
     public void setBarcode(String barcode) {
 	this.barcode = barcode;
     }
 
+    /**
+     * Returns the director of this disc.
+     * @return director
+     */
     public String getDirector() {
 	return director;
     }
 
+    /**
+     * Sets the director of this disc.
+     * @param director new director
+     */
     public void setDirector(String director) {
 	this.director = director;
     }
 
+    /**
+     * Returns the fsk limit of this disk.
+     * @return fsk
+     */
     public Integer getFsk() {
 	return fsk;
     }
 
+    /**
+     * Sets the fsk limit of this disk.
+     * @param fsk new fsk
+     */
     public void setFsk(Integer fsk) {
 	this.fsk = fsk;
     }
@@ -81,6 +126,10 @@ public class Disc extends Medium {
 	}
     }
 
+    /**
+     * Returns a representative string of this entity.
+     * @return string with info
+     */
     @Override
     public String toString() {
 	return "Disc{ " + super.toString() +
@@ -90,6 +139,12 @@ public class Disc extends Medium {
 	    '}';
     }
 
+    /**
+     * Equals.
+     *
+     * @param o object to compare to
+     * @return whether the two objects have the same value
+     */
     @Override
     public boolean equals(Object o) {
 	if (this == o) return true;
@@ -103,6 +158,11 @@ public class Disc extends Medium {
 	return getDirector() != null ? getDirector().equals(disc.getDirector()) : disc.getDirector() == null;
     }
 
+    /**
+     * HashCode.
+     *
+     * @return number giving an easy comparable info about the entity
+     */
     @Override
     public int hashCode() {
 	int result = super.hashCode();

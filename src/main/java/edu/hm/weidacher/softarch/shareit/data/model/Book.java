@@ -3,17 +3,39 @@ package edu.hm.weidacher.softarch.shareit.data.model;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 
 /**
+ * Model of a Book in the ShareIt application.
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
 public class Book extends Medium {
 
+    /**
+     * The author of the book.
+     */
     private String author;
-    
+
+    /**
+     * The isbn of the book.
+     */
     private String isbn;
 
+    /**
+     * Ctor.
+     */
     public Book() {
 	super();
 	// beans
+    }
+
+    /**
+     * Ctor.
+     * @param title tile of the book
+     * @param author author of the book
+     * @param isbn isbn of the book
+     */
+    public Book(String title, String author, String isbn) {
+	super(title);
+	this.author = author;
+	this.isbn = isbn;
     }
 
     /**
@@ -44,28 +66,42 @@ public class Book extends Medium {
 	}
     }
 
-    public Book(String title, String author, String isbn) {
-	super(title);
-	this.author = author;
-	this.isbn = isbn;
-    }
-
+    /**
+     * Returns the author of this book.
+     * @return author
+     */
     public String getAuthor() {
 	return author;
     }
 
+    /**
+     * Sets the author of this book.
+     * @param author the new author
+     */
     public void setAuthor(String author) {
 	this.author = author;
     }
 
+    /**
+     * Returns the isbn number of this book.
+     * @return isbn number
+     */
     public String getIsbn() {
 	return isbn;
     }
 
+    /**
+     * Sets the isbn number of this book.
+     * @param isbn the new isbn
+     */
     public void setIsbn(String isbn) {
 	this.isbn = isbn;
     }
 
+    /**
+     * Returns a representative string of this entity.
+     * @return string with info
+     */
     @Override
     public String toString() {
 	return "Book{ " + super.toString() +
@@ -74,6 +110,12 @@ public class Book extends Medium {
 	    '}';
     }
 
+    /**
+     * Equals.
+     *
+     * @param o object to compare to
+     * @return whether the two objects have the same value
+     */
     @Override
     public boolean equals(Object o) {
 	if (this == o) return true;
@@ -86,6 +128,11 @@ public class Book extends Medium {
 	return getIsbn() != null ? getIsbn().equals(book.getIsbn()) : book.getIsbn() == null;
     }
 
+    /**
+     * HashCode.
+     *
+     * @return number giving an easy comparable info about the entity
+     */
     @Override
     public int hashCode() {
 	int result = super.hashCode();

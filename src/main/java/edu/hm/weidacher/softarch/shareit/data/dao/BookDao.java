@@ -8,8 +8,9 @@ import edu.hm.weidacher.softarch.shareit.data.model.Book;
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
 public class BookDao extends AbstractUpdatableDao<Book> {
+
     /**
-     * Ctor for a new BookDao
+     * Ctor for a new BookDao.
      */
     public BookDao() {
 	super(Book.class);

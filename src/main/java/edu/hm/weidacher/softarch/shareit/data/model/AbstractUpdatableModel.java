@@ -5,12 +5,19 @@ import java.util.Date;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 
 /**
+ * Base class  for all Models in the ShareIt application that can be updated.
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
 public abstract class AbstractUpdatableModel extends AbstractModel {
 
+    /**
+     * The date/time of the last update process.
+     */
     private Date lastUpdate;
 
+    /**
+     * Ctor.
+     */
     public AbstractUpdatableModel() {
         super();
         update();
@@ -27,23 +34,44 @@ public abstract class AbstractUpdatableModel extends AbstractModel {
      */
     public abstract <T extends AbstractUpdatableModel> void mergeWith(T other) throws PersistenceException;
 
+    /**
+     * Returns the date/time of the last update.
+     * @return lud
+     */
     public Date getLastUpdate() {
 	return lastUpdate;
     }
 
+    /**
+     * Updates the time of the last update.
+     */
     public void update() {
         setLastUpdate(new Date());
     }
 
+    /**
+     * Sets the time of the last update.
+     * @param lastUpdate lud time
+     */
     public void setLastUpdate(Date lastUpdate) {
 	this.lastUpdate = lastUpdate;
     }
 
+    /**
+     * Returns a representative string of this entity.
+     * @return string with info
+     */
     @Override
     public String toString() {
 	return super.toString() + " lastUpdate=" + lastUpdate;
     }
 
+    /**
+     * Equals.
+     *
+     * @param o object to compare to
+     * @return whether the two objects have the same value
+     */
     @Override
     public boolean equals(Object o) {
 	if (this == o) return true;
@@ -55,6 +83,11 @@ public abstract class AbstractUpdatableModel extends AbstractModel {
 	return getLastUpdate() != null ? getLastUpdate().equals(that.getLastUpdate()) : that.getLastUpdate() == null;
     }
 
+    /**
+     * HashCode.
+     *
+     * @return number giving an easy comparable info about the entity
+     */
     @Override
     public int hashCode() {
 	int result = super.hashCode();

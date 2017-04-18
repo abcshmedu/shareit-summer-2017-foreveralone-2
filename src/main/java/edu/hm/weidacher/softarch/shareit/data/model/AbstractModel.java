@@ -5,34 +5,63 @@ import java.util.Date;
 import java.util.UUID;
 
 /**
+ * Base class for all Models in the ShareIt application.
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
 public abstract class AbstractModel implements Serializable{
 
+    /**
+     * The id of this entity.
+     */
     private final UUID id;
 
+    /**
+     * The date of creation of this entity.
+     */
     private final Date creationDate;
 
+    /**
+     * Ctor.
+     */
     public AbstractModel() {
         id = UUID.randomUUID();
         creationDate = new Date();
     }
 
+    /**
+     * Returns the id of this entity.
+     *
+     * @return unique id
+     */
     public UUID getId() {
 	return id;
     }
 
-
+    /**
+     * Returns the date of creation.
+     *
+     * @return date
+     */
     public Date getCreationDate() {
 	return creationDate;
     }
 
+    /**
+     * Returns a representative string of this entity.
+     * @return string with info
+     */
     @Override
     public String toString() {
 	return "id=" + id +
 	    ", creationDate=" + creationDate;
     }
 
+    /**
+     * Equals.
+     *
+     * @param o object to compare to
+     * @return whether the two objects have the same value
+     */
     @Override
     public boolean equals(Object o) {
 	if (this == o) return true;
@@ -44,6 +73,11 @@ public abstract class AbstractModel implements Serializable{
 	return getCreationDate() != null ? getCreationDate().equals(that.getCreationDate()) : that.getCreationDate() == null;
     }
 
+    /**
+     * HashCode.
+     *
+     * @return number giving an easy comparable info about the entity
+     */
     @Override
     public int hashCode() {
 	int result = getId() != null ? getId().hashCode() : 0;

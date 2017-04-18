@@ -64,6 +64,12 @@ public class Copy extends AbstractUpdatableModel{
 	}
     }
 
+    /**
+     * Equals.
+     *
+     * @param o object to compare to
+     * @return whether the two objects have the same value
+     */
     @Override
     public boolean equals(Object o) {
 	if (this == o) return true;
@@ -76,6 +82,11 @@ public class Copy extends AbstractUpdatableModel{
 	return getOwner() != null ? getOwner().equals(copy.getOwner()) : copy.getOwner() == null;
     }
 
+    /**
+     * HashCode.
+     *
+     * @return number giving an easy comparable info about the entity
+     */
     @Override
     public int hashCode() {
 	int result = super.hashCode();
