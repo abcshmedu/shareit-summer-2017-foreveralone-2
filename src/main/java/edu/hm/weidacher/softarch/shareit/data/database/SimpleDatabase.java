@@ -67,11 +67,7 @@ public class SimpleDatabase implements Database {
             final ObjectOutputStream oos = new ObjectOutputStream(fos)
 	) {
 	    oos.writeObject(data);
-        }catch (FileNotFoundException e) {
-	    e.printStackTrace();
-	    throw new PersistenceException(e);
-	} catch (IOException e) {
-	    e.printStackTrace();
+        } catch (IOException e) {
 	    throw new PersistenceException(e);
 	}
     }
