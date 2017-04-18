@@ -20,6 +20,7 @@ public interface Datastore {
     /**
      * Returns the corresponding Dao for a classfile.
      *
+     * @param <T> declares the model, the desired dao handles
      * @param forClass the model class file
      * @return a Dao for the classfile
      * @throws PersistenceException if the model-class has no registered Dao
@@ -29,6 +30,7 @@ public interface Datastore {
     /**
      * Returns the corresponding UpdatableDao for a classfile.
      *
+     * @param <T> declares the model, the desired dao handles
      * @param forClass the model class file
      * @return a Dao for the classfile
      * @throws PersistenceException if the model-class has no registered Dao or is not updatable

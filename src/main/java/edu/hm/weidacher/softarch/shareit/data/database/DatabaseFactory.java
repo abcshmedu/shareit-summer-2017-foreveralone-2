@@ -5,13 +5,20 @@ package edu.hm.weidacher.softarch.shareit.data.database;
  *
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
-public class DatabaseFactory {
+public final class DatabaseFactory {
 
     /**
      * The database itself.
      * Contains everything.
      */
     private static Database database;
+
+    /**
+     * Ctor.
+     */
+    private DatabaseFactory() {
+        //private
+    }
 
     /**
      * Returns a database instance.

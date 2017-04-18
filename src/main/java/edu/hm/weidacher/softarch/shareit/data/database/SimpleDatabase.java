@@ -13,18 +13,18 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
  *
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
-public class SimpleDatabase implements Database{
+public class SimpleDatabase implements Database {
 
     /**
      * Map containing collections for each model type.
      */
-    private final Map<Class<? extends AbstractModel>, Collection<? extends AbstractModel>> data;
+    private final Map<Class< ? extends AbstractModel>, Collection< ? extends AbstractModel>> data;
 
     /**
      * Ctor.
      * Creates a new empty database
      */
-    public SimpleDatabase () {
+    public SimpleDatabase() {
         this.data = new HashMap<>();
     }
 

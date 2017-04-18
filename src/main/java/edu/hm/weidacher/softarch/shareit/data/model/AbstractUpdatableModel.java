@@ -29,6 +29,7 @@ public abstract class AbstractUpdatableModel extends AbstractModel {
      * All fields of the other model will be written to this one, except
      *  for null fields, the original data remains
      *
+     * @param <T> the type of the model to merge with
      * @param other the other model
      * @throws PersistenceException when the type of other does is not compatible to the type of this model
      */
@@ -74,9 +75,15 @@ public abstract class AbstractUpdatableModel extends AbstractModel {
      */
     @Override
     public boolean equals(Object o) {
-	if (this == o) return true;
-	if (!(o instanceof AbstractUpdatableModel)) return false;
-	if (!super.equals(o)) return false;
+	if (this == o) {
+	    return true;
+	}
+	if (!(o instanceof AbstractUpdatableModel)) {
+	    return false;
+	}
+	if (!super.equals(o)) {
+	    return false;
+	}
 
 	AbstractUpdatableModel that = (AbstractUpdatableModel) o;
 

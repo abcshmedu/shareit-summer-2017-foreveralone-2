@@ -3,37 +3,69 @@ package edu.hm.weidacher.softarch.shareit.data.model;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 
 /**
+ * Model for a copy in the ShareIt application.
+ *
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
-public class Copy extends AbstractUpdatableModel{
+public class Copy extends AbstractUpdatableModel {
 
+    /**
+     * The medium, this copy resembles.
+     */
     private Medium medium;
 
+    /**
+     * The owner of the copy.
+     */
     private String owner;
 
+    /**
+     * Ctor.
+     */
     public Copy() {
 	super();
 	// beans
     }
 
+    /**
+     * Ctor.
+     * @param medium medium
+     * @param owner owner
+     */
     public Copy(Medium medium, String owner) {
         super();
 	this.medium = medium;
 	this.owner = owner;
     }
 
+    /**
+     * Returns the medium, this copy resembles.
+     * @return the medium
+     */
     public Medium getMedium() {
 	return medium;
     }
 
+    /**
+     * Sets the medium.
+     * @param medium new medium
+     */
     public void setMedium(Medium medium) {
 	this.medium = medium;
     }
 
+    /**
+     * Returns the owner of the copy.
+     * @return owner
+     */
     public String getOwner() {
 	return owner;
     }
 
+    /**
+     * Sets the owner of the copy.
+     * @param owner owner
+     */
     public void setOwner(String owner) {
 	this.owner = owner;
     }
@@ -72,13 +104,21 @@ public class Copy extends AbstractUpdatableModel{
      */
     @Override
     public boolean equals(Object o) {
-	if (this == o) return true;
-	if (!(o instanceof Copy)) return false;
-	if (!super.equals(o)) return false;
+	if (this == o) {
+	    return true;
+	}
+	if (!(o instanceof Copy)) {
+	    return false;
+	}
+	if (!super.equals(o)) {
+	    return false;
+	}
 
 	Copy copy = (Copy) o;
 
-	if (getMedium() != null ? !getMedium().equals(copy.getMedium()) : copy.getMedium() != null) return false;
+	if (getMedium() != null ? !getMedium().equals(copy.getMedium()) : copy.getMedium() != null) {
+	    return false;
+	}
 	return getOwner() != null ? getOwner().equals(copy.getOwner()) : copy.getOwner() == null;
     }
 

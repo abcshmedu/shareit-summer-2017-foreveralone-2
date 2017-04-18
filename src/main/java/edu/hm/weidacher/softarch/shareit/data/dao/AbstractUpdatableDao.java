@@ -7,10 +7,16 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 
 /**
  * Abstract Base class, providing utility methods.
+ *
+ * @param <T> declares the model, the dao handles
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
 public abstract class AbstractUpdatableDao<T extends AbstractUpdatableModel> extends AbstractDao<T> implements UpdatableDao<T> {
 
+    /**
+     * Ctor.
+     * @param clazz declares the model, the dao handles
+     */
     protected AbstractUpdatableDao(Class<T> clazz) {
         super(clazz);
     }
@@ -38,7 +44,7 @@ public abstract class AbstractUpdatableDao<T extends AbstractUpdatableModel> ext
      * @return the id of the model
      * @throws PersistenceException if the models id is null
      */
-    protected UUID validateIdPresent (T model) throws PersistenceException{
+    protected UUID validateIdPresent(T model) throws PersistenceException {
 	UUID id = model.getId();
 	if (id == null) {
 	    throw new PersistenceException("Model has no id, can thus not be updated: " + model.toString());
@@ -53,7 +59,7 @@ public abstract class AbstractUpdatableDao<T extends AbstractUpdatableModel> ext
      * @return the model if persisted
      * @throws PersistenceException if no model is persisted under the id
      */
-    protected T validateIsPersisted (UUID id) throws PersistenceException {
+    protected T validateIsPersisted(UUID id) throws PersistenceException {
 	// is a model present under the id?
 	final T persisted = getById(id);
 

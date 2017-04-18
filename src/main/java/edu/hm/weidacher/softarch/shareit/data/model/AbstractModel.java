@@ -8,7 +8,7 @@ import java.util.UUID;
  * Base class for all Models in the ShareIt application.
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
-public abstract class AbstractModel implements Serializable{
+public abstract class AbstractModel implements Serializable {
 
     /**
      * The id of this entity.
@@ -52,8 +52,9 @@ public abstract class AbstractModel implements Serializable{
      */
     @Override
     public String toString() {
-	return "id=" + id +
-	    ", creationDate=" + creationDate;
+	return "id="
+	    + id
+	    + ", creationDate=" + creationDate;
     }
 
     /**
@@ -64,12 +65,18 @@ public abstract class AbstractModel implements Serializable{
      */
     @Override
     public boolean equals(Object o) {
-	if (this == o) return true;
-	if (!(o instanceof AbstractModel)) return false;
+	if (this == o) {
+	    return true;
+	}
+	if (!(o instanceof AbstractModel)) {
+	    return false;
+	}
 
 	AbstractModel that = (AbstractModel) o;
 
-	if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
+	if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) {
+	    return false;
+	}
 	return getCreationDate() != null ? getCreationDate().equals(that.getCreationDate()) : that.getCreationDate() == null;
     }
 

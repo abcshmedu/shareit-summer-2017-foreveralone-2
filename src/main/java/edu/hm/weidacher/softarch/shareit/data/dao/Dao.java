@@ -12,6 +12,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
  *
  * As standard models aren't updatable, we can only store new objects or receive them.
  *
+ * @param <T> declares the model, the dao handles
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
 public interface Dao< T extends AbstractModel > {
@@ -22,7 +23,7 @@ public interface Dao< T extends AbstractModel > {
      * @param id the id of the model
      * @return the model or null, if the id dies not match any model
      */
-    T getById (@NotNull final UUID id);
+    T getById(@NotNull UUID id);
 
     /**
      * Stores a model in the datastore.
@@ -30,6 +31,6 @@ public interface Dao< T extends AbstractModel > {
      * @param model the model to persist
      * @throws PersistenceException when a model has already been persisted under the id of the model
      */
-    void store (@NotNull final T model) throws PersistenceException;
+    void store(@NotNull T model) throws PersistenceException;
 
 }

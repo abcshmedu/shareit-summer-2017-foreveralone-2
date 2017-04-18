@@ -6,7 +6,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
  * Model for media in the ShareIt application.
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
-public abstract class Medium extends AbstractUpdatableModel{
+public abstract class Medium extends AbstractUpdatableModel {
 
     /**
      * Title of the media.
@@ -73,8 +73,8 @@ public abstract class Medium extends AbstractUpdatableModel{
      */
     @Override
     public String toString() {
-	return "Medium{" + super.toString() +
-	    " title='" + title + "'}";
+	return "Medium{" + super.toString()
+	    + " title='" + title + "'}";
     }
 
     /**
@@ -85,9 +85,15 @@ public abstract class Medium extends AbstractUpdatableModel{
      */
     @Override
     public boolean equals(Object o) {
-	if (this == o) return true;
-	if (!(o instanceof Medium)) return false;
-	if (!super.equals(o)) return false;
+	if (this == o) {
+	    return true;
+	}
+	if (!(o instanceof Medium)) {
+	    return false;
+	}
+	if (!super.equals(o)) {
+	    return false;
+	}
 
 	Medium medium = (Medium) o;
 

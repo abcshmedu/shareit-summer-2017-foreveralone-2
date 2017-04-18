@@ -7,7 +7,7 @@ package edu.hm.weidacher.softarch.shareit.data;
  *
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
-public class DatastoreFactory {
+public final class DatastoreFactory {
 
     /**
      * The Datastore supplied by this factory.

@@ -19,6 +19,7 @@ public interface Database {
      *
      * If no collection for the type is registered yet, it will be created.
      *
+     * @param <T> declares the models type of the collection
      * @param type the corresponding type
      * @return the corresponding collection
      */

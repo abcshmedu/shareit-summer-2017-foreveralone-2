@@ -8,9 +8,10 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 /**
  * A Dao for updatable Models.
  *
+ * @param <T> declares the model, the dao handles
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
-public interface UpdatableDao <T extends AbstractUpdatableModel> extends Dao <T>{
+public interface UpdatableDao <T extends AbstractUpdatableModel> extends Dao <T> {
 
     /**
      * Update an existing model.
@@ -18,6 +19,6 @@ public interface UpdatableDao <T extends AbstractUpdatableModel> extends Dao <T>
      * @param model the model that shall be updated
      * @throws PersistenceException if no model is present under the id of the model
      */
-    void update (@NotNull final T model) throws PersistenceException;
+    void update(@NotNull T model) throws PersistenceException;
 
 }

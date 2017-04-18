@@ -48,7 +48,7 @@ public class Book extends Medium {
      * @throws PersistenceException when the type of other does is not compatible to the type of this model
      */
     @Override
-    public <T extends AbstractUpdatableModel> void mergeWith(T other) throws PersistenceException{
+    public <T extends AbstractUpdatableModel> void mergeWith(T other) throws PersistenceException {
 	if (other.getClass() != Book.class) {
 	    throw new PersistenceException("Incompatible model given for merging!");
 	}
@@ -104,10 +104,10 @@ public class Book extends Medium {
      */
     @Override
     public String toString() {
-	return "Book{ " + super.toString() +
-	    " author='" + author + '\'' +
-	    ", isbn='" + isbn + '\'' +
-	    '}';
+	return "Book{ " + super.toString()
+	    + " author='" + author + '\''
+	    + ", isbn='" + isbn + '\''
+	    + '}';
     }
 
     /**
@@ -118,13 +118,21 @@ public class Book extends Medium {
      */
     @Override
     public boolean equals(Object o) {
-	if (this == o) return true;
-	if (!(o instanceof Book)) return false;
-	if (!super.equals(o)) return false;
+	if (this == o) {
+	    return true;
+	}
+	if (!(o instanceof Book)) {
+	    return false;
+	}
+	if (!super.equals(o)) {
+	    return false;
+	}
 
 	Book book = (Book) o;
 
-	if (getAuthor() != null ? !getAuthor().equals(book.getAuthor()) : book.getAuthor() != null) return false;
+	if (getAuthor() != null ? !getAuthor().equals(book.getAuthor()) : book.getAuthor() != null) {
+	    return false;
+	}
 	return getIsbn() != null ? getIsbn().equals(book.getIsbn()) : book.getIsbn() == null;
     }
 
