@@ -49,7 +49,7 @@ public class SimpleDatabase implements Database {
     public <T extends AbstractModel> Collection<T> getCollectionForType(Class<T> type) {
         // add the collection if the type is not yet present
         if (!data.containsKey(type)) {
-	     return (Collection<T>) data.put(type, new ArrayList<>());
+            data.put(type, new ArrayList<>());
 	}
 
 	return (Collection<T>) data.get(type);
