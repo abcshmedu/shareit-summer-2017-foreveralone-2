@@ -80,6 +80,7 @@ public class Book extends Medium {
      */
     public void setAuthor(String author) {
 	this.author = author;
+	update();
     }
 
     /**
@@ -96,6 +97,7 @@ public class Book extends Medium {
      */
     public void setIsbn(String isbn) {
 	this.isbn = isbn;
+	update();
     }
 
     /**

@@ -60,6 +60,7 @@ public class Disc extends Medium {
      */
     public void setBarcode(String barcode) {
 	this.barcode = barcode;
+	update();
     }
 
     /**
@@ -76,6 +77,7 @@ public class Disc extends Medium {
      */
     public void setDirector(String director) {
 	this.director = director;
+	update();
     }
 
     /**
@@ -92,6 +94,7 @@ public class Disc extends Medium {
      */
     public void setFsk(Integer fsk) {
 	this.fsk = fsk;
+	update();
     }
 
     /**

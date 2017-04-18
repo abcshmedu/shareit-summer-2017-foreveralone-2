@@ -52,6 +52,7 @@ public class Copy extends AbstractUpdatableModel {
      */
     public void setMedium(Medium medium) {
 	this.medium = medium;
+	update();
     }
 
     /**
@@ -68,6 +69,7 @@ public class Copy extends AbstractUpdatableModel {
      */
     public void setOwner(String owner) {
 	this.owner = owner;
+	update();
     }
 
     /**

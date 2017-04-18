@@ -41,8 +41,8 @@ public abstract class Medium extends AbstractUpdatableModel {
      * @param title new title
      */
     public void setTitle(String title) {
-        update();
 	this.title = title;
+        update();
     }
 
     /**
