@@ -12,7 +12,7 @@ public class DiscDao extends AbstractUpdatableDao<Disc> {
     /**
      * Ctor.
      */
-    protected DiscDao() {
+    public DiscDao() {
 	super(Disc.class);
     }
 }

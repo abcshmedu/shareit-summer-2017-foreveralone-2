@@ -12,7 +12,7 @@ public class CopyDao extends AbstractUpdatableDao<Copy> {
     /**
      * Ctor.
      */
-    protected CopyDao() {
+    public CopyDao() {
 	super(Copy.class);
     }
 }

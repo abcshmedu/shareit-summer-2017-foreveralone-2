@@ -2,11 +2,15 @@ package edu.hm.weidacher.softarch.shareit.data;
 
 
 import edu.hm.weidacher.softarch.shareit.data.dao.BookDao;
+import edu.hm.weidacher.softarch.shareit.data.dao.CopyDao;
 import edu.hm.weidacher.softarch.shareit.data.dao.Dao;
+import edu.hm.weidacher.softarch.shareit.data.dao.DiscDao;
 import edu.hm.weidacher.softarch.shareit.data.dao.UpdatableDao;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractModel;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractUpdatableModel;
 import edu.hm.weidacher.softarch.shareit.data.model.Book;
+import edu.hm.weidacher.softarch.shareit.data.model.Copy;
+import edu.hm.weidacher.softarch.shareit.data.model.Disc;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 
 /**
@@ -31,6 +35,12 @@ public class SimpleDatastore implements Datastore {
 	if (forClass == Book.class) {
 	    return (Dao<T>) new BookDao();
 	}
+	if (forClass == Disc.class) {
+	    return ((Dao<T>) new DiscDao());
+	}
+	if (forClass == Copy.class) {
+	    return ((Dao<T>) new CopyDao());
+	}
 
 	throw new PersistenceException("No registered Dao for model class: " + forClass.getSimpleName());
     }
@@ -47,6 +57,12 @@ public class SimpleDatastore implements Datastore {
     public <T extends AbstractUpdatableModel> UpdatableDao<T> getUpdatableDao(Class<T> forClass) throws PersistenceException {
     	if (forClass == Book.class) {
     	    return (UpdatableDao<T>) new BookDao();
+	}
+	if (forClass == Disc.class) {
+    	    return ((UpdatableDao<T>) new DiscDao());
+	}
+	if (forClass == Copy.class) {
+    	    return ((UpdatableDao<T>) new CopyDao());
 	}
 
 	throw new PersistenceException("No registered Dao for model class: " + forClass.getSimpleName());
