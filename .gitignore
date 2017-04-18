@@ -9,6 +9,9 @@
 dependency-reduced-pom.xml
 .DS_Store
 
+# Application specific stuff
+data.db
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
