@@ -3,16 +3,12 @@ package edu.hm.weidacher.softarch.shareit.test.datastore;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
-import java.util.Collection;
-import java.util.UUID;
-
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
 import org.junit.Test;
 
 import edu.hm.weidacher.softarch.shareit.data.Datastore;
-import edu.hm.weidacher.softarch.shareit.data.dao.AbstractDao;
 import edu.hm.weidacher.softarch.shareit.data.dao.AbstractUpdatableDao;
 import edu.hm.weidacher.softarch.shareit.data.dao.Dao;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractModel;
