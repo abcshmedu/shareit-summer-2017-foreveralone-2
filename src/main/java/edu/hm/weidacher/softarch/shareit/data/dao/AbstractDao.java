@@ -76,12 +76,4 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
 	database.add(model);
     }
 
-    /**
-     * Returns the collection containing all stored objects of the model handled by this Dao.
-     *
-     * @return all the models!!
-     */
-    protected Collection<T> getDatabase() {
-	return database;
-    }
 }
