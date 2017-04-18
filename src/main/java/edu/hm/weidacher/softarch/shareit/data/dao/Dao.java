@@ -1,4 +1,4 @@
-package edu.hm.weidacher.softarch.shareit.data;
+package edu.hm.weidacher.softarch.shareit.data.dao;
 
 import java.util.UUID;
 
