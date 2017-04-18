@@ -3,7 +3,7 @@ package edu.hm.weidacher.softarch.shareit.data.model;
 /**
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
-public class Medium extends AbstractUpdatableModel{
+public abstract class Medium extends AbstractUpdatableModel{
 
     private String title;
 
