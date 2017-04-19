@@ -30,9 +30,10 @@ public interface Dao< T extends AbstractModel > {
      * Stores an entity in the datastore.
      *
      * @param model the entity to persist
+     * @return id of the created entity
      * @throws PersistenceException when a model has already been persisted under the id of the model
      */
-    void store(@NotNull T model) throws PersistenceException;
+    UUID store(@NotNull T model) throws PersistenceException;
 
     /**
      * Return all entitys under T

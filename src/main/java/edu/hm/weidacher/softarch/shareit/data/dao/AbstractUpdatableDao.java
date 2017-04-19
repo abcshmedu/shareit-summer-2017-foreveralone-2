@@ -31,26 +31,23 @@ public abstract class AbstractUpdatableDao<T extends AbstractUpdatableModel> ext
     public void update(T model) throws PersistenceException {
 	UUID id = validateIdPresent(model);
 
+	update(model, id);
+    }
+
+    /**
+     * Update an existing model with the id.
+     *
+     * @param model the model carrying the updated information
+     * @param id    the id of the entity that shall be updated
+     * @throws PersistenceException if no model is present under the id of the model
+     */
+    @Override
+    public void update(T model, UUID id) throws PersistenceException {
 	// is a model present under the id?
 	final T persisted = validateIsPersisted(id);
 
 	// book is present -> merge it!
 	persisted.mergeWith(model);
-    }
-
-    /**
-     * Checks for an id in a model.
-     * @param model model to check for
-     * @return the id of the model
-     * @throws PersistenceException if the models id is null
-     */
-    protected UUID validateIdPresent(T model) throws PersistenceException {
-	UUID id = model.getId();
-	if (id == null) {
-	    throw new PersistenceException("Model has no id, can thus not be updated: " + model.toString());
-	}
-
-	return id;
     }
 
     /**

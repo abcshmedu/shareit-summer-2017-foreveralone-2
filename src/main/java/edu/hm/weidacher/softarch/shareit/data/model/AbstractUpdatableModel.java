@@ -85,9 +85,12 @@ public abstract class AbstractUpdatableModel extends AbstractModel {
 	    return false;
 	}
 
+	return true;
+/*
 	AbstractUpdatableModel that = (AbstractUpdatableModel) o;
 
 	return getLastUpdate() != null ? getLastUpdate().equals(that.getLastUpdate()) : that.getLastUpdate() == null;
+*/
     }
 
     /**

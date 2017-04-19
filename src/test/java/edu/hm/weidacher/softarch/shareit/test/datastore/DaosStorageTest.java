@@ -1,6 +1,8 @@
 package edu.hm.weidacher.softarch.shareit.test.datastore;
 
+import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
@@ -25,8 +27,11 @@ public class DaosStorageTest {
     private Datastore datastore;
 
     private Book cBook;
+    private UUID idBook;
     private Disc cDisc;
+    private UUID idDisc;
     private Copy cCopy;
+    private UUID idCopy;
 
     @Before
     public void setup() throws Exception{
@@ -42,16 +47,20 @@ public class DaosStorageTest {
     public void storeBook() throws Exception {
 	final Dao<Book> dao = datastore.getDao(Book.class);
 	final Book book = new Book("cool title", "cool author", "12093847-222-212678");
-	dao.store(book);
+	UUID id = dao.store(book);
 	cBook = book;
+	assertNotNull(id);
+	idBook = id;
     }
 
     @Test
     public void storeDisc() throws Exception {
 	final Dao<Disc> dao = datastore.getDao(Disc.class);
 	final Disc disc = new Disc("discy titlely", "--|--||||", "stanley kubrick", 555);
-	dao.store(disc);
+	UUID id = dao.store(disc);
 	cDisc = disc;
+	assertNotNull(id);
+	idDisc = id;
     }
 
     @Test
@@ -59,8 +68,9 @@ public class DaosStorageTest {
 	final Dao<Copy> dao = datastore.getDao(Copy.class);
 	final Disc disc = new Disc("asdogub", "0wdgb", "aosubgodg", 11);
 	final Copy me = new Copy(disc, "me");
-	dao.store(me);
+	UUID id = dao.store(me);
 	cCopy = me;
+	idCopy = id;
     }
 
     @Test
@@ -93,37 +103,40 @@ public class DaosStorageTest {
     @Test
     public void getBookById() throws Exception {
 	final Dao<Book> dao = datastore.getDao(Book.class);
-	assertEquals(dao.getById(cBook.getId()), cBook);
+	assertEquals(dao.getById(idBook), cBook);
     }
 
     @Test
     public void getDiscById() throws Exception {
 	final Dao<Disc> dao = datastore.getDao(Disc.class);
-	assertEquals(dao.getById(cDisc.getId()), cDisc);
+	assertEquals(dao.getById(idDisc), cDisc);
     }
 
     @Test
     public void getCopyById() throws Exception {
 	final Dao<Copy> dao = datastore.getDao(Copy.class);
-	assertEquals(dao.getById(cCopy.getId()), cCopy);
+	assertEquals(dao.getById(idCopy), cCopy);
     }
 
-    @Test(expected = PersistenceException.class)
+    @Test
     public void storeBookTwice() throws Exception {
 	final Dao<Book> dao = datastore.getDao(Book.class);
-	dao.store(cBook);
+	UUID id = dao.store(cBook);
+	assertNotEquals(id, cBook.getId());
     }
 
-    @Test(expected = PersistenceException.class)
+    @Test
     public void storeCopyTwice() throws Exception {
 	final Dao<Copy> dao = datastore.getDao(Copy.class);
-	dao.store(cCopy);
+	UUID id = dao.store(cCopy);
+	assertNotEquals(id, cCopy.getId());
     }
 
-    @Test(expected = PersistenceException.class)
+    @Test
     public void storeDiscTwice() throws Exception {
 	final Dao<Disc> dao = datastore.getDao(Disc.class);
-	dao.store(cDisc);
+	UUID id = dao.store(cDisc);
+	assertNotEquals(id, cDisc.getId());
     }
 
     @Test
@@ -132,7 +145,7 @@ public class DaosStorageTest {
 
 	cBook.setTitle("something different");
 
-	updatableDao.update(cBook);
+	updatableDao.update(cBook, idBook);
     }
     
     @Test
@@ -141,7 +154,7 @@ public class DaosStorageTest {
 
 	cDisc.setTitle("something different");
 
-	updatableDao.update(cDisc);
+	updatableDao.update(cDisc, idDisc);
     }
     
     @Test
@@ -150,7 +163,7 @@ public class DaosStorageTest {
 
 	cCopy.setOwner("something different");
 
-	updatableDao.update(cCopy);
+	updatableDao.update(cCopy, idCopy);
     }
 
     @Test(expected = PersistenceException.class)

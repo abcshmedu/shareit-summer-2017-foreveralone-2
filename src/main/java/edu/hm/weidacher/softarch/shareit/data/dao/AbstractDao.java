@@ -1,12 +1,16 @@
 package edu.hm.weidacher.softarch.shareit.data.dao;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
 
 import edu.hm.weidacher.softarch.shareit.data.database.DatabaseFactory;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractModel;
+import edu.hm.weidacher.softarch.shareit.data.model.Book;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
+import edu.hm.weidacher.softarch.shareit.exceptions.ShareItException;
 
 /**
  * Abstract Dao class.
@@ -62,18 +66,59 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
     }
 
     /**
-     * Stores a model in the datastore.
+     * Stores a entity in the datastore.
      *
-     * @param model the model to persist
-     * @throws PersistenceException when a model has already been persisted under the id of the model
+     * @param entity the entity to persist
+     * @return id of the created entity
+     * @throws PersistenceException when a entity has already been persisted under the id of the entity
+     * 					or the entity has no id attached
      */
     @Override
-    public void store(T model) throws PersistenceException {
-	if (getById(model.getId()) != null) {
+    public UUID store(T entity) throws PersistenceException {
+        // instantiate a new entity using copy constructor
+	final T copiedEntity = copyEntity(entity);
+
+	final UUID id = validateIdPresent(copiedEntity);
+
+	if (getById(id) != null) {
 	    throw new PersistenceException("Model already present under the id!");
 	}
 
-	database.add(model);
+	database.add(copiedEntity);
+	return copiedEntity.getId();
+    }
+
+    /**
+     * Checks for an id in a entity.
+     * @param model model to check for
+     * @return the id of the entity
+     * @throws PersistenceException if the entity id is null
+     */
+    protected UUID validateIdPresent(T model) throws PersistenceException {
+	UUID id = model.getId();
+
+	if (id == null) {
+	    throw new PersistenceException("Entity has no id: " + model.toString());
+	}
+
+	return id;
+    }
+
+    /**
+     * Copy an entity of a model.
+     *
+     * This way, it can be ensured that no one can set an id to an entity.
+     *
+     * @param entity the entity carrying only raw data fields
+     * @return a fresh entity with ID and stuff
+     * @throws PersistenceException if there have been any problems during instantiation
+     */
+    private T copyEntity(T entity) throws PersistenceException {
+	try {
+	    return modelClass.getConstructor(modelClass).newInstance(entity);
+	} catch (ReflectiveOperationException e) {
+	    throw new PersistenceException("Error copying an entity", e);
+	}
     }
 
 }

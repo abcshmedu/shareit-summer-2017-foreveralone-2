@@ -72,12 +72,15 @@ public abstract class AbstractModel implements Serializable {
 	    return false;
 	}
 
+	return true;
+/*
 	AbstractModel that = (AbstractModel) o;
 
 	if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) {
 	    return false;
 	}
 	return getCreationDate() != null ? getCreationDate().equals(that.getCreationDate()) : that.getCreationDate() == null;
+*/
     }
 
     /**
