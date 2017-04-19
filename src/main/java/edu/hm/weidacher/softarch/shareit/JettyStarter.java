@@ -1,7 +1,7 @@
 package edu.hm.weidacher.softarch.shareit;
 
-import org.eclipse.jetty.server.*;
-import org.eclipse.jetty.webapp.*;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.webapp.WebAppContext;
 
 /**
  * Start the application without an AppServer like tomcat.
@@ -10,7 +10,7 @@ import org.eclipse.jetty.webapp.*;
 public final class JettyStarter {
 
     private static final String APP_URL = "/";
-    private static final int PORT = 8082;
+    private static final int PORT = Configuration.PORT;
     private static final String WEBAPP_DIR = "./src/main/webapp/";
 
     /**

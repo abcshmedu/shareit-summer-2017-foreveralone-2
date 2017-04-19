@@ -1,6 +1,5 @@
 package edu.hm.weidacher.softarch.shareit.rest;
 
-import java.net.URI;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -59,7 +58,7 @@ public class BookResource extends AbstractResource{
 	try {
 
 	    UUID id = bookDao.store(book);
-	    return Response.created(URI.create("http://localhost:8080/media/books/" + id.toString())).build();
+	    return buildCreatedResponse(id.toString());
 
 	} catch (PersistenceException e) {
 	    return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();

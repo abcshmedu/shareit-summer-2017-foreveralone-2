@@ -4,15 +4,16 @@
 * [ ] Datastore
   * [x] Models
   * [x] Dao's
+    * [ ] Dao.delete()
   * [ ] Database
     * [x] Early Persistence
     * [ ] Database
 
-## REST-API <span style="color:red">NEXT UP</span> 
+## REST-API <span style="color:red">NEXT UP</span>
 * [ ] REST-API
   * [ ] media/books
     * [ ] /media/books/{isbn}     (GET/PUT)
-    * [ ] /media/books            (GET/POST)
+    * [x] /media/books            (GET/POST)
     * [ ] /media/discs/{barcode}  (GET/PUT)
     * [ ] /media/discs            (GET/POST)
   * [ ] Error handling
