@@ -21,7 +21,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 /**
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
-public class DaosAcquisationTest {
+public class DabsAcquisitionTest {
 
     private Datastore datastore;
     private AbstractModel illegalModel;
