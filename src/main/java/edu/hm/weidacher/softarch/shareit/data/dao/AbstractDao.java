@@ -1,16 +1,12 @@
 package edu.hm.weidacher.softarch.shareit.data.dao;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
 
 import edu.hm.weidacher.softarch.shareit.data.database.DatabaseFactory;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractModel;
-import edu.hm.weidacher.softarch.shareit.data.model.Book;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
-import edu.hm.weidacher.softarch.shareit.exceptions.ShareItException;
 
 /**
  * Abstract Dao class.
@@ -86,6 +82,25 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
 
 	database.add(copiedEntity);
 	return copiedEntity.getId();
+    }
+
+    /**
+     * Deletes an entity from the datastore.
+     *
+     * @param id UUID of the entity to delete
+     * @return the entity that has been removed
+     * or null if there was no entity associated with the id
+     * @throws PersistenceException if any errors occur during the operation
+     */
+    @Override
+    public T delete(UUID id) throws PersistenceException {
+	final T entity = getById(id);
+
+	if (entity != null) {
+	    database.remove(entity);
+	}
+
+	return entity;
     }
 
     /**

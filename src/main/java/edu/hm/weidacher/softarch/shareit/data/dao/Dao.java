@@ -36,6 +36,15 @@ public interface Dao< T extends AbstractModel > {
     UUID store(@NotNull T model) throws PersistenceException;
 
     /**
+     * Deletes an entity from the datastore.
+     * @param id UUID of the entity to delete
+     * @return the entity that has been removed
+     * 		or null if there was no entity associated with the id
+     * @throws PersistenceException if any errors occur during the operation
+     */
+    T delete(@NotNull UUID id) throws PersistenceException;
+
+    /**
      * Return all entitys under T
      * @return collection containing all available entitys
      */
