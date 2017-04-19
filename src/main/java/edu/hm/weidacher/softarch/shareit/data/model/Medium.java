@@ -29,6 +29,14 @@ public abstract class Medium extends AbstractUpdatableModel {
     }
 
     /**
+     * Copy ctor.
+     * @param other the Medium the copy resembles
+     */
+    public Medium(Medium other) {
+        this(other.getTitle());
+    }
+
+    /**
      * Returns the title of the media.
      * @return title
      */

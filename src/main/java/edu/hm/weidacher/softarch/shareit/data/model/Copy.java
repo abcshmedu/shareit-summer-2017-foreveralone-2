@@ -39,6 +39,14 @@ public class Copy extends AbstractUpdatableModel {
     }
 
     /**
+     * Copy ctor.
+     * @param other copy the copy will resemble
+     */
+    public Copy(Copy other) {
+        this(other.getMedium(), other.getOwner());
+    }
+
+    /**
      * Returns the medium, this copy resembles.
      * @return the medium
      */

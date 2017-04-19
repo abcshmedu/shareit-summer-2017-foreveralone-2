@@ -39,6 +39,16 @@ public class Book extends Medium {
     }
 
     /**
+     * Copy Ctor.
+     * @param other book, the copy will resemble
+     */
+    public Book(Book other) {
+        super(other);
+        this.author = other.getAuthor();
+        this.isbn = other.getIsbn();
+    }
+
+    /**
      * Merges the data of the other Model with this.
      * <p>
      * All fields of the other model will be written to this one, except

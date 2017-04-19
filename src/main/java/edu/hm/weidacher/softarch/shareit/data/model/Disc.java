@@ -46,6 +46,13 @@ public class Disc extends Medium {
 	this.fsk = fsk;
     }
 
+    public Disc(Disc other) {
+        super(other);
+        this.barcode = other.getBarcode();
+        this.director = other.getDirector();
+        this.fsk = other.getFsk();
+    }
+
     /**
      * Returns the barcode of the disc.
      * @return barcode
