@@ -104,6 +104,27 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
     }
 
     /**
+     * Returns the database storing all handled entities.
+     *
+     * @return a collection with write operations
+     */
+    protected Collection<T> getDatabaseWritable() {
+        return database;
+    }
+
+    /**
+     * Returns the database stroring all handled entities.
+     *
+     * The database is wrapped in Collections.unmodifiableCollection()
+     *  to prevent changing the contents of the colleciton.
+     *
+     * @return unmodifiable collection
+     */
+    protected Collection<T> getDatabase() {
+        return Collections.unmodifiableCollection(database);
+    }
+
+    /**
      * Checks for an id in a entity.
      * @param model model to check for
      * @return the id of the entity

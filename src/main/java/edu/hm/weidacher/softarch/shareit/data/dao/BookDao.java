@@ -16,4 +16,24 @@ public class BookDao extends AbstractUpdatableDao<Book> {
 	super(Book.class);
     }
 
+    /**
+     * Returns a book that is registered with the given isbn.
+     *
+     * If multiple books exist with the isbn given, only one is returned.
+     *  Which one is undefined!
+     *
+     * @param isbn isbn query
+     * @return a book or null if none could be found
+     * @throws NullPointerException if isbn is null
+     */
+    public Book getByIsbn(String isbn) {
+        if (isbn == null) {
+            throw new NullPointerException("ISBN may not be null when querying by it!");
+	}
+
+	return getDatabase().stream()
+	    .filer(book -> isbn.equals(book.getIsbn()))
+	    .findFirst()
+	    .orElse(null);
+    }
 }

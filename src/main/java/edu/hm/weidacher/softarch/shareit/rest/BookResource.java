@@ -7,6 +7,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -48,6 +49,23 @@ public class BookResource extends AbstractResource{
 	String allBooksJson = getGson().toJson(allBooks);
 
 	return Response.ok(allBooksJson).build();
+    }
+
+    @GET
+    @Path("/{isbn}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getBookByIsbn(@PathParam("isbn") String isbn) {
+        if (isbn == null || isbn.equals("")) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+	}
+
+	final Book bookByIsbn = bookDao.getByIsbn(isbn);
+
+        if (bookByIsbn == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+	}
+
+	return Response.ok(bookByIsbn).build();
     }
 
     @POST
