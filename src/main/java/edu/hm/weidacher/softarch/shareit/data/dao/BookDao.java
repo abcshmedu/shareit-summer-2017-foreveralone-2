@@ -32,7 +32,7 @@ public class BookDao extends AbstractUpdatableDao<Book> {
 	}
 
 	return getDatabase().stream()
-	    .filer(book -> isbn.equals(book.getIsbn()))
+	    .filter(book -> isbn.equals(book.getIsbn()))
 	    .findFirst()
 	    .orElse(null);
     }
