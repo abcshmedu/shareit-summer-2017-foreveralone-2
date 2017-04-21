@@ -62,32 +62,89 @@ public abstract class AbstractResource {
     /**
      * Creates a MediaType.Created Response.
      *
-     * The URI will be the URI of the host + the path to this resource + the given suffix
-     * A slash '/' will be prepended to the suffix if it has none yet
-     *
      * @param suffix the last characters of the URI
      * @return jaxrs Response, ready to return
      */
     protected Response buildCreatedResponse(String suffix) {
-        StringBuilder sb = new StringBuilder(Configuration.HOST.length() + path.length() + suffix.length() + 1);
+	return Response.created(URI.create(getAbsolutePath(suffix))).build();
+    }
 
-        sb.append(Configuration.HOST);
-        sb.append(path);
+    /**
+     * Builds a HTTP Response.
+     * @param status HTTP status code
+     * @return jaxrs Response, ready to return
+     */
+    protected Response error(Response.Status status) {
+        return error("No error message", status);
+    }
 
-        if (!suffix.startsWith(Configuration.URL_SEPARATOR)) {
-            sb.append(Configuration.URL_SEPARATOR);
+    /**
+     * Builds a HTTP Response.
+     *
+     * @param message error description, human readable
+     * @param status HTTP status code
+     * @return jaxrs Response, ready to return
+     */
+    protected Response error(String message, Response.Status status) {
+	return Response.status(status).entity(message).build();
+    }
+
+    /**
+     * Builds a HTTP Response from an exception.
+     *
+     * @param e the exception describing the error
+     * @return jaxrs Response, ready to return
+     */
+    protected Response error(Exception e) {
+        String entity;
+
+        if (e == null) {
+            entity = "";
+	} else {
+            entity = e.getMessage();
 	}
-        sb.append(suffix);
 
-	return Response.created(URI.create(sb.toString())).build();
+	return error(entity, Response.Status.BAD_REQUEST);
+    }
+
+    /**
+     * Returns the URI as a String to this resource + the given suffix.
+     *
+     * The URI will be the URI of the host + the path to this resource + the given suffix
+     * A slash '/' will be prepended to the suffix if it has none yet
+
+     *
+     * @param suffix some string, like an id or else
+     * @return URI to something
+     */
+    protected String getAbsolutePath(String suffix) {
+	StringBuilder sb = new StringBuilder(Configuration.HOST.length() + path.length() + suffix.length() + 1);
+
+	sb.append(Configuration.HOST);
+	sb.append(getPath());
+
+	if (!suffix.startsWith(Configuration.URL_SEPARATOR)) {
+	    sb.append(Configuration.URL_SEPARATOR);
+	}
+	sb.append(suffix);
+
+	return sb.toString();
     }
 
     /**
      * Returns the path from the @Path annotation at class level.
-     * This is pretty slow, so store the value somewhere.
+     * This is pretty slow, so use the getter.
      * @return class resource path
      */
     private String finalClassResourcePath() {
 	return getClass().getAnnotation(Path.class).value();
+    }
+
+    /**
+     * Returns the path from the @Path annotation at class level.
+     * @return class resource path
+     */
+    public String getPath() {
+        return path;
     }
 }
