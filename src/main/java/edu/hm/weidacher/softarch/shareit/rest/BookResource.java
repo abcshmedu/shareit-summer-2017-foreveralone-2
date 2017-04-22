@@ -59,7 +59,7 @@ public class BookResource extends AbstractResource{
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBookByIsbn(@PathParam("isbn") String isbn) {
         if (isbn == null || isbn.equals("")) {
-            return error(Response.Status.NOT_FOUND);
+            return error(Response.Status.BAD_REQUEST);
 	}
 
 	final Book bookByIsbn = bookDao.getByIsbn(isbn);
@@ -74,14 +74,15 @@ public class BookResource extends AbstractResource{
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createBook(String json) {
-	final Book book = getGson().fromJson(json, Book.class);
-
 	try {
+	    final Book book = getGson().fromJson(json, Book.class);
 	    UUID id = bookDao.store(book);
-	    return buildCreatedResponse(id.toString());
 
+	    return buildCreatedResponse(id.toString());
 	} catch (PersistenceException e) {
 	    return error(e);
+	} catch (JsonSyntaxException e) {
+	    return error("Bad book model given", Response.Status.BAD_REQUEST);
 	}
     }
 
