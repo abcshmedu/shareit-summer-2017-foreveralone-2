@@ -108,6 +108,16 @@ public abstract class AbstractResource {
     }
 
     /**
+     * Builds a 200 HTTP Response with an uri.
+     *
+     * @param uri the uri in the response
+     * @return jaxrs Response, ready to return
+     */
+    protected Response okWithUri(String uri) {
+	return Response.ok(String.format("{\"uri\":\"%s\"}", uri)).build();
+    }
+
+    /**
      * Returns the URI as a String to this resource + the given suffix.
      *
      * The URI will be the URI of the host + the path to this resource + the given suffix
