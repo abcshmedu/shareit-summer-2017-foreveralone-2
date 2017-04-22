@@ -14,7 +14,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
  * As standard entity aren't updatable, we can only store new objects or receive them.
  *
  * @param <T> declares the model, the dao handles
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public interface Dao< T extends AbstractModel > {
 

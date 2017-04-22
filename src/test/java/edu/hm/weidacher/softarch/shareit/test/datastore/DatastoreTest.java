@@ -9,7 +9,7 @@ import edu.hm.weidacher.softarch.shareit.data.Datastore;
 import edu.hm.weidacher.softarch.shareit.data.DatastoreFactory;
 
 /**
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public class DatastoreTest {
 

@@ -14,7 +14,7 @@ import edu.hm.weidacher.softarch.shareit.data.Datastore;
  * Base class for resources.
  * Supplies convenience methods.
  *
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public abstract class AbstractResource {
 

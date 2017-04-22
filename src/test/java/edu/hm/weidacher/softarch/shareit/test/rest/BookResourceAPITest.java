@@ -18,7 +18,7 @@ import edu.hm.weidacher.softarch.shareit.Configuration;
  * This TestCase probes the REST-API available via HTTP.
  * Thus, the performed test do not affect the codecoverage...
  *
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public class BookResourceAPITest {
 

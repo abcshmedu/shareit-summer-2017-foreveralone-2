@@ -4,7 +4,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 
 /**
  * Model for media in the ShareIt application.
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public abstract class Medium extends AbstractUpdatableModel {
 

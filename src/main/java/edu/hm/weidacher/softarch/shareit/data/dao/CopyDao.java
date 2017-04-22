@@ -5,7 +5,7 @@ import edu.hm.weidacher.softarch.shareit.data.model.Copy;
 /**
  * Dao for the Copy model-type.
  *
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public class CopyDao extends AbstractUpdatableDao<Copy> {
 

@@ -6,7 +6,7 @@ import java.util.UUID;
 
 /**
  * Base class for all Models in the ShareIt application.
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public abstract class AbstractModel implements Serializable {
 

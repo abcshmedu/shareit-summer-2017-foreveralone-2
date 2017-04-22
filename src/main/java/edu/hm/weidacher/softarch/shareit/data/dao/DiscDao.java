@@ -5,7 +5,7 @@ import edu.hm.weidacher.softarch.shareit.data.model.Disc;
 /**
  * A Dao for the Disc model.
  *
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public class DiscDao extends AbstractUpdatableDao<Disc> {
 

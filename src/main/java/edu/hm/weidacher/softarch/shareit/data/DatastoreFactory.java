@@ -5,7 +5,7 @@ package edu.hm.weidacher.softarch.shareit.data;
  *
  * Singleton!
  *
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public final class DatastoreFactory {
 

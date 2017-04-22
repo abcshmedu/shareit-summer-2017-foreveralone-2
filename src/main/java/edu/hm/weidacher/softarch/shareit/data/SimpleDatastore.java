@@ -18,7 +18,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
  *
  * All the Daos must be registered by hand.
  *
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public class SimpleDatastore implements Datastore {
 

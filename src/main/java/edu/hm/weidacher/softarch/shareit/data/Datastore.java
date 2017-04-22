@@ -13,7 +13,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
  *
  * This is the main interface to the data-layer.
  *
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public interface Datastore {
 

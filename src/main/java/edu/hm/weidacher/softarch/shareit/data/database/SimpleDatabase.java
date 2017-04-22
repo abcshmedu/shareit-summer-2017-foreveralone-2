@@ -17,7 +17,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 /**
  * Pretty simple implementation of a database.
  *
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public class SimpleDatabase implements Database {
 

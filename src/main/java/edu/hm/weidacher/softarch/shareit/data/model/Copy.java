@@ -5,7 +5,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 /**
  * Model for a copy in the ShareIt application.
  *
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public class Copy extends AbstractUpdatableModel {
 

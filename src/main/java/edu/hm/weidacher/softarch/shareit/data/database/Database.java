@@ -10,7 +10,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
  * <p>
  * Classes that implement this interface must guarantee to hold a reference to the object at any time.
  *
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public interface Database {
 

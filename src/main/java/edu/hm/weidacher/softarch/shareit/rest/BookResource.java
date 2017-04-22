@@ -29,7 +29,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
  *  - GET	/media/books/{isbn}	get a special book
  *  - PUT	/media/books/{isbn}	update a special book, identified via path
  *
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 @Path("/media/books")
 public class BookResource extends AbstractResource{

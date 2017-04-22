@@ -13,7 +13,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
  *
  * All interface-spec methods have an implementation here.
  * @param <T> declares the model, the dao handles
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
 

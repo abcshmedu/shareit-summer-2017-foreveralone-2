@@ -3,7 +3,7 @@ package edu.hm.weidacher.softarch.shareit.data.database;
 /**
  * Factory for Databases.
  *
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public final class DatabaseFactory {
 

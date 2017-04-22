@@ -9,7 +9,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
  * Abstract Base class, providing utility methods.
  *
  * @param <T> declares the model, the dao handles
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public abstract class AbstractUpdatableDao<T extends AbstractUpdatableModel> extends AbstractDao<T> implements UpdatableDao<T> {
 

@@ -4,7 +4,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 
 /**
  * Model of a Book in the ShareIt application.
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public class Book extends Medium {
 

@@ -6,7 +6,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 
 /**
  * Base class  for all Models in the ShareIt application that can be updated.
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public abstract class AbstractUpdatableModel extends AbstractModel {
 

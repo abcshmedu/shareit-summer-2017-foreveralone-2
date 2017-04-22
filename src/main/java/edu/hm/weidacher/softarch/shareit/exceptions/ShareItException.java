@@ -3,7 +3,7 @@ package edu.hm.weidacher.softarch.shareit.exceptions;
 /**
  * Base exception for all application specific errors in the ShareIt application.
  *
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public class ShareItException extends Exception {
 

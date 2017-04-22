@@ -11,7 +11,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
  * A Dao for updatable Models.
  *
  * @param <T> declares the model, the dao handles
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public interface UpdatableDao <T extends AbstractUpdatableModel> extends Dao <T> {
 

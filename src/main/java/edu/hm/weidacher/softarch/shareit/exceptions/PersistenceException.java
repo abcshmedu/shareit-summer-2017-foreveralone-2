@@ -3,7 +3,7 @@ package edu.hm.weidacher.softarch.shareit.exceptions;
 /**
  * Exception representing all errors that occur in any context of persistence.
  *
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public class PersistenceException extends ShareItException {
 

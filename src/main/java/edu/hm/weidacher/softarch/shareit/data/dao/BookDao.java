@@ -5,7 +5,7 @@ import edu.hm.weidacher.softarch.shareit.data.model.Book;
 /**
  * A Dao for the book model.
  *
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public class BookDao extends AbstractUpdatableDao<Book> {
 
