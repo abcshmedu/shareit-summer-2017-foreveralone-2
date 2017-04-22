@@ -25,16 +25,23 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
  * The following methods are defined:
  *  - GET 	/media/books		list all books
  *  - POST	/media/books		add a new book
+ *  - PUT	/media/books		update a special book, identified via model content
  *  - GET	/media/books/{isbn}	get a special book
- *  - PUT	/media/books/{isbn}	update a special book
+ *  - PUT	/media/books/{isbn}	update a special book, identified via path
  *
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
 @Path("/media/books")
 public class BookResource extends AbstractResource{
 
+    /**
+     * Connection point to the database.
+     */
     private BookDao bookDao;
 
+    /**
+     * Ctor.
+     */
     public BookResource () {
         super();
 	try {
@@ -45,6 +52,12 @@ public class BookResource extends AbstractResource{
 	}
     }
 
+    /**
+     * Retrieve all books.
+     *
+     * @return HTTP Response
+     * 		200 : returns a JSON array of all books listed
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllBooks() {
@@ -54,6 +67,15 @@ public class BookResource extends AbstractResource{
 	return Response.ok(allBooksJson).build();
     }
 
+    /**
+     * Retrieve a book.
+     *
+     * @param isbn isbn number identifying the book
+     * @return HTTP Response
+     * 		200 : returns the book as json string
+     * 		400 : invalid isbn given
+     * 		404 : no book could be found under the isbn
+     */
     @GET
     @Path("/{isbn}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -71,6 +93,14 @@ public class BookResource extends AbstractResource{
 	return Response.ok(bookByIsbn).build();
     }
 
+    /**
+     * Creates a book from a given model.
+     *
+     * @param json the book as JSON string
+     * @return HTTP Response
+     * 		201 : If the book was created successfully. return URI to the entity
+     * 		400 : The model contained invalid values
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createBook(String json) {
