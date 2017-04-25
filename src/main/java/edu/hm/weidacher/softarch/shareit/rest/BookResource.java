@@ -108,7 +108,7 @@ public class BookResource extends AbstractResource{
 	    final Book book = getGson().fromJson(json, Book.class);
 	    UUID id = bookDao.store(book);
 
-	    return buildCreatedResponse(id.toString());
+	    return buildCreatedResponse(book.getIsbn());
 	} catch (PersistenceException e) {
 	    return error(e);
 	} catch (JsonSyntaxException e) {
