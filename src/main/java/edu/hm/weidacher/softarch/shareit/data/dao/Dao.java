@@ -2,6 +2,7 @@ package edu.hm.weidacher.softarch.shareit.data.dao;
 
 import java.util.Collection;
 import java.util.UUID;
+import java.util.function.Function;
 
 import javax.validation.constraints.NotNull;
 
@@ -25,6 +26,17 @@ public interface Dao< T extends AbstractModel > {
      * @return the entity or null, if the id dies not match any entity
      */
     T getById(@NotNull UUID id);
+
+    /**
+     * Return the identity corresponding to the identifier.
+     *
+     * @param keyExtractor function, extracting the key from the handled model
+     * @param identifier identifies the desired entity
+     * @param <KEY> type of the key
+     * @return entity or null, if no entity could be matched to the identifier
+     * @throws NullPointerException if one of the parameters was null
+     */
+    <KEY> T getByExtractor(@NotNull Function<T, KEY> keyExtractor, @NotNull KEY identifier);
 
     /**
      * Stores an entity in the datastore.

@@ -3,6 +3,9 @@ package edu.hm.weidacher.softarch.shareit.data.dao;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
+import java.util.function.Function;
+
+import javax.validation.constraints.Null;
 
 import edu.hm.weidacher.softarch.shareit.data.database.DatabaseFactory;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractModel;
@@ -57,6 +60,29 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
     public T getById(UUID id) {
 	return database.stream()
 	    .filter(book -> id.equals(book.getId()))
+	    .findFirst()
+	    .orElse(null);
+    }
+
+    /**
+     * Return the identity corresponding to the identifier.
+     *
+     * @param keyExtractor function, extracting the key from the handled model
+     * @param identifier   identifies the desired entity
+     * @return entity or null, if no entity could be matched to the identifier
+     * @throws NullPointerException if one of the parameters was null
+     */
+    @Override
+    public <KEY> T getByExtractor(Function<T, KEY> keyExtractor, KEY identifier) {
+        if (keyExtractor == null) {
+            throw new NullPointerException("Key Extractor may not be null");
+	}
+	if (identifier == null) {
+	    throw new NullPointerException("Identifier may not be null");
+	}
+
+	return getAll().stream()
+	    .filter(entity -> keyExtractor.apply(entity).equals(identifier))
 	    .findFirst()
 	    .orElse(null);
     }
