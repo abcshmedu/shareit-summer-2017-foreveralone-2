@@ -18,6 +18,7 @@ import com.google.gson.JsonSyntaxException;
 import edu.hm.weidacher.softarch.shareit.data.dao.BookDao;
 import edu.hm.weidacher.softarch.shareit.data.model.Book;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
+import edu.hm.weidacher.softarch.shareit.util.IsbnUtil;
 
 /**
  * Rest resource for interaction with books.
@@ -80,7 +81,7 @@ public class BookResource extends AbstractResource{
     @Path("/{isbn}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBookByIsbn(@PathParam("isbn") String isbn) {
-        if (isbn == null || isbn.equals("")) {
+        if (!IsbnUtil.isValid(isbn)) {
             return error(Response.Status.BAD_REQUEST);
 	}
 
@@ -146,7 +147,7 @@ public class BookResource extends AbstractResource{
 	    }
 
 	    // else update by isbn
-	    else if (book.getIsbn() != null) {
+	    else if (IsbnUtil.isValid(book.getIsbn())) {
 		final Book persisted = bookDao.getByIsbn(book.getIsbn());
 
 		if (persisted == null) {
@@ -187,6 +188,10 @@ public class BookResource extends AbstractResource{
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateBook(@PathParam("isbn") String isbn, String json) {
+        if (!IsbnUtil.isValid(isbn)) {
+            return error("Isbn invalid", Response.Status.BAD_REQUEST);
+	}
+
 	try {
 	    final Book givenBook = getGson().fromJson(json, Book.class);
 	    final Book persistedByIsbn = bookDao.getByIsbn(isbn);
