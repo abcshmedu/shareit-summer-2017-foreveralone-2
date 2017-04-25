@@ -106,7 +106,7 @@ public class BookResource extends AbstractResource{
     public Response createBook(String json) {
 	try {
 	    final Book book = getGson().fromJson(json, Book.class);
-	    UUID id = bookDao.store(book);
+	    bookDao.store(book);
 
 	    return buildCreatedResponse(book.getIsbn());
 	} catch (PersistenceException e) {
@@ -127,6 +127,7 @@ public class BookResource extends AbstractResource{
      * @return HTTP Response
      * 		200 - OK: If the update was successful
      * 			  Response entity contains the URI to the updated model
+     * 		400 : bad model
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
@@ -137,16 +138,27 @@ public class BookResource extends AbstractResource{
 
 	    // if id is set, update by id
 	    if (storeBy != null) {
-		bookDao.update(book);
+	        try {
+		    bookDao.update(book);
+		} catch (PersistenceException e) {
+	            return error(Response.Status.NOT_FOUND);
+		}
 	    }
+
 	    // else update by isbn
 	    else if (book.getIsbn() != null) {
 		final Book persisted = bookDao.getByIsbn(book.getIsbn());
+
+		if (persisted == null) {
+		    return error(Response.Status.NOT_FOUND);
+		}
+
 		storeBy = persisted.getId();
 		bookDao.update(book, storeBy);
 	    }
+
+	    // no identifying information given
 	    else {
-	        // no identifying information given
 		return error("No id or isbn given. You must provide at least one.", Response.Status.BAD_REQUEST);
 	    }
 
@@ -155,6 +167,8 @@ public class BookResource extends AbstractResource{
 
 	} catch (PersistenceException e) {
 	    return error(e);
+	} catch (JsonSyntaxException e) {
+	    return error("Model invalid", Response.Status.BAD_REQUEST);
 	}
     }
 
