@@ -203,7 +203,7 @@ public class BookResource extends AbstractResource{
 	    bookDao.update(givenBook, persistedByIsbn.getId());
 
 	    // return link to updated book
-	    return okWithUri(getAbsolutePath(persistedByIsbn.getId().toString()));
+	    return okWithUri(getAbsolutePath(givenBook.getIsbn()));
 
 	} catch (JsonSyntaxException jsex) {
 	    return error("Bad book model", Response.Status.BAD_REQUEST);
