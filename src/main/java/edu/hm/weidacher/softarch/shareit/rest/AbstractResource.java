@@ -1,6 +1,8 @@
 package edu.hm.weidacher.softarch.shareit.rest;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URLEncoder;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
@@ -66,7 +68,9 @@ public abstract class AbstractResource {
      * @return jaxrs Response, ready to return
      */
     protected Response buildCreatedResponse(String suffix) {
-	return Response.created(URI.create(getAbsolutePath(suffix))).build();
+	return Response.created(
+	    URI.create(getAbsolutePath(urlEncoded(suffix)))
+	).build();
     }
 
     /**
@@ -114,7 +118,7 @@ public abstract class AbstractResource {
      * @return jaxrs Response, ready to return
      */
     protected Response okWithUri(String uri) {
-	return Response.ok(String.format("{\"uri\":\"%s\"}", uri)).build();
+	return Response.ok(String.format("{\"uri\":\"%s\"}", urlEncoded(uri))).build();
     }
 
     /**
@@ -139,6 +143,21 @@ public abstract class AbstractResource {
 	sb.append(suffix);
 
 	return sb.toString();
+    }
+
+    /**
+     * Returns the given string URL encoded.
+     * The encoding will be UTF-8 as stated in @see <a href="https://docs.oracle.com/javase/7/docs/api/java/net/URLEncoder.html">
+     *
+     * @param string encode this
+     * @return url encoded string
+     */
+    public String urlEncoded(String string) {
+	try {
+	    return URLEncoder.encode(string, "UTF-8");
+	} catch (UnsupportedEncodingException e) {
+	    throw new AssertionError("Bad hardcoded encoding");
+	}
     }
 
     /**
