@@ -1,4 +1,4 @@
-package edu.hm.weidacher.softarch.shareit.test.exceptions;
+package edu.hm.weidacher.softarch.shareit.test.unimportant;
 
 import org.junit.Test;
 
