@@ -3,8 +3,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>edu.hm.webapp</groupId>
-    <artifactId>ShareIt</artifactId>
+    <groupId>edu.hm.weidacher.softarch</groupId>
+    <artifactId>shareit</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
 

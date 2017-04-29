@@ -24,7 +24,6 @@ public class BookResourceAPITest {
 
     static String BOOK_RESOURCE_PATH = Configuration.HOST + "/media/books";
 
-    @Before
     public void setup() throws Exception {
         try {
 
@@ -43,7 +42,7 @@ public class BookResourceAPITest {
 	// API available, testing can proceed
     }
 
-    @Test
+
     public void testEmpty() {
 	final String response = Client.create().resource(BOOK_RESOURCE_PATH)
 	    .accept(MediaType.APPLICATION_JSON_TYPE)
