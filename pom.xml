@@ -5,7 +5,7 @@
 
     <groupId>edu.hm.webapp</groupId>
     <artifactId>ShareIt</artifactId>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <name>Shareit Maven Webapp</name>
@@ -124,7 +124,11 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.4.3.v20170317</version>
+                <version>9.4.4.v20170414</version>
+                <configuration>
+                    <requestLog implementation="org.eclipse.jetty.server.NCSARequestLog">
+                    </requestLog>
+                </configuration>
             </plugin>
         </plugins>
 
