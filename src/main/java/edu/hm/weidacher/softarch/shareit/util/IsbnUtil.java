@@ -6,7 +6,7 @@ import org.eclipse.jetty.util.StringUtil;
  * Provides utility methods for ISBN numbers.
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
-public final class IsbnUtil {
+public abstract class IsbnUtil {
 
     /**
      * Returns whether the given string resembles a valid isbn.

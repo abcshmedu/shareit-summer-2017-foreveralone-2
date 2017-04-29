@@ -7,7 +7,7 @@ package edu.hm.weidacher.softarch.shareit;
  *
  * @author Simon Weidacher <weidache@hm.edu>
  */
-public final class Configuration {
+public abstract class Configuration {
 
     public static final String URL_SEPARATOR = "/";
     public static final int PORT = 8080;

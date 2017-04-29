@@ -6,7 +6,7 @@ import org.eclipse.jetty.util.StringUtil;
  * Provides utility methods for barcodes.
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
-public final class BarcodeUtil {
+public abstract class BarcodeUtil {
 
     /**
      * Returns whether the given string resembles a valid barcode.
