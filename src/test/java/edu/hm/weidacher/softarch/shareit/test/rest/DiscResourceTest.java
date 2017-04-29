@@ -15,7 +15,8 @@ import org.junit.Test;
 import com.google.gson.Gson;
 
 import edu.hm.weidacher.softarch.shareit.data.model.Book;
-import edu.hm.weidacher.softarch.shareit.rest.BookResource;
+import edu.hm.weidacher.softarch.shareit.data.model.Disc;
+import edu.hm.weidacher.softarch.shareit.rest.DiscResource;
 
 
 /**
@@ -24,15 +25,15 @@ import edu.hm.weidacher.softarch.shareit.rest.BookResource;
  *
  * @author Simon Weidacher <weidache@hm.edu>
  */
-public class BookResourceTest {
+public class DiscResourceTest {
 
-    private BookResource sut;
+    private DiscResource sut;
     private Gson gson;
 
     @Before
     public void setup() {
-        sut = new BookResource();
-        gson = new Gson();
+	sut = new DiscResource();
+	gson = new Gson();
     }
 
     @Test
@@ -42,22 +43,23 @@ public class BookResourceTest {
 
     @Test
     public void testGetAll() {
-	final Response allBooksResponse = sut.getAllBooks();
+	final Response allDiscsResponse = sut.getAllDiscs();
 
-	assertNotNull(allBooksResponse);
+	assertNotNull(allDiscsResponse);
 
-	final ArrayList allBooksList = gson.fromJson((String) allBooksResponse.getEntity(), ArrayList.class);
+	final ArrayList allBooksList = gson.fromJson((String) allDiscsResponse.getEntity(), ArrayList.class);
 
 	assertNotNull(allBooksList);
     }
 
     @Test
     public void testPost() throws MalformedURLException {
-	final Book book = new Book("Ein Buch", "Von einem Autor", "mit ISBN");
+        // TODO
+	final Disc book = new Disc("Eine Disc", "mit barcode", "von einem Regisseur", 16);
 
-	final Response creationResponse = sut.createBook(gson.toJson(book));
+	final Response creationResponse = sut.createDisc(gson.toJson(book));
 	assertNotNull("Response after book creation was null!", creationResponse);
-    	assertEquals(Response.Status.CREATED.getStatusCode(), creationResponse.getStatus());
+	assertEquals(Response.Status.CREATED.getStatusCode(), creationResponse.getStatus());
 
 	final String location = creationResponse.getHeaderString("Location");
 
@@ -66,8 +68,8 @@ public class BookResourceTest {
     }
 
     @Test
-    public void testGetByIsbn() {
-        // TODO
+    public void testGetByBarcode() {
+	// TODO
     }
 
 
@@ -90,7 +92,7 @@ public class BookResourceTest {
 
 
     @Test
-    public void testBadGetByIsbn() {
+    public void testBadGetByBarcode() {
 	// TODO
     }
 }
