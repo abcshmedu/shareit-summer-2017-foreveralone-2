@@ -1,8 +1,6 @@
 package edu.hm.weidacher.softarch.shareit.test.rest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,7 +14,6 @@ import org.junit.Test;
 
 import com.google.gson.Gson;
 
-import edu.hm.weidache.util.Timing;
 import edu.hm.weidacher.softarch.shareit.data.model.Disc;
 import edu.hm.weidacher.softarch.shareit.rest.DiscResource;
 
@@ -120,18 +117,41 @@ public class DiscResourceTest {
 
     @Test
     public void testBadCreate() {
-	// TODO
+	assertBadRequest(sut.createDisc(" "));
+	assertBadRequest(sut.createDisc("{}"));
+	assertBadRequest(sut.createDisc("{'notadisc':'mothafucka'}"));
+	assertBadRequest(sut.createDisc(""));
+	assertBadRequest(sut.createDisc("{{{{{{}"));
     }
 
 
     @Test
     public void testBadUpdate() {
-	// TODO
+	assertBadRequest(sut.updateDisc("", "{}"));
+	assertNotFound(sut.updateDisc("4444", "{}"));
+	assertNotFound(sut.updateDisc("123123123", "//2{}"));
+
+	assertBadRequest(sut.updateDisc("7777", "{#####}")); // 7777 stored previously, if fails, start again :)
+	assertBadRequest(sut.updateDisc("", "{}"));
     }
 
 
     @Test
     public void testBadGetByBarcode() {
-	// TODO
+	assertBadRequest(sut.getById(""));
+	assertNotFound(sut.getById("peij32900jvnmekmvd"));
+    }
+
+    private void assertBadRequest(Response response) {
+        assertRequestStatus(Response.Status.BAD_REQUEST, response);
+    }
+
+    private void assertNotFound(Response response) {
+        assertRequestStatus(Response.Status.NOT_FOUND, response);
+    }
+
+    private void assertRequestStatus(Response.Status status, Response response) {
+	assertEquals(status.getStatusCode(), response.getStatus());
+
     }
 }
