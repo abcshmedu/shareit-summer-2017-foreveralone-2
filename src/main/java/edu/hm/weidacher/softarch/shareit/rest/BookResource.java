@@ -1,7 +1,6 @@
 package edu.hm.weidacher.softarch.shareit.rest;
 
 import java.util.Collection;
-import java.util.UUID;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -114,62 +113,6 @@ public class BookResource extends AbstractResource{
 	    return error(e);
 	} catch (JsonSyntaxException e) {
 	    return error("Bad book model given", Response.Status.BAD_REQUEST);
-	}
-    }
-
-    /**
-     * Updates an existing book.
-     *
-     * Only the values title, author & isbn can be updated. All other values are ignored.
-     * If the model contains a valid id, the book is updated by the id,
-     *  else the model must be identified by an isbn.
-     *
-     * @param json the model as JSON serialized string
-     * @return HTTP Response
-     * 		200 - OK: If the update was successful
-     * 			  Response entity contains the URI to the updated model
-     * 		400 : bad model
-     */
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateBook(String json) {
-	try {
-	    final Book book = getGson().fromJson(json, Book.class);
-	    UUID storeBy = book.getId();
-
-	    // if id is set, update by id
-	    if (storeBy != null) {
-	        try {
-		    bookDao.update(book);
-		} catch (PersistenceException e) {
-	            return error(Response.Status.NOT_FOUND);
-		}
-	    }
-
-	    // else update by isbn
-	    else if (IsbnUtil.isValid(book.getIsbn())) {
-		final Book persisted = bookDao.getByIsbn(book.getIsbn());
-
-		if (persisted == null) {
-		    return error(Response.Status.NOT_FOUND);
-		}
-
-		storeBy = persisted.getId();
-		bookDao.update(book, storeBy);
-	    }
-
-	    // no identifying information given
-	    else {
-		return error("No id or isbn given. You must provide at least one.", Response.Status.BAD_REQUEST);
-	    }
-
-	    // return link to updated book
-	    return okWithUri(getAbsolutePath(storeBy.toString()));
-
-	} catch (PersistenceException e) {
-	    return error(e);
-	} catch (JsonSyntaxException e) {
-	    return error("Model invalid", Response.Status.BAD_REQUEST);
 	}
     }
 
