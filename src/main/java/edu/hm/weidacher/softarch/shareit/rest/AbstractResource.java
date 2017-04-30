@@ -125,7 +125,7 @@ public abstract class AbstractResource {
      * @return jaxrs Response, ready to return
      */
     protected Response okWithUri(String uri) {
-	return Response.ok(String.format("{\"uri\":\"%s\"}", urlEncoded(uri))).build();
+	return Response.ok(String.format("{\"location\":\"%s\"}", urlEncoded(uri))).build();
     }
 
     /**
