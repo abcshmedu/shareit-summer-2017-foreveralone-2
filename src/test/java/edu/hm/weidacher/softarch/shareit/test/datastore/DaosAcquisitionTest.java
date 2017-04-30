@@ -32,12 +32,17 @@ public class DaosAcquisitionTest {
     public void setup() {
 	datastore = Datastore.factory().getDatastore();
 	illegalModel = new AbstractModel() {
+	    @Override
+	    public void validate() throws PersistenceException {
+
+	    }
 	};
 	illegalUpdatableModel = new AbstractUpdatableModel() {
 	    @Override
-	    public <T extends AbstractUpdatableModel> void mergeWith(T other) throws PersistenceException {
-		// wayne
-	    }
+	    public void validate() throws PersistenceException {/*wayne*/}
+
+	    @Override
+	    public <T extends AbstractUpdatableModel> void mergeWith(T other) throws PersistenceException {/*wayne*/}
 	};
     }
 

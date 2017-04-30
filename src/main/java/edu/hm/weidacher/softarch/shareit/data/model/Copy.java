@@ -47,6 +47,22 @@ public class Copy extends AbstractUpdatableModel {
     }
 
     /**
+     * Checks whether this model has all required fields.
+     *
+     * @throws PersistenceException when invalid
+     */
+    @Override
+    public void validate() throws PersistenceException {
+	if (medium == null) {
+	    throw new PersistenceException("Medium missing");
+	}
+
+	if (owner == null) {
+	    throw new PersistenceException("Owner missing");
+	}
+    }
+
+    /**
      * Returns the medium, this copy resembles.
      * @return the medium
      */

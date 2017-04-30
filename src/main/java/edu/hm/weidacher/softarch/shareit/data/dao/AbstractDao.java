@@ -100,6 +100,8 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
         // instantiate a new entity using copy constructor
 	final T copiedEntity = copyEntity(entity);
 
+	entity.validate();
+
 	final UUID id = validateIdPresent(copiedEntity);
 
 	if (getById(id) != null) {

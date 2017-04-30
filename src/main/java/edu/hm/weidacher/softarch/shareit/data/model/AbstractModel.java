@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
+import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
+
 /**
  * Base class for all Models in the ShareIt application.
  * @author Simon Weidacher <weidache@hm.edu>
@@ -45,6 +47,12 @@ public abstract class AbstractModel implements Serializable {
     public Date getCreationDate() {
 	return creationDate;
     }
+
+    /**
+     * Checks whether this model has all required fields.
+     * @throws PersistenceException when invalid
+     */
+    public abstract void validate() throws PersistenceException;
 
     /**
      * Returns a representative string of this entity.

@@ -37,6 +37,18 @@ public abstract class Medium extends AbstractUpdatableModel {
     }
 
     /**
+     * Checks whether this model has all required fields.
+     *
+     * @throws PersistenceException when invalid
+     */
+    @Override
+    public void validate() throws PersistenceException {
+	if (title == null || title.equals("")) {
+	    throw new PersistenceException("Title missing or invalid");
+	}
+    }
+
+    /**
      * Returns the title of the media.
      * @return title
      */

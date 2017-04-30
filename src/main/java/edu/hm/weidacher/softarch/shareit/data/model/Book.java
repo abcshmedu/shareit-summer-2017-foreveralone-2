@@ -1,6 +1,7 @@
 package edu.hm.weidacher.softarch.shareit.data.model;
 
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
+import edu.hm.weidacher.softarch.shareit.util.IsbnUtil;
 
 /**
  * Model of a Book in the ShareIt application.
@@ -73,6 +74,23 @@ public class Book extends Medium {
 
 	if (o.getIsbn() != null) {
 	    this.setIsbn(o.getIsbn());
+	}
+    }
+
+    /**
+     * Checks whether this model has all required fields.
+     *
+     * @throws PersistenceException when is not valid
+     */
+    @Override
+    public void validate() throws PersistenceException {
+        super.validate();
+	if (author == null || author.equals("")) {
+	    throw new PersistenceException("Author missing");
+	}
+
+	if (!IsbnUtil.isValid(isbn)) {
+	    throw new PersistenceException("Isbn missing or invalid");
 	}
     }
 

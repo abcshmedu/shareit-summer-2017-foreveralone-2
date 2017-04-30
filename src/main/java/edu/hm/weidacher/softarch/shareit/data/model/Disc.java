@@ -1,6 +1,7 @@
 package edu.hm.weidacher.softarch.shareit.data.model;
 
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
+import edu.hm.weidacher.softarch.shareit.util.BarcodeUtil;
 
 /**
  * Model of a Disc in the ShareIt application.
@@ -133,6 +134,27 @@ public class Disc extends Medium {
 
 	if (o.getFsk() != null) {
 	    this.setFsk(o.getFsk());
+	}
+    }
+
+    /**
+     * Checks whether this model has all required fields.
+     *
+     * @throws PersistenceException when invalid
+     */
+    @Override
+    public void validate() throws PersistenceException {
+	super.validate();
+	if (!BarcodeUtil.isValid(barcode)) {
+	    throw new PersistenceException("Barcode missing or invalid");
+	}
+
+	if (director == null || director.equals("")) {
+	    throw new PersistenceException("Director missing or invalid");
+	}
+
+	if (fsk == null || fsk < 0) {
+	    throw new PersistenceException("FSK missing or invalid");
 	}
     }
 
