@@ -19,7 +19,7 @@ import edu.hm.weidacher.softarch.shareit.util.BarcodeUtil;
 
 /**
  * Resource providing access to stored discs.
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 @Path("/media/discs")
 public class DiscResource extends AbstractResource {

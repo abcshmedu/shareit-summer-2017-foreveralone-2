@@ -4,7 +4,7 @@ import org.eclipse.jetty.util.StringUtil;
 
 /**
  * Provides utility methods for ISBN numbers.
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public abstract class IsbnUtil {
 

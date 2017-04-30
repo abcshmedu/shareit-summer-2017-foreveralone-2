@@ -5,7 +5,7 @@ import org.junit.Test;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 
 /**
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public class ExceptionTest {
 

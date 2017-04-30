@@ -7,7 +7,7 @@ import org.junit.Test;
 import edu.hm.weidacher.softarch.shareit.Configuration;
 
 /**
- * @author Simon Weidacher <simon.weidacher@timebay.eu>
+ * @author Simon Weidacher <weidache@hm.edu>
  */
 public class ConfigurationTest {
 
