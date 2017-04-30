@@ -32,7 +32,7 @@ import edu.hm.weidacher.softarch.shareit.util.IsbnUtil;
  * @author Simon Weidacher <weidache@hm.edu>
  */
 @Path("/media/books")
-public class BookResource extends AbstractResource{
+public class BookResource extends AbstractResource {
 
     /**
      * Connection point to the database.
@@ -42,7 +42,7 @@ public class BookResource extends AbstractResource{
     /**
      * Ctor.
      */
-    public BookResource () {
+    public BookResource() {
         super();
 	try {
 	    bookDao = (BookDao) getDatastore().getDao(Book.class);

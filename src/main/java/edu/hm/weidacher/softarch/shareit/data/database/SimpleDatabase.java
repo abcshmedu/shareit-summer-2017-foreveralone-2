@@ -21,7 +21,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
  */
 public class SimpleDatabase implements Database {
 
-    private final static String PERSIST_PATH = "data.db";
+    private static final String PERSIST_PATH = "data.db";
 
     /**
      * Map containing collections for each model type.
@@ -63,8 +63,8 @@ public class SimpleDatabase implements Database {
     @Override
     public void persist() throws PersistenceException {
         try (
-            final FileOutputStream fos = new FileOutputStream(PERSIST_PATH);
-            final ObjectOutputStream oos = new ObjectOutputStream(fos)
+	    FileOutputStream fos = new FileOutputStream(PERSIST_PATH);
+            ObjectOutputStream oos = new ObjectOutputStream(fos)
 	) {
 	    oos.writeObject(data);
         } catch (IOException e) {
@@ -81,16 +81,16 @@ public class SimpleDatabase implements Database {
     @SuppressWarnings("unchecked")
     public void load() throws PersistenceException {
 	try (
-	    final FileInputStream fis = new FileInputStream(PERSIST_PATH);
-	    final ObjectInputStream ois = new ObjectInputStream(fis)
+	    FileInputStream fis = new FileInputStream(PERSIST_PATH);
+	    ObjectInputStream ois = new ObjectInputStream(fis)
 	) {
-	    final Object o = ois.readObject();
+	    Object o = ois.readObject();
 	    if (!(o instanceof Map)) {
 	        throw new PersistenceException("Persisted file corrupted!");
 	    }
 
-	    final Map<Class<? extends AbstractModel>, Collection<? extends AbstractModel>> loaded =
-		(Map<Class<? extends AbstractModel>, Collection<? extends AbstractModel>>) o;
+	    Map<Class< ? extends AbstractModel>, Collection< ? extends AbstractModel>> loaded =
+		(Map<Class< ? extends AbstractModel>, Collection< ? extends AbstractModel>>) o;
 
 	    data.putAll(loaded);
 

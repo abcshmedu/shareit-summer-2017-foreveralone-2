@@ -57,7 +57,7 @@ public interface Dao< T extends AbstractModel > {
     T delete(@NotNull UUID id) throws PersistenceException;
 
     /**
-     * Return all entitys under T
+     * Return all entitys under T.
      * @return collection containing all available entitys
      */
     Collection<T> getAll();

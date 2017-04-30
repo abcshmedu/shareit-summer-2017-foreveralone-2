@@ -47,6 +47,11 @@ public class Disc extends Medium {
 	this.fsk = fsk;
     }
 
+    /**
+     * Copy-Ctor.
+     *
+     * @param other the disc to copy
+     */
     public Disc(Disc other) {
         super(other);
         this.barcode = other.getBarcode();

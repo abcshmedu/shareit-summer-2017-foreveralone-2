@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.UUID;
 import java.util.function.Function;
 
-import javax.validation.constraints.Null;
-
 import edu.hm.weidacher.softarch.shareit.data.database.DatabaseFactory;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractModel;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
@@ -41,7 +39,7 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
     }
 
     /**
-     * Return all entitys under T
+     * Return all entitys under T.
      *
      * @return collection containing all available entitys
      */

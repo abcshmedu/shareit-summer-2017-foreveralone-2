@@ -154,7 +154,7 @@ public abstract class AbstractResource {
 
     /**
      * Returns the given string URL encoded.
-     * The encoding will be UTF-8 as stated in @see <a href="https://docs.oracle.com/javase/7/docs/api/java/net/URLEncoder.html">
+     * The encoding will be UTF-8 as stated in @see <a href="https://docs.oracle.com/javase/7/docs/api/java/net/URLEncoder.html"/>
      *
      * @param string encode this
      * @return url encoded string

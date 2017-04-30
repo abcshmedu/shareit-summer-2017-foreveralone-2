@@ -104,6 +104,7 @@ public class DiscResource extends AbstractResource {
     /**
      * Updates a disc identified by its barcode.
      * @param json json model of a disc
+     * @param barcode barcode identifying the model to update
      * @return HTTP Response
      * 		200 : updated. returns URI to updated entity
      * 		400 : bad model
