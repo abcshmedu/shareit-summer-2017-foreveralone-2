@@ -3,6 +3,8 @@ package edu.hm.weidacher.softarch.shareit.rest;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
@@ -90,7 +92,12 @@ public abstract class AbstractResource {
      * @return jaxrs Response, ready to return
      */
     protected Response error(String message, Response.Status status) {
-	return Response.status(status).entity(message).build();
+        Map<String, Object> errorMap = new HashMap<>(2);
+
+        errorMap.put("code", status.getStatusCode());
+        errorMap.put("detail", message);
+
+	return Response.status(status).entity(getGson().toJson(errorMap)).build();
     }
 
     /**
@@ -156,6 +163,7 @@ public abstract class AbstractResource {
 	try {
 	    return URLEncoder.encode(string, "UTF-8");
 	} catch (UnsupportedEncodingException e) {
+	    // can't happen during production
 	    throw new AssertionError("Bad hardcoded encoding");
 	}
     }
