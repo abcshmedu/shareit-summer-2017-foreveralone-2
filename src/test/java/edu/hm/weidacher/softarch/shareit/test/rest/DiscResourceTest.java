@@ -68,7 +68,6 @@ public class DiscResourceTest {
     @Test
     public void testGetByBarcode() {
         Disc disc = new Disc("Eine Disc", "8888888", "von einem Regisseur", 16);
-
         // store
 	final Response creationResponse = sut.createDisc(gson.toJson(disc));
 	assertNotNull(creationResponse);
