@@ -10,42 +10,37 @@
     * [ ] Database
 
 ## REST-API <span style="color:red">NEXT UP</span>
-* [ ] REST-API
-  * [ ] media/books
-    * [ ] /media/books/{isbn}     (GET/PUT)
+* [x] REST-API
+  * [x] media
+    * [x] /media/books/{isbn}     (GET/PUT)
     * [x] /media/books            (GET/POST)
-    * [ ] /media/discs/{barcode}  (GET/PUT)
-    * [ ] /media/discs            (GET/POST)
-  * [ ] Error handling
+    * [x] /media/discs/{barcode}  (GET/PUT)
+    * [x] /media/discs            (GET/POST)
+  * [x] Error handling
 
 ## Deployment
-* [ ] Deployment
-  * [ ] live Deployment
-  * [ ] Heroku account
-  * [ ] Maven
-   * [ ] clean pom
+* [x] Deployment
+  * [x] live Deployment
+  * [x] Heroku account
 
 ---
 ## Test
-* [ ] Datastore
+* [x] Datastore
   * [x] Models
   * [x] Dao's
-  * [ ] Database
+  * [x] Database
     * [x] Early Persistence
-    * [ ] Database
 
 
-* [ ] REST-API
-  * [ ] media/books
-    * [ ] /media/books/{isbn}     (GET/PUT)
-    * [ ] /media/books            (GET/POST)
-    * [ ] /media/discs/{barcode}  (GET/PUT)
-    * [ ] /media/discs            (GET/POST)
-  * [ ] Error handling
+* [x] REST-API
+  * [x] media/books
+    * [x] /media/books/{isbn}     (GET/PUT)
+    * [x] /media/books            (GET/POST)
+    * [x] /media/discs/{barcode}  (GET/PUT)
+    * [x] /media/discs            (GET/POST)
+  * [x] Error handling
 
 
-* [ ] Deployment
-  * [ ] live Deployment
-  * [ ] Heroku account
-  * [ ] Maven
-   * [ ] clean pom
+* [x] Deployment
+  * [x] live Deployment
+  * [x] Heroku account
