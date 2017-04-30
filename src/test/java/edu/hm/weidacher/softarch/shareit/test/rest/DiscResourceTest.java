@@ -2,10 +2,12 @@ package edu.hm.weidacher.softarch.shareit.test.rest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.ws.rs.core.Response;
 
@@ -14,7 +16,7 @@ import org.junit.Test;
 
 import com.google.gson.Gson;
 
-import edu.hm.weidacher.softarch.shareit.data.model.Book;
+import edu.hm.weidache.util.Timing;
 import edu.hm.weidacher.softarch.shareit.data.model.Disc;
 import edu.hm.weidacher.softarch.shareit.rest.DiscResource;
 
@@ -54,7 +56,6 @@ public class DiscResourceTest {
 
     @Test
     public void testPost() throws MalformedURLException {
-        // TODO
 	final Disc book = new Disc("Eine Disc", "mit barcode", "von einem Regisseur", 16);
 
 	final Response creationResponse = sut.createDisc(gson.toJson(book));
@@ -69,13 +70,51 @@ public class DiscResourceTest {
 
     @Test
     public void testGetByBarcode() {
-	// TODO
+        Disc disc = new Disc("Eine Disc", "8888888", "von einem Regisseur", 16);
+
+        // store
+	final Response creationResponse = sut.createDisc(gson.toJson(disc));
+	assertNotNull(creationResponse);
+	assertEquals(Response.Status.CREATED.getStatusCode(), creationResponse.getStatus());
+
+	// retrieve
+	final String location = creationResponse.getHeaderString("Location");
+	assertTrue("Created Response Header Location Does not end with barcode", location.endsWith(disc.getBarcode()));
+
+	Response storedDiscResponse = sut.getById(disc.getBarcode());
+	assertEquals(Response.Status.OK.getStatusCode(), storedDiscResponse.getStatus());
+
+	Disc storedDisc = gson.fromJson(((String) storedDiscResponse.getEntity()), Disc.class);
+	assertEquals(disc, storedDisc);
     }
 
 
     @Test
     public void testUpdate() {
-	// TODO
+	Disc disc = new Disc("Eine Disc", "7777", "von einem Regisseur", 16);
+
+	// create
+	final Response creationResponse = sut.createDisc(gson.toJson(disc));
+	assertNotNull(creationResponse);
+	assertEquals(Response.Status.CREATED.getStatusCode(), creationResponse.getStatus());
+
+	// update
+	disc.setDirector("New Director nobody ever heard of");
+	final Response updatedResponse = sut.updateDisc(disc.getBarcode(), gson.toJson(disc));
+	assertNotNull(updatedResponse);
+	assertEquals(Response.Status.OK.getStatusCode(), updatedResponse.getStatus());
+
+	Map responseMap = gson.fromJson((String) updatedResponse.getEntity(), Map.class);
+	assertTrue("Update response does not contain location key", responseMap.containsKey("location"));
+	assertTrue("Bad uri after updated Disc", ((String) responseMap.get("location")).endsWith(disc.getBarcode()));
+
+	// retrieve
+	final Response afterUpdateResponse = sut.getById(disc.getBarcode());
+	assertNotNull(afterUpdateResponse);
+	assertEquals(Response.Status.OK.getStatusCode(), afterUpdateResponse.getStatus());
+
+	final Disc updated = gson.fromJson((String) afterUpdateResponse.getEntity(), Disc.class);
+	assertEquals(disc, updated);
     }
 
 
