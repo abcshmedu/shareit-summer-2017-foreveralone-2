@@ -11,6 +11,6 @@ public abstract class Configuration {
 
     public static final String URL_SEPARATOR = "/";
     public static final int PORT = 8080;
-    public static final String HOST = "http://localhost:" + PORT;
+    public static final String HOST = "https://shareit-softarch.herokuapp.com";
 
 }
