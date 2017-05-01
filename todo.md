@@ -9,7 +9,7 @@
     * [x] Early Persistence
     * [ ] Database
 
-## REST-API <span style="color:red">NEXT UP</span>
+## REST-API
 * [x] REST-API
   * [x] media
     * [x] /media/books/{isbn}     (GET/PUT)
