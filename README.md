@@ -1,5 +1,9 @@
 # Starter Code für 2. Pratkikumsaufgabe Software-Architektur Sommer 2017
 
+## Deployment
+
+Heroku URL: https://shareit-softarch.herokuapp.com/shareit
+
 ## Modelle
 
 Alle mit IMMUTABLE gekennzeichneten Felder können nicht geändert werden. Alle Werte unter diesen Feldern werden ignoriert.
