@@ -10,7 +10,7 @@ public class AccountDao extends AbstractDao<Account> {
     /**
      * Ctor.
      */
-    protected AccountDao() {
+    public AccountDao() {
 	super(Account.class);
     }
 
