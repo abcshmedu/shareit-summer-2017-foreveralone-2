@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
+import java.util.UUID;
 
 import javax.crypto.SecretKey;
 
@@ -42,12 +43,23 @@ public class AuthenticationUtil {
      */
     private static final String AUTHENTICATION_SERVICE_ISSUER = "authentication-service";
 
+    /**
+     * Logger.
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationUtil.class);
+
+    /**
+     * Admin account.
+     * TODO: put this guy in the database!
+     */
+    private static final Account ADMIN_ACCOUNT = new Account();
 
     /*
     	Initialize the secret key.
+    	Iniitialize the hardcoded admin account.
      */
     static {
+        // secret key
 	final InputStream configStream
 	    = AuthenticationUtil.class.getClassLoader().getResourceAsStream("shareit.properties");
 
@@ -63,6 +75,11 @@ public class AuthenticationUtil {
 	    throw new AssertionError("Error loading jwt config", e);
 	}
 
+	// admin account
+	ADMIN_ACCOUNT.setRole(Role.ADMIN);
+	ADMIN_ACCOUNT.setUsername("admin");
+	ADMIN_ACCOUNT.setPasswordHash("root!Lord123");
+	ADMIN_ACCOUNT.setUserId(UUID.randomUUID());
     }
 
     /**
@@ -155,10 +172,25 @@ public class AuthenticationUtil {
     public static boolean authorizePrivate (String token, Account account) {
 	try {
 
-	    Jwts.parser()
-		.requireSubject(account.getUserId().toString())
+	    final Jws<Claims> jws = Jwts.parser()
 		.setSigningKey(JWT_SECRET)
 		.parseClaimsJws(token);
+
+	    final Claims claims = jws.getBody();
+
+	    if (claims.getSubject() == null) {
+		return false;
+	    }
+
+	    String subject = claims.getSubject();
+
+	    // TODO #########################
+	    if (subject.equals(ADMIN_ACCOUNT.getUserId())) {
+	        return true;
+	    }
+	    // ##################
+
+	    return subject.equals(account.getUserId());
 
 	} catch (InvalidClaimException iee) {
 	    return false;
@@ -166,8 +198,14 @@ public class AuthenticationUtil {
 	    LOGGER.warn("Illegal signature on private authorization attempt!\n Token: {}", token);
 	    return false;
 	}
+    }
 
-	return true;
+    /**
+     * Create am administrative token.
+     * @return nice token :_)
+     */
+    public static String createAdminToken() {
+	return createAuthenticationToken(ADMIN_ACCOUNT);
     }
 
     /**
