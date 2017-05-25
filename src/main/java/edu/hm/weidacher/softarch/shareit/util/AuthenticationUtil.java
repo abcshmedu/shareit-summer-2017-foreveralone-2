@@ -18,7 +18,9 @@ import com.google.gson.Gson;
 import edu.hm.weidacher.softarch.shareit.data.dto.AuthenticationRequestDto;
 import edu.hm.weidacher.softarch.shareit.data.model.Account;
 import edu.hm.weidacher.softarch.shareit.data.model.Role;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.InvalidClaimException;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
@@ -121,19 +123,29 @@ public class AuthenticationUtil {
     public static boolean authorizeRole (String token, Role role) {
 	try {
 
-	    Jwts.parser()
-		.require("role", role.name())
+	    final Jws<Claims> jws = Jwts.parser()
 		.setSigningKey(JWT_SECRET)
 		.parseClaimsJws(token);
 
+	    final Claims claims = jws.getBody();
+
+	    if (!claims.containsKey("role")) {
+		return false;
+	    }
+
+	    Role subjectRole = Role.valueOf(((String) claims.get("role")));
+
+	    return subjectRole.authorizesAccessOn(role);
 	} catch (InvalidClaimException iee) {
+	    LOGGER.warn("Invalid Claim {}\n{}", token, iee.getStackTrace());
 	    return false;
 	} catch (SignatureException se) {
 	    LOGGER.warn("Illegal signature on private authorization attempt!\n Token: {}", token);
 	    return false;
+	} catch (ClassCastException cce) {
+	    LOGGER.warn("Someone delivered a non-string role: {}", token);
+	    return false;
 	}
-
-	return true;
     }
 
     /**
