@@ -11,6 +11,7 @@ import com.google.gson.JsonSyntaxException;
 
 import edu.hm.weidacher.softarch.shareit.data.dao.AccountDao;
 import edu.hm.weidacher.softarch.shareit.data.dto.AuthenticationRequestDto;
+import edu.hm.weidacher.softarch.shareit.data.dto.AuthorizationRequestDto;
 import edu.hm.weidacher.softarch.shareit.data.model.Account;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 import edu.hm.weidacher.softarch.shareit.util.AuthenticationUtil;
@@ -104,15 +105,61 @@ public class AuthenticationResource extends AbstractResource {
     }
 
     /**
+     * Authorize a user to access a protected resource.
      *
-     * @param json
-     * @return
+     * The authorization process can check the token against the role,
+     *  or against a user-id.
+     *
+     * @param json {
+     *             "accessToken" : String
+     *             "role" : Role.name() // if present, the token is checked against this role
+     *             "user" : String // if present, the token is checked against this user-id
+     * }
+     * @return 	200 OK - Authorized successfully
+     * 		400 BAD REQUEST - bad json/no authorization method
+     * 		401 UNAUTHORIZED - token not present/Account deleted/token expired
+     * 		403 FORBIDDEN - not allowed to access
      */
     @POST
     @Path("/authorize")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response authorize(String json) {
-        return null;
+	final AuthorizationRequestDto authorizationRequest;
+        try {
+	    authorizationRequest = getGson().fromJson(json, AuthorizationRequestDto.class);
+	} catch (JsonSyntaxException jsex) {
+            return error("Bad json", Response.Status.BAD_REQUEST);
+	}
+
+	// check for token
+	if (authorizationRequest.token == null) {
+            return error("No token given", Response.Status.UNAUTHORIZED);
+	}
+
+	boolean authorized = false;
+
+	// authorize by role
+	if (authorizationRequest.role != null) {
+            authorized = AuthenticationUtil.authorizeRole(authorizationRequest.token, authorizationRequest.role);
+	}
+
+	// authorize by user-id
+	else if (authorizationRequest.user != null) {
+	    final Account authorizationTarget = accountDao.getById(authorizationRequest.user);
+
+	    authorized = AuthenticationUtil.authorizePrivate(authorizationRequest.token, authorizationTarget);
+	}
+
+	// nothing to authorize agains given
+	else {
+            return error("No authorization target given.", Response.Status.BAD_REQUEST);
+	}
+
+	if (authorized) {
+	    return Response.ok().build();
+	} else {
+	    return error(Response.Status.FORBIDDEN);
+	}
     }
 }
