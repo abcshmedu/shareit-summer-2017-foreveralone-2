@@ -103,12 +103,7 @@ public class AuthenticationUtil {
 	}
 
 	// check if password-hash matches
-	if (!account.getPasswordHash().equals(authRequest.getPasswordHash())) {
-	    return false;
-	}
-
-	// everything fine
-	return true;
+	return account.getPasswordHash().equals(authRequest.getPasswordHash());
     }
 
     /**
