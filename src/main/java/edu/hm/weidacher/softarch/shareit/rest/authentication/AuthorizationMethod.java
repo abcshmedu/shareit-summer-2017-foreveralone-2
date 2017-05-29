@@ -9,11 +9,13 @@ public enum AuthorizationMethod {
     /**
      * Authorize access by an users role.
      */
-    BY_ROLE,
+    BY_ROLE
 
-    /**
+    /*,
+
+    *//**
      * Authorize access by an users id.
-     */
-    BY_ID;
+     *//*
+    BY_ID;*/
 
 }

@@ -23,7 +23,7 @@ public @interface Authorize {
      *
      * @return authorization method
      */
-    AuthorizationMethod value();
+    AuthorizationMethod value() default AuthorizationMethod.BY_ROLE;
 
     /**
      * The least role that is allowed to access the annotated artifact.

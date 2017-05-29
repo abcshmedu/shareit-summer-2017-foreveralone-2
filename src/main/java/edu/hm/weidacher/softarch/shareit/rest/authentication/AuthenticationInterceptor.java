@@ -70,10 +70,10 @@ public class AuthenticationInterceptor implements ContainerRequestFilter {
 	    }
 	}
 
-	// by user-id
+	/*// by user-id
 	else if (authorizationMethod.value() == AuthorizationMethod.BY_ID) {
 	    throw new RuntimeException("Not yet implemented!"); // TODO
-	}
+	}*/
     }
 
     /**
