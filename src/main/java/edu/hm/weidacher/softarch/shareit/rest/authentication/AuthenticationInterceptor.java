@@ -14,6 +14,8 @@ import javax.ws.rs.ext.Provider;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.engines.URLConnectionEngine;
 
+import com.google.gson.Gson;
+
 import edu.hm.weidacher.softarch.shareit.Configuration;
 import edu.hm.weidacher.softarch.shareit.data.dto.AuthorizationRequestDto;
 import edu.hm.weidacher.softarch.shareit.data.model.Role;
@@ -81,7 +83,6 @@ public class AuthenticationInterceptor implements ContainerRequestFilter {
 	    }
 	}
 
-
     }
 
     /**
@@ -118,7 +119,7 @@ public class AuthenticationInterceptor implements ContainerRequestFilter {
 	return new ResteasyClientBuilder().httpEngine(new URLConnectionEngine()).build()
 	    .target(Configuration.SSO_AUTHORIZE_PATH)
 	    .request()
-	    .buildPost(Entity.json(authRequest))
+	    .buildPost(Entity.json(new Gson().toJson(authRequest)))
 	    .invoke();
     }
 }
