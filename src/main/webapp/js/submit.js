@@ -5,6 +5,35 @@
  *  @author Axel Böttcher <axel.boettcher@hm.edu>
  */
 
+ var state = {
+
+ };
+
+var authenticate = function (username, password) {
+    var credentialsJSON = JSON.stringify({
+         username : username,
+         password : password
+     });
+
+    $.ajax({
+        url : '/shareit/sso/authenticate',
+        type : 'POST',
+        contentType : 'application/json',
+        data : credentialsJSON
+    })
+    .done((response) => {
+        console.log("Hello " + username);
+
+        state.jwt = response.accessToken;
+        showError();
+    })
+    .fail((error) => {
+
+         showError(error.status);
+
+    });
+}
+
 /**
  * This function is used for transfer of new book info.
  */
@@ -14,11 +43,13 @@ var submitNewBook = function() {
 			author: $("input[name=author]").val(),
 			isbn: $("input[name=isbn]").val()
 	});
-	var errorText = $("#errormessage");
     $.ajax({
         url: '/shareit/media/books/',
         type:'POST',
         contentType: 'application/json; charset=UTF-8',
+        headers : {
+            "Authorization" : "Bearer " + state.jwt
+        },
         data: json
         })
         .done(() => {
@@ -26,13 +57,10 @@ var submitNewBook = function() {
 			$("input[name=author]").val("");
 			$("input[name=isbn]").val("");
         	
-        	errorText.removeClass("visible");
-        	errorText.addClass("hidden");
+        	showError();
         })
         .fail((error) => {
-        	errorText.addClass("visible");
-        	errorText.text(error.responseJSON.detail);
-        	errorText.removeClass("hidden");
+        	showError(error.responseJSON.detail);
         });
 }
 
@@ -64,3 +92,23 @@ var changeContent = function(content) {
 		$("#content").html(data);
 	});// no error handling
 }
+
+function showError(message) {
+    var errorText = $("#errormessage");
+
+    if (message) {
+
+        errorText.addClass("visible");
+        errorText.text(message);
+        errorText.removeClass("hidden");
+
+    } else {
+
+        // hide view
+        errorText.removeClass('visible');
+        errorText.addClass('hidden');
+
+    }
+}
+
+authenticate("admin", "root!Lord123");
