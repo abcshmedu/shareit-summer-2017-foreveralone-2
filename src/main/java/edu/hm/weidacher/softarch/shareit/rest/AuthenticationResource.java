@@ -9,6 +9,7 @@ import javax.ws.rs.core.Response;
 
 import com.google.gson.JsonSyntaxException;
 
+import edu.hm.weidacher.softarch.shareit.Configuration;
 import edu.hm.weidacher.softarch.shareit.data.dao.AccountDao;
 import edu.hm.weidacher.softarch.shareit.data.dto.AuthenticationRequestDto;
 import edu.hm.weidacher.softarch.shareit.data.dto.AuthorizationRequestDto;
@@ -19,7 +20,7 @@ import edu.hm.weidacher.softarch.shareit.util.AuthenticationUtil;
 /**
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
-@Path("/sso")
+@Path(Configuration.SSO)
 public class AuthenticationResource extends AbstractResource {
 
     /**
@@ -71,7 +72,7 @@ public class AuthenticationResource extends AbstractResource {
      * }
      */
     @POST
-    @Path("/authenticate")
+    @Path(Configuration.AUTHENTICATE_PATH)
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response authenticate(String json) {
@@ -129,7 +130,7 @@ public class AuthenticationResource extends AbstractResource {
      * 		403 FORBIDDEN - not allowed to access
      */
     @POST
-    @Path("/authorize")
+    @Path(Configuration.AUTHORIZE_PATH)
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response authorize(String json) {
