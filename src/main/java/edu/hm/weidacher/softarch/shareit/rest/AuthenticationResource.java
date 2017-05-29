@@ -146,6 +146,9 @@ public class AuthenticationResource extends AbstractResource {
             return error("No token given", Response.Status.UNAUTHORIZED);
 	}
 
+	// strip leading "Bearer"
+	authorizationRequest.token = authorizationRequest.token.replaceFirst("Bearer ", "");
+
 	boolean authorized = false;
 
 	// authorize by role
