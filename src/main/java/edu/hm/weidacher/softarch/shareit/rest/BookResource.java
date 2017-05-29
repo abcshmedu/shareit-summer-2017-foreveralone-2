@@ -17,7 +17,9 @@ import com.google.gson.JsonSyntaxException;
 
 import edu.hm.weidacher.softarch.shareit.data.dao.BookDao;
 import edu.hm.weidacher.softarch.shareit.data.model.Book;
+import edu.hm.weidacher.softarch.shareit.data.model.Role;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
+import edu.hm.weidacher.softarch.shareit.rest.authentication.Authorize;
 import edu.hm.weidacher.softarch.shareit.util.IsbnUtil;
 
 /**
@@ -103,6 +105,7 @@ public class BookResource extends AbstractResource {
      * 		400 : The model contained invalid values
      */
     @POST
+    @Authorize(minRole = Role.USER)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createBook(String json) {
 	try {
@@ -129,6 +132,7 @@ public class BookResource extends AbstractResource {
      */
     @PUT
     @Path("/{isbn}")
+    @Authorize(minRole = Role.USER)
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateBook(@PathParam("isbn") String isbn, String json) {

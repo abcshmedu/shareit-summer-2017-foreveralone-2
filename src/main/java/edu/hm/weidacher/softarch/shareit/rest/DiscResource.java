@@ -14,7 +14,9 @@ import com.google.gson.JsonSyntaxException;
 
 import edu.hm.weidacher.softarch.shareit.data.dao.DiscDao;
 import edu.hm.weidacher.softarch.shareit.data.model.Disc;
+import edu.hm.weidacher.softarch.shareit.data.model.Role;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
+import edu.hm.weidacher.softarch.shareit.rest.authentication.Authorize;
 import edu.hm.weidacher.softarch.shareit.util.BarcodeUtil;
 
 /**
@@ -87,6 +89,7 @@ public class DiscResource extends AbstractResource {
      * 		400 : model contained errors
      */
     @POST
+    @Authorize(minRole = Role.USER)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createDisc(String json) {
         try {
@@ -111,6 +114,7 @@ public class DiscResource extends AbstractResource {
      * 		404 : no entity found
      */
     @PUT
+    @Authorize(minRole = Role.USER)
     @Path("/{barcode}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
