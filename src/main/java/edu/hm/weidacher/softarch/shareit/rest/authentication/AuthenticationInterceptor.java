@@ -7,6 +7,7 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 
@@ -46,21 +47,31 @@ public class AuthenticationInterceptor implements ContainerRequestFilter {
 	    return;
 	}
 
-	// authorize
-
 	// by role
 	if (authorizationMethod.value() == AuthorizationMethod.BY_ROLE) {
 	    final Role minRole = authorizationMethod.minRole();
 
+	    // get authorization header
+	    final String authorizationHeader = context.getHeaderString(HttpHeaders.AUTHORIZATION);
+
+	    if (authorizationHeader == null) {
+		context.abortWith(Response
+		    .status(Response.Status.UNAUTHORIZED)
+		    .build()
+		);
+
+		return; // UNAUTHORIZED
+	    }
+
 	    // authenticate at sso-service
-	    Response authResponse = authenticateRole(context.getHeaderString("Authorization"), minRole);
+	    Response authResponse = authenticateRole(authorizationHeader, minRole);
 
 	    if (authResponse.getStatus() == Response.Status.OK.getStatusCode()) {
 
 	        return; // AUTHORIZED
 
 	    } else {
-	        context.abortWith(Response
+		context.abortWith(Response
 		    .status(authResponse.getStatus())
 		    .entity(authResponse.getEntity())
 		    .build()
@@ -70,10 +81,7 @@ public class AuthenticationInterceptor implements ContainerRequestFilter {
 	    }
 	}
 
-	/*// by user-id
-	else if (authorizationMethod.value() == AuthorizationMethod.BY_ID) {
-	    throw new RuntimeException("Not yet implemented!"); // TODO
-	}*/
+
     }
 
     /**
