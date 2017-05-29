@@ -18,7 +18,16 @@ import edu.hm.weidacher.softarch.shareit.data.model.Role;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Authorize {
 
+    /**
+     * The method to use when authorizing.
+     *
+     * @return authorization method
+     */
     AuthorizationMethod value();
 
+    /**
+     * The least role that is allowed to access the annotated artifact.
+     * @return a user-role
+     */
     Role minRole();
 }
