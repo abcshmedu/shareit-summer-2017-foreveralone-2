@@ -1,5 +1,8 @@
 package edu.hm.weidacher.softarch.shareit.rest;
 
+import java.util.Collections;
+import java.util.Map;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -108,9 +111,10 @@ public class AuthenticationResource extends AbstractResource {
 	}
 
 	// create JWT
-	final String authenticationToken = AuthenticationUtil.createAuthenticationToken(account);
+	String authenticationToken = AuthenticationUtil.createAuthenticationToken(account);
+	Map<String, String> accessTokenMap = Collections.singletonMap("accessToken", authenticationToken);
 
-	return Response.ok(authenticationToken).build();
+	return Response.ok(getGson().toJson(accessTokenMap)).build();
     }
 
     /**

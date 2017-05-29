@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.security.Key;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
@@ -91,17 +92,19 @@ public class AuthenticationUtil {
      */
     public static String createAuthenticationToken (Account account) {
 
-	final Map<String, Object> claims = Collections.singletonMap("role", account.getRole());
+	final Map<String, Object> claims = new HashMap<String, Object>() {{
+	    put("role", account.getRole().toString());
+	    put("sub", account.getUserId().toString());
+	    put("iss", AUTHENTICATION_SERVICE_ISSUER);
+	    put("iad", System.currentTimeMillis());
+	}};
 
 	final String token = Jwts.builder()
-	    .setIssuedAt(new Date())
-	    .setIssuer(AUTHENTICATION_SERVICE_ISSUER)
-	    .setSubject(account.getUserId().toString())
 	    .setClaims(claims)
 	    .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
 	    .compact();
 
-	return new Gson().toJson(new AccessTokenResponse(token));
+	return token;
     }
 
     /**
@@ -188,7 +191,7 @@ public class AuthenticationUtil {
 		return false;
 	    }
 
-	    String subject = claims.getSubject();
+	    UUID subject = UUID.fromString(claims.getSubject());
 
 	    // TODO #########################
 	    if (subject.equals(ADMIN_ACCOUNT.getUserId())) {
@@ -217,13 +220,6 @@ public class AuthenticationUtil {
 	return createAuthenticationToken(ADMIN_ACCOUNT);
     }
 
-    /**
-     * Small util class for serialization of access-tokens.
-     */
-    private static class AccessTokenResponse {
-	String accessToken;
-	AccessTokenResponse(String t) {accessToken = t;}
-    }
 
     /**
      * Utility class to laod the signing key from properties.

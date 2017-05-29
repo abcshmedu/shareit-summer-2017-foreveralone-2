@@ -26,7 +26,7 @@ import edu.hm.weidacher.softarch.shareit.data.model.Role;
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
 @Provider
-public class AuthenticationInterceptor implements ContainerRequestFilter {
+public class AuthorizationInterceptor implements ContainerRequestFilter {
 
     /**
      * Contains contextual information about the invoked resource.
