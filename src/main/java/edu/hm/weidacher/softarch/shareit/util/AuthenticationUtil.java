@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
 
-import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +23,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.InvalidClaimException;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 
@@ -67,7 +68,8 @@ public class AuthenticationUtil {
 	    Properties config = new Properties();
 	    config.load(configStream);
 
-	    JWT_SECRET = new Gson().fromJson(config.getProperty("jwt-secret"), SecretKey.class);
+
+	    JWT_SECRET = new Gson().fromJson(config.getProperty("jwt-secret"), KeyLoadProxy.class).getSecretKey();
 
 	    configStream.close();
 	    config.clear();
@@ -157,6 +159,9 @@ public class AuthenticationUtil {
 	} catch (ClassCastException cce) {
 	    LOGGER.warn("Someone delivered a non-string role: {}", token);
 	    return false;
+	}  catch (MalformedJwtException mje) {
+	    LOGGER.warn("Illegal JWT format: {}", token);
+	    return false;
 	}
     }
 
@@ -170,6 +175,7 @@ public class AuthenticationUtil {
      * @return whether the given token legitimates access on the given account
      */
     public static boolean authorizePrivate (String token, Account account) {
+
 	try {
 
 	    final Jws<Claims> jws = Jwts.parser()
@@ -197,6 +203,9 @@ public class AuthenticationUtil {
 	} catch (SignatureException se) {
 	    LOGGER.warn("Illegal signature on private authorization attempt!\n Token: {}", token);
 	    return false;
+	} catch (MalformedJwtException mje) {
+	    LOGGER.warn("Illegal JWT format: {}", token);
+	    return false;
 	}
     }
 
@@ -214,5 +223,17 @@ public class AuthenticationUtil {
     private static class AccessTokenResponse {
 	String accessToken;
 	AccessTokenResponse(String t) {accessToken = t;}
+    }
+
+    /**
+     * Utility class to laod the signing key from properties.
+     */
+    private static class KeyLoadProxy {
+	byte[] key;
+	String algorithm;
+
+	public Key getSecretKey() {
+	    return new SecretKeySpec(key, algorithm);
+	}
     }
 }
