@@ -64,7 +64,7 @@ public class AuthenticationInterceptor implements ContainerRequestFilter {
 	    }
 
 	    // authenticate at sso-service
-	    Response authResponse = authenticateRole(authorizationHeader, minRole);
+	    Response authResponse = authorizeRole(authorizationHeader, minRole);
 
 	    if (authResponse.getStatus() == Response.Status.OK.getStatusCode()) {
 
@@ -109,7 +109,7 @@ public class AuthenticationInterceptor implements ContainerRequestFilter {
      * @param minRole the lowest role allowed to access the resource
      * @return the Response of the authentication-service
      */
-    private Response authenticateRole(String authenticationToken, Role minRole) {
+    private Response authorizeRole(String authenticationToken, Role minRole) {
 	final AuthorizationRequestDto authRequest = new AuthorizationRequestDto();
 
 	authRequest.token = authenticationToken;
