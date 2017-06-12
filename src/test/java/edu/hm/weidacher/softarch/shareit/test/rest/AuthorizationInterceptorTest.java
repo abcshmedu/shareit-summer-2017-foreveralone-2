@@ -7,7 +7,7 @@ import org.junit.Test;
 /**
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
-public class AuthorizationInterceptor {
+public class AuthorizationInterceptorTest {
 
     @Test(expected = NullPointerException.class)
     public void failUnmanaged () {
