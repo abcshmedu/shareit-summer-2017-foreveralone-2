@@ -90,7 +90,7 @@ public class AuthenticationResource extends AbstractResource {
 	// ################### TODO
 	if (authenticationDto.getUsername().equals("admin")) {
             if (authenticationDto.getPasswordHash().equals("root!Lord123")) {
-                return Response.ok(AuthenticationUtil.createAdminToken()).build();
+                return Response.ok(getTokenMap(AuthenticationUtil.createAdminToken())).build();
 	    }
 	}
 	// ###################
@@ -112,9 +112,8 @@ public class AuthenticationResource extends AbstractResource {
 
 	// create JWT
 	String authenticationToken = AuthenticationUtil.createAuthenticationToken(account);
-	Map<String, String> accessTokenMap = Collections.singletonMap("accessToken", authenticationToken);
 
-	return Response.ok(getGson().toJson(accessTokenMap)).build();
+	return Response.ok(getTokenMap(authenticationToken)).build();
     }
 
     /**
@@ -177,5 +176,11 @@ public class AuthenticationResource extends AbstractResource {
 	} else {
 	    return error(Response.Status.FORBIDDEN);
 	}
+    }
+
+    private String getTokenMap(String token){
+	final Map<String, String> accessToken = Collections.singletonMap("accessToken", token);
+
+	return getGson().toJson(accessToken);
     }
 }
