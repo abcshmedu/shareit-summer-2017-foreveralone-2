@@ -167,7 +167,7 @@ public class AuthenticationResource extends AbstractResource {
 	    authorized = AuthenticationUtil.authorizePrivate(authorizationRequest.token, authorizationTarget);
 	}
 
-	// nothing to authorize agains given
+	// nothing to authorize against given
 	else {
             return error("No authorization target given.", Response.Status.BAD_REQUEST);
 	}
