@@ -58,7 +58,7 @@ public class AuthenticationUtil {
 
     /*
     	Initialize the secret key.
-    	Iniitialize the hardcoded admin account.
+    	Initialize the hardcoded admin account.
      */
     static {
         // secret key
