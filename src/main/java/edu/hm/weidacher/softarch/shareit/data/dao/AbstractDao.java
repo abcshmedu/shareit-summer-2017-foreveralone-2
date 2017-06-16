@@ -5,9 +5,13 @@ import java.util.Collections;
 import java.util.UUID;
 import java.util.function.Function;
 
-import edu.hm.weidacher.softarch.shareit.data.database.DatabaseFactory;
+
+import javax.inject.Inject;
+
+import edu.hm.weidacher.softarch.shareit.data.database.Database;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractModel;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
+import edu.hm.weidacher.softarch.shareit.util.di.DIUtil;
 
 /**
  * Abstract Dao class.
@@ -24,9 +28,15 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
     private final Class<T> modelClass;
 
     /**
+     * Database, containing all model-collections.
+     */
+    @Inject
+    private Database databaseContainer;
+
+    /**
      * Collection containing all persisted objects of the model.
      */
-    private final Collection<T> database;
+    private Collection<T> database;
 
     /**
      * Ctor.
@@ -35,7 +45,7 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
      */
     protected AbstractDao(Class<T> clazz) {
 	modelClass = clazz;
-	database = DatabaseFactory.getDatabase().getCollectionForType(modelClass);
+	DIUtil.getInjectorStatic().injectMembers(this);
     }
 
     /**
@@ -45,7 +55,7 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
      */
     @Override
     public Collection<T> getAll() {
-	return Collections.unmodifiableCollection(database);
+	return getDatabase();
     }
 
     /**
@@ -56,7 +66,7 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
      */
     @Override
     public T getById(UUID id) {
-	return database.stream()
+	return getDatabaseWritable().stream()
 	    .filter(book -> id.equals(book.getId()))
 	    .findFirst()
 	    .orElse(null);
@@ -108,7 +118,7 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
 
 	preStore(entity);
 
-	database.add(copiedEntity);
+	getDatabaseWritable().add(copiedEntity);
 	return copiedEntity.getId();
     }
 
@@ -134,7 +144,7 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
 	final T entity = getById(id);
 
 	if (entity != null) {
-	    database.remove(entity);
+	    getDatabaseWritable().remove(entity);
 	}
 
 	return entity;
@@ -146,6 +156,9 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
      * @return a collection with write operations
      */
     protected Collection<T> getDatabaseWritable() {
+        if (database == null) {
+            database = databaseContainer.getCollectionForType(modelClass); // init on first call
+	}
         return database;
     }
 
@@ -158,7 +171,7 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
      * @return unmodifiable collection
      */
     protected Collection<T> getDatabase() {
-        return Collections.unmodifiableCollection(database);
+        return Collections.unmodifiableCollection(getDatabaseWritable());
     }
 
     /**

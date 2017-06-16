@@ -10,9 +10,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
+import javax.inject.Inject;
 
 import edu.hm.weidacher.softarch.shareit.Configuration;
 import edu.hm.weidacher.softarch.shareit.data.Datastore;
+import edu.hm.weidacher.softarch.shareit.util.di.DIUtil;
 
 /**
  * Base class for resources.
@@ -35,6 +37,7 @@ public abstract class AbstractResource {
     /**
      * Datastore instance.
      */
+    @Inject
     private Datastore datastore;
 
     /**
@@ -42,8 +45,8 @@ public abstract class AbstractResource {
      */
     protected AbstractResource() {
         gson = new Gson();
-        datastore = Datastore.factory().getDatastore();
         path = finalClassResourcePath();
+	DIUtil.getInjectorStatic().injectMembers(this);
     }
 
 

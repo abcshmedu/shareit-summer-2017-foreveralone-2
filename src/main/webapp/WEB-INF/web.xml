@@ -8,7 +8,7 @@
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 
-    <servlet>
+   <!-- <servlet>
         <servlet-name>Jersey Web Application</servlet-name>
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
@@ -21,7 +21,7 @@
     <servlet-mapping>
         <servlet-name>Jersey Web Application</servlet-name>
         <url-pattern>/convert/*</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
 
     <servlet>
         <servlet-name>Media Resource</servlet-name>
@@ -30,6 +30,12 @@
             <param-name>jersey.config.server.provider.packages</param-name>
             <param-value>edu.hm.weidacher.softarch.shareit.rest</param-value>
         </init-param>
+
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>edu.hm.weidacher.softarch.shareit.util.di.DIGuiceHk2BridgeApplication</param-value>
+        </init-param>
+
         <load-on-startup>1</load-on-startup>
     </servlet>
 
@@ -37,4 +43,11 @@
         <servlet-name>Media Resource</servlet-name>
         <url-pattern>/shareit/*</url-pattern>
     </servlet-mapping>
+
+    <!-- Dependency Injection listener -->
+    <listener>
+        <listener-class>edu.hm.weidacher.softarch.shareit.util.di.DIUtil</listener-class>
+    </listener>
+
+
 </web-app>
