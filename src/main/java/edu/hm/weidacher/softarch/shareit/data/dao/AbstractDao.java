@@ -106,8 +106,19 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
 	    throw new PersistenceException("Model already present under the id!");
 	}
 
+	preStore(entity);
+
 	database.add(copiedEntity);
 	return copiedEntity.getId();
+    }
+
+    /**
+     * Methods that is called before the model is actually persisted.
+     *
+     * @param model the model that can be modified prior to persisting
+     */
+    protected void preStore(T model) {
+	// ignore
     }
 
     /**

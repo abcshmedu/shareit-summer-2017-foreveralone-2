@@ -1,6 +1,7 @@
 package edu.hm.weidacher.softarch.shareit.data.dao;
 
 import edu.hm.weidacher.softarch.shareit.data.model.Book;
+import edu.hm.weidacher.softarch.shareit.util.IsbnUtil;
 
 /**
  * A Dao for the book model.
@@ -35,5 +36,17 @@ public class BookDao extends AbstractUpdatableDao<Book> {
 	    .filter(book -> isbn.equals(book.getIsbn()))
 	    .findFirst()
 	    .orElse(null);
+    }
+
+    /**
+     * Methods that is called before the model is actually persisted.
+     *
+     * @param model the model that can be modified prior to persisting
+     */
+    @Override
+    protected void preStore(Book model) {
+	super.preStore(model);
+
+	model.setIsbn(IsbnUtil.normalize(model.getIsbn()));
     }
 }

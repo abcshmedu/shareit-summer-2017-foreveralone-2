@@ -18,4 +18,18 @@ public abstract class IsbnUtil {
         return StringUtil.isNotBlank(isbn);
     }
 
+    /**
+     * Normalizes a given isbn string.
+     *
+     * @param isbn string representing an isbn
+     * @return normalized isbn (without hyphens)
+     */
+    public static String normalize(String isbn) {
+        if (isbn == null) {
+            throw new NullPointerException("ISBN may not be null...");
+	}
+
+	return isbn.replaceAll("[-_]", "");
+    }
+
 }

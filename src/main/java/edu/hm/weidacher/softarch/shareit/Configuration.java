@@ -20,7 +20,7 @@ public abstract class Configuration {
     public static final String AUTHORIZE_PATH = "/authorize";
     public static final String AUTHENTICATE_PATH = "/authenticate";
 
-    public static final String SSO_PATH = LOCALHOST + SSO;
+    public static final String SSO_PATH = HOST + SSO;
     public static final String SSO_AUTHORIZE_PATH = SSO_PATH + AUTHORIZE_PATH;
 
 

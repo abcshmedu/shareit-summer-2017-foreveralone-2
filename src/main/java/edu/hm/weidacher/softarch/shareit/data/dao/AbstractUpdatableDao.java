@@ -48,6 +48,18 @@ public abstract class AbstractUpdatableDao<T extends AbstractUpdatableModel> ext
 
 	// book is present -> merge it!
 	persisted.mergeWith(model);
+
+	preStore(model);
+    }
+
+    /**
+     * Methods that is called before the model is actually persisted.
+     *
+     * @param model the model that can be modified prior to persisting
+     */
+    @Override
+    protected void preStore(T model) {
+        model.update(); // updates lud
     }
 
     /**
