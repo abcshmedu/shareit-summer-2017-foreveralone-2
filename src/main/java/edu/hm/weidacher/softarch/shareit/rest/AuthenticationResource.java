@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 import com.google.gson.JsonSyntaxException;
 
 import edu.hm.weidacher.softarch.shareit.Configuration;
-import edu.hm.weidacher.softarch.shareit.data.dao.SimpleAccountDao;
+import edu.hm.weidacher.softarch.shareit.data.dao.simple.SimpleAccountDao;
 import edu.hm.weidacher.softarch.shareit.data.dto.AuthenticationRequestDto;
 import edu.hm.weidacher.softarch.shareit.data.dto.AuthorizationRequestDto;
 import edu.hm.weidacher.softarch.shareit.data.model.Account;

@@ -1,11 +1,11 @@
 package edu.hm.weidacher.softarch.shareit.data;
 
 
-import edu.hm.weidacher.softarch.shareit.data.dao.SimpleAccountDao;
-import edu.hm.weidacher.softarch.shareit.data.dao.SimpleBookDao;
-import edu.hm.weidacher.softarch.shareit.data.dao.SimpleCopyDao;
+import edu.hm.weidacher.softarch.shareit.data.dao.simple.SimpleAccountDao;
+import edu.hm.weidacher.softarch.shareit.data.dao.simple.SimpleBookDao;
+import edu.hm.weidacher.softarch.shareit.data.dao.simple.SimpleCopyDao;
 import edu.hm.weidacher.softarch.shareit.data.dao.Dao;
-import edu.hm.weidacher.softarch.shareit.data.dao.SimpleDiscDao;
+import edu.hm.weidacher.softarch.shareit.data.dao.simple.SimpleDiscDao;
 import edu.hm.weidacher.softarch.shareit.data.dao.UpdatableDao;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractModel;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractUpdatableModel;

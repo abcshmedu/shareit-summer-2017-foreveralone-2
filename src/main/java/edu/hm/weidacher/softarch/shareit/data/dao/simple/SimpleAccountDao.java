@@ -1,5 +1,7 @@
-package edu.hm.weidacher.softarch.shareit.data.dao;
+package edu.hm.weidacher.softarch.shareit.data.dao.simple;
 
+import edu.hm.weidacher.softarch.shareit.data.dao.AbstractDao;
+import edu.hm.weidacher.softarch.shareit.data.dao.AccountDao;
 import edu.hm.weidacher.softarch.shareit.data.model.Account;
 
 /**
