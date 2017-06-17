@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import edu.hm.weidacher.softarch.shareit.data.dao.Dao;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractModel;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
+import edu.hm.weidacher.softarch.shareit.util.di.DIUtil;
 
 /**
  * An abstract Dao that accesses Data through Hibernate.
@@ -37,6 +38,7 @@ public abstract class AbstractHibernateDao<T extends AbstractModel> implements D
      */
     public AbstractHibernateDao (Class<T> modelClass) {
 	this.modelClass = modelClass;
+	DIUtil.getInjectorStatic().injectMembers(this);
     }
 
     /**

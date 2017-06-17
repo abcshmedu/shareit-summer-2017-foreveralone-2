@@ -1,5 +1,6 @@
 package edu.hm.weidacher.softarch.shareit.rest;
 
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -12,7 +13,7 @@ import javax.ws.rs.core.Response;
 
 import com.google.gson.JsonSyntaxException;
 
-import edu.hm.weidacher.softarch.shareit.data.dao.simple.SimpleDiscDao;
+import edu.hm.weidacher.softarch.shareit.data.dao.DiscDao;
 import edu.hm.weidacher.softarch.shareit.data.model.Disc;
 import edu.hm.weidacher.softarch.shareit.data.model.Role;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
@@ -29,20 +30,8 @@ public class DiscResource extends AbstractResource {
     /**
      * SimpleDiscDao for data access.
      */
-    private SimpleDiscDao discDao;
-
-    /**
-     * Ctor.
-     */
-    public DiscResource() {
-        super();
-	try {
-	    this.discDao = ((SimpleDiscDao) getDatastore().getUpdatableDao(Disc.class));
-	} catch (PersistenceException e) {
-	    // can't happen
-	    e.printStackTrace();
-	}
-    }
+    @Inject
+    private DiscDao discDao;
 
     /**
      * Returns all stored discs.

@@ -2,6 +2,7 @@ package edu.hm.weidacher.softarch.shareit.rest;
 
 import java.util.Collection;
 
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -14,6 +15,7 @@ import javax.ws.rs.core.Response;
 
 import com.google.gson.JsonSyntaxException;
 
+import edu.hm.weidacher.softarch.shareit.data.dao.BookDao;
 import edu.hm.weidacher.softarch.shareit.data.dao.simple.SimpleBookDao;
 import edu.hm.weidacher.softarch.shareit.data.model.Book;
 import edu.hm.weidacher.softarch.shareit.data.model.Role;
@@ -39,20 +41,8 @@ public class BookResource extends AbstractResource {
     /**
      * Connection point to the database.
      */
-    private SimpleBookDao bookDao;
-
-    /**
-     * Ctor.
-     */
-    public BookResource() {
-        super();
-	try {
-	    bookDao = (SimpleBookDao) getDatastore().getDao(Book.class);
-	} catch (PersistenceException e) {
-	    // can't happen
-	    e.printStackTrace();
-	}
-    }
+    @Inject
+    private BookDao bookDao;
 
     /**
      * Retrieve all books.

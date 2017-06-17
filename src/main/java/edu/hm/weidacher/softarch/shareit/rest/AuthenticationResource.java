@@ -3,6 +3,7 @@ package edu.hm.weidacher.softarch.shareit.rest;
 import java.util.Collections;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -13,11 +14,10 @@ import javax.ws.rs.core.Response;
 import com.google.gson.JsonSyntaxException;
 
 import edu.hm.weidacher.softarch.shareit.Configuration;
-import edu.hm.weidacher.softarch.shareit.data.dao.simple.SimpleAccountDao;
+import edu.hm.weidacher.softarch.shareit.data.dao.AccountDao;
 import edu.hm.weidacher.softarch.shareit.data.dto.AuthenticationRequestDto;
 import edu.hm.weidacher.softarch.shareit.data.dto.AuthorizationRequestDto;
 import edu.hm.weidacher.softarch.shareit.data.model.Account;
-import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 import edu.hm.weidacher.softarch.shareit.util.AuthenticationUtil;
 
 /**
@@ -29,19 +29,8 @@ public class AuthenticationResource extends AbstractResource {
     /**
      * Dao for accounts.
      */
-    private SimpleAccountDao accountDao;
-
-    /**
-     * Ctor.
-     */
-    public AuthenticationResource () {
-	try {
-	    accountDao = (SimpleAccountDao) getDatastore().getDao(Account.class);
-	} catch (PersistenceException e) {
-	    // can't happen
-	    e.printStackTrace();
-	}
-    }
+    @Inject
+    private AccountDao accountDao;
 
     /**
      * Authenticate a user.
