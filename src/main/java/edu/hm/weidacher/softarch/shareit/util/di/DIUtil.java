@@ -1,5 +1,9 @@
 package edu.hm.weidacher.softarch.shareit.util.di;
 
+import javax.persistence.EntityManager;
+
+import org.hibernate.Session;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.name.Names;
@@ -12,6 +16,7 @@ import edu.hm.weidacher.softarch.shareit.data.dao.BookDao;
 import edu.hm.weidacher.softarch.shareit.data.dao.Dao;
 import edu.hm.weidacher.softarch.shareit.data.database.Database;
 import edu.hm.weidacher.softarch.shareit.data.database.SimpleDatabase;
+import edu.hm.weidacher.softarch.shareit.util.HibernateUtil;
 
 /**
  * Initializes the injector and makes it available for the project.
@@ -39,7 +44,7 @@ public class DIUtil extends GuiceServletContextListener {
 	    protected void configureServlets() {
 		bind(Database.class).to(SimpleDatabase.class);
                 bind(Datastore.class).to(SimpleDatastore.class);
-                bind(Dao.class).annotatedWith(Names.named("BookDao")).to(BookDao.class);
+		bind(Session.class).toProvider(HibernateUtil.getSessionProvider());
 	    }
 
 	});
