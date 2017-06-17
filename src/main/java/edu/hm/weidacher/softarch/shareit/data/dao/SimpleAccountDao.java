@@ -5,7 +5,14 @@ import edu.hm.weidacher.softarch.shareit.data.model.Account;
 /**
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
-public interface AccountDao extends Dao<Account> {
+public class SimpleAccountDao extends AbstractDao<Account> implements AccountDao {
+
+    /**
+     * Ctor.
+     */
+    public SimpleAccountDao() {
+	super(Account.class);
+    }
 
     /**
      * Find an account by username.
@@ -13,5 +20,8 @@ public interface AccountDao extends Dao<Account> {
      * @param username username query
      * @return account if present or null
      */
-    Account getByUsername(String username);
+    @Override
+    public Account getByUsername (String username) {
+	return getByExtractor(Account::getUsername, username);
+    }
 }

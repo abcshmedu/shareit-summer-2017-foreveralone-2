@@ -1,19 +1,14 @@
 package edu.hm.weidacher.softarch.shareit.util.di;
 
-import javax.persistence.EntityManager;
-
 import org.hibernate.Session;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.name.Names;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
 
 import edu.hm.weidacher.softarch.shareit.data.Datastore;
 import edu.hm.weidacher.softarch.shareit.data.SimpleDatastore;
-import edu.hm.weidacher.softarch.shareit.data.dao.BookDao;
-import edu.hm.weidacher.softarch.shareit.data.dao.Dao;
 import edu.hm.weidacher.softarch.shareit.data.database.Database;
 import edu.hm.weidacher.softarch.shareit.data.database.SimpleDatabase;
 import edu.hm.weidacher.softarch.shareit.util.HibernateUtil;

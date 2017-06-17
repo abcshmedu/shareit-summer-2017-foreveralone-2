@@ -3,29 +3,15 @@ package edu.hm.weidacher.softarch.shareit.data.dao;
 import edu.hm.weidacher.softarch.shareit.data.model.Disc;
 
 /**
- * A Dao for the Disc model.
- *
- * @author Simon Weidacher <weidache@hm.edu>
+ * Defines all utility methods for discs.
+ * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
-public class DiscDao extends AbstractUpdatableDao<Disc> {
-
-    /**
-     * Ctor.
-     */
-    public DiscDao() {
-	super(Disc.class);
-    }
+public interface DiscDao extends UpdatableDao<Disc> {
 
     /**
      * Returns a Disc identified by a barcode.
      * @param barcode identifier
      * @return disc, or null if none could be identified
      */
-    public Disc getByBarcode(String barcode) {
-        if (barcode == null) {
-            throw new NullPointerException("Barcode may not be null.");
-	}
-
-        return getByExtractor((Disc::getBarcode), barcode);
-    }
+    Disc getByBarcode(String barcode);
 }

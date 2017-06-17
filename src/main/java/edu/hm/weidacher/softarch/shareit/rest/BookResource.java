@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -15,7 +14,7 @@ import javax.ws.rs.core.Response;
 
 import com.google.gson.JsonSyntaxException;
 
-import edu.hm.weidacher.softarch.shareit.data.dao.BookDao;
+import edu.hm.weidacher.softarch.shareit.data.dao.SimpleBookDao;
 import edu.hm.weidacher.softarch.shareit.data.model.Book;
 import edu.hm.weidacher.softarch.shareit.data.model.Role;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
@@ -40,7 +39,7 @@ public class BookResource extends AbstractResource {
     /**
      * Connection point to the database.
      */
-    private BookDao bookDao;
+    private SimpleBookDao bookDao;
 
     /**
      * Ctor.
@@ -48,7 +47,7 @@ public class BookResource extends AbstractResource {
     public BookResource() {
         super();
 	try {
-	    bookDao = (BookDao) getDatastore().getDao(Book.class);
+	    bookDao = (SimpleBookDao) getDatastore().getDao(Book.class);
 	} catch (PersistenceException e) {
 	    // can't happen
 	    e.printStackTrace();

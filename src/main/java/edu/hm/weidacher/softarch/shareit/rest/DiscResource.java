@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
 
 import com.google.gson.JsonSyntaxException;
 
-import edu.hm.weidacher.softarch.shareit.data.dao.DiscDao;
+import edu.hm.weidacher.softarch.shareit.data.dao.SimpleDiscDao;
 import edu.hm.weidacher.softarch.shareit.data.model.Disc;
 import edu.hm.weidacher.softarch.shareit.data.model.Role;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
@@ -27,9 +27,9 @@ import edu.hm.weidacher.softarch.shareit.util.BarcodeUtil;
 public class DiscResource extends AbstractResource {
 
     /**
-     * DiscDao for data access.
+     * SimpleDiscDao for data access.
      */
-    private DiscDao discDao;
+    private SimpleDiscDao discDao;
 
     /**
      * Ctor.
@@ -37,7 +37,7 @@ public class DiscResource extends AbstractResource {
     public DiscResource() {
         super();
 	try {
-	    this.discDao = ((DiscDao) getDatastore().getUpdatableDao(Disc.class));
+	    this.discDao = ((SimpleDiscDao) getDatastore().getUpdatableDao(Disc.class));
 	} catch (PersistenceException e) {
 	    // can't happen
 	    e.printStackTrace();

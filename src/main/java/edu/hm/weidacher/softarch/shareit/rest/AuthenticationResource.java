@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 import com.google.gson.JsonSyntaxException;
 
 import edu.hm.weidacher.softarch.shareit.Configuration;
-import edu.hm.weidacher.softarch.shareit.data.dao.AccountDao;
+import edu.hm.weidacher.softarch.shareit.data.dao.SimpleAccountDao;
 import edu.hm.weidacher.softarch.shareit.data.dto.AuthenticationRequestDto;
 import edu.hm.weidacher.softarch.shareit.data.dto.AuthorizationRequestDto;
 import edu.hm.weidacher.softarch.shareit.data.model.Account;
@@ -29,14 +29,14 @@ public class AuthenticationResource extends AbstractResource {
     /**
      * Dao for accounts.
      */
-    private AccountDao accountDao;
+    private SimpleAccountDao accountDao;
 
     /**
      * Ctor.
      */
     public AuthenticationResource () {
 	try {
-	    accountDao = (AccountDao) getDatastore().getDao(Account.class);
+	    accountDao = (SimpleAccountDao) getDatastore().getDao(Account.class);
 	} catch (PersistenceException e) {
 	    // can't happen
 	    e.printStackTrace();

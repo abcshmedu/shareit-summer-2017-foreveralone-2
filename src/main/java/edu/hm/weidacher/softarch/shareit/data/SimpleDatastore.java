@@ -1,11 +1,11 @@
 package edu.hm.weidacher.softarch.shareit.data;
 
 
-import edu.hm.weidacher.softarch.shareit.data.dao.AccountDao;
-import edu.hm.weidacher.softarch.shareit.data.dao.BookDao;
-import edu.hm.weidacher.softarch.shareit.data.dao.CopyDao;
+import edu.hm.weidacher.softarch.shareit.data.dao.SimpleAccountDao;
+import edu.hm.weidacher.softarch.shareit.data.dao.SimpleBookDao;
+import edu.hm.weidacher.softarch.shareit.data.dao.SimpleCopyDao;
 import edu.hm.weidacher.softarch.shareit.data.dao.Dao;
-import edu.hm.weidacher.softarch.shareit.data.dao.DiscDao;
+import edu.hm.weidacher.softarch.shareit.data.dao.SimpleDiscDao;
 import edu.hm.weidacher.softarch.shareit.data.dao.UpdatableDao;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractModel;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractUpdatableModel;
@@ -25,7 +25,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 public class SimpleDatastore implements Datastore {
 
     /**
-     * Returns the corrensponding Dao for a classfile.
+     * Returns the corresponding Dao for a classfile.
      *
      * @param forClass the model class file
      * @return a Dao for the classfile
@@ -35,16 +35,16 @@ public class SimpleDatastore implements Datastore {
     @SuppressWarnings("unchecked")
     public <T extends AbstractModel> Dao<T> getDao(Class<T> forClass) throws PersistenceException {
 	if (forClass == Book.class) {
-	    return (Dao<T>) new BookDao();
+	    return (Dao<T>) new SimpleBookDao();
 	}
 	if (forClass == Disc.class) {
-	    return ((Dao<T>) new DiscDao());
+	    return ((Dao<T>) new SimpleDiscDao());
 	}
 	if (forClass == Copy.class) {
-	    return ((Dao<T>) new CopyDao());
+	    return ((Dao<T>) new SimpleCopyDao());
 	}
 	if (forClass == Account.class) {
-	    return ((Dao<T>) new AccountDao());
+	    return ((Dao<T>) new SimpleAccountDao());
 	}
 
 	throw new PersistenceException("No registered Dao for model class: " + forClass.getSimpleName());
@@ -61,16 +61,16 @@ public class SimpleDatastore implements Datastore {
     @SuppressWarnings("unchecked")
     public <T extends AbstractUpdatableModel> UpdatableDao<T> getUpdatableDao(Class<T> forClass) throws PersistenceException {
     	if (forClass == Book.class) {
-    	    return (UpdatableDao<T>) new BookDao();
+    	    return (UpdatableDao<T>) new SimpleBookDao();
 	}
 	if (forClass == Disc.class) {
-    	    return ((UpdatableDao<T>) new DiscDao());
+    	    return ((UpdatableDao<T>) new SimpleDiscDao());
 	}
 	if (forClass == Copy.class) {
-    	    return ((UpdatableDao<T>) new CopyDao());
+    	    return ((UpdatableDao<T>) new SimpleCopyDao());
 	}
 	if (forClass == Account.class) {
-	    return ((UpdatableDao<T>) new AccountDao());
+	    return ((UpdatableDao<T>) new SimpleAccountDao());
 	}
 
 	throw new PersistenceException("No registered Dao for model class: " + forClass.getSimpleName());
