@@ -158,7 +158,7 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
      *
      * @return a collection with write operations
      */
-    protected Collection<T> getDatabaseWritable() {
+    private Collection<T> getDatabaseWritable() {
         if (database == null) {
             database = databaseContainer.getCollectionForType(modelClass); // init on first call
 	}
