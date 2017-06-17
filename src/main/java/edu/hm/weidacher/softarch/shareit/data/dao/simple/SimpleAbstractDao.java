@@ -155,6 +155,16 @@ public abstract class SimpleAbstractDao<T extends AbstractModel> implements Dao<
     }
 
     /**
+     * Returns the class, this Dao handles.
+     *
+     * @return model class
+     */
+    @Override
+    public Class<T> getModelClass() {
+	return modelClass;
+    }
+
+    /**
      * Returns the database storing all handled entities.
      *
      * @return a collection with write operations

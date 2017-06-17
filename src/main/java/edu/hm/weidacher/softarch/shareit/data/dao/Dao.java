@@ -62,4 +62,9 @@ public interface Dao< T extends AbstractModel > {
      */
     Collection<T> getAll();
 
+    /**
+     * Returns the class, this Dao handles.
+     * @return model class
+     */
+    Class<T> getModelClass();
 }
