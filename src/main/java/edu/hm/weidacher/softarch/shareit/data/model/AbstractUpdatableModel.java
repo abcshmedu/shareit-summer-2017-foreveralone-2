@@ -2,12 +2,15 @@ package edu.hm.weidacher.softarch.shareit.data.model;
 
 import java.util.Date;
 
+import javax.persistence.MappedSuperclass;
+
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 
 /**
  * Base class  for all Models in the ShareIt application that can be updated.
  * @author Simon Weidacher <weidache@hm.edu>
  */
+@MappedSuperclass
 public abstract class AbstractUpdatableModel extends AbstractModel {
 
     /**

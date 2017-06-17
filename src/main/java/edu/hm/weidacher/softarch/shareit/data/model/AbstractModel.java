@@ -4,18 +4,25 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 
 /**
  * Base class for all Models in the ShareIt application.
  * @author Simon Weidacher <weidache@hm.edu>
  */
+@MappedSuperclass
 public abstract class AbstractModel implements Serializable {
 
     /**
      * The id of this entity.
      */
-    private final UUID id;
+    @Id
+    @GeneratedValue
+    private UUID id;
 
     /**
      * The date of creation of this entity.
@@ -26,7 +33,6 @@ public abstract class AbstractModel implements Serializable {
      * Ctor.
      */
     public AbstractModel() {
-        id = UUID.randomUUID();
         creationDate = new Date();
     }
 

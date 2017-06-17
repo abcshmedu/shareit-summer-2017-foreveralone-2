@@ -1,11 +1,14 @@
 package edu.hm.weidacher.softarch.shareit.data.model;
 
+import javax.persistence.MappedSuperclass;
+
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 
 /**
  * Model for media in the ShareIt application.
  * @author Simon Weidacher <weidache@hm.edu>
  */
+@MappedSuperclass
 public abstract class Medium extends AbstractUpdatableModel {
 
     /**

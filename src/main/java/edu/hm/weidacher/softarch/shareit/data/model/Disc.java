@@ -1,5 +1,7 @@
 package edu.hm.weidacher.softarch.shareit.data.model;
 
+import javax.persistence.Entity;
+
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 import edu.hm.weidacher.softarch.shareit.util.BarcodeUtil;
 
@@ -7,6 +9,7 @@ import edu.hm.weidacher.softarch.shareit.util.BarcodeUtil;
  * Model of a Disc in the ShareIt application.
  * @author Simon Weidacher <weidache@hm.edu>
  */
+@Entity
 public class Disc extends Medium {
 
     /**

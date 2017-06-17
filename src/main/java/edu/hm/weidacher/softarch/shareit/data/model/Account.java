@@ -2,6 +2,10 @@ package edu.hm.weidacher.softarch.shareit.data.model;
 
 import java.util.UUID;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 
 /**
@@ -13,6 +17,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
  *
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
+@Entity
 public class Account extends AbstractUpdatableModel {
 
     /**
@@ -28,6 +33,7 @@ public class Account extends AbstractUpdatableModel {
     /**
      * Users role.
      */
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     /**
