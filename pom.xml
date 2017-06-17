@@ -180,6 +180,49 @@
                     </requestLog>
                 </configuration>
             </plugin>
+
+           <!-- &lt;!&ndash; HSQL DATABASE &ndash;&gt;
+
+            <plugin>
+
+                &lt;!&ndash; current version &ndash;&gt;
+                <groupId>fr.avianey.mojo</groupId>
+                <artifactId>hsqldb-maven-plugin</artifactId>
+                <version>1.0.0</version>
+
+                &lt;!&ndash;
+                    default value for in memory jdbc:hsqldb:hsql://localhost/xdb
+                    override only values you want to change
+                &ndash;&gt;
+                <configuration>
+                    <driver>org.hsqldb.jdbcDriver</driver>
+                    <path>mem:test</path>
+                    <address>localhost</address>
+                    <name>shareit-database</name>
+                    <username>sa</username>
+                    <password></password>
+                    <validationQuery>SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS</validationQuery>
+                </configuration>
+
+                &lt;!&ndash; call start and stop &ndash;&gt;
+                <executions>
+                    <execution>
+                        <id>start-hsqldb</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop-hsqldb</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+            </plugin>-->
         </plugins>
 
     </build>

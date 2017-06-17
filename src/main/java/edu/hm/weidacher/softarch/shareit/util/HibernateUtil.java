@@ -22,6 +22,11 @@ public class HibernateUtil implements ServletContextListener {
     private static final Logger LOG = Logger.getAnonymousLogger();
 
     /**
+     * Name of the persistence unit of the application.
+     */
+    public static final String PERSISTENCE_UNIT_NAME = "share-it-unit";
+
+    /**
      * Hibernate SessionFactory.
      * Users can claim an EntitiyManager (Session) from it.
      */
@@ -31,7 +36,7 @@ public class HibernateUtil implements ServletContextListener {
      * Returns the SessionFactory.
      * @return sessionFactory
      */
-    public static SessionFactory getSessionFactory () {
+    public static SessionFactory getSessionFactory() {
         return SESSION_FACTORY;
     }
 
@@ -64,4 +69,28 @@ public class HibernateUtil implements ServletContextListener {
 	shutdown();
 	LOG.info("Hibernate Context destroyed");
     }
+
+/*    ***
+     * Initialize the EntityManagerFactory.
+     *
+     * @see <a href="https://stackoverflow.com/questions/30124826/creating-entitymanagerfactory-from-hibernate-configuration#30125601">source</a>
+     *
+     * @param configuration configuration -> must be configured
+     * @return emf
+     *//*
+    private static EntityManagerFactory createEntityManagerFactory(Configuration configuration) {
+	Properties p = configuration.getProperties();
+
+	// convert to Map
+	Map<String, String> pMap = new HashMap<>();
+	Enumeration<?> e = p.propertyNames();
+	while (e.hasMoreElements()) {
+	    String s = (String) e.nextElement();
+	    pMap.put(s, p.getProperty(s));
+	}
+
+	// create EntityManagerFactory
+
+	return Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME, pMap);
+    }*/
 }
