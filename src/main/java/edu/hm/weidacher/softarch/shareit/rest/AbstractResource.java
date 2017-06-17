@@ -46,6 +46,9 @@ public abstract class AbstractResource {
     protected AbstractResource() {
         gson = new Gson();
         path = finalClassResourcePath();
+
+        // activate DI manually
+	// TODO replace manual activation with container-managed activation (Jersey Guice to HK2 brigde)
 	DIUtil.getInjectorStatic().injectMembers(this);
     }
 

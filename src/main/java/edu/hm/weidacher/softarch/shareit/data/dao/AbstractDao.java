@@ -45,6 +45,9 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
      */
     protected AbstractDao(Class<T> clazz) {
 	modelClass = clazz;
+
+	// activate DI manually
+	// TODO replace manual activation with container-managed activation (Jersey Guice to HK2 brigde)
 	DIUtil.getInjectorStatic().injectMembers(this);
     }
 
