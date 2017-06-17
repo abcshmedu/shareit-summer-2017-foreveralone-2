@@ -1,6 +1,5 @@
 package edu.hm.weidacher.softarch.shareit.data.dao.simple;
 
-import edu.hm.weidacher.softarch.shareit.data.dao.AbstractUpdatableDao;
 import edu.hm.weidacher.softarch.shareit.data.dao.BookDao;
 import edu.hm.weidacher.softarch.shareit.data.model.Book;
 import edu.hm.weidacher.softarch.shareit.util.IsbnUtil;
@@ -10,7 +9,7 @@ import edu.hm.weidacher.softarch.shareit.util.IsbnUtil;
  *
  * @author Simon Weidacher <weidache@hm.edu>
  */
-public class SimpleBookDao extends AbstractUpdatableDao<Book> implements BookDao {
+public class SimpleBookDao extends SimpleAbstractUpdatableDao<Book> implements BookDao {
 
     /**
      * Ctor for a new SimpleBookDao.

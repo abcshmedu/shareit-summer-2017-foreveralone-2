@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.hm.weidacher.softarch.shareit.data.Datastore;
-import edu.hm.weidacher.softarch.shareit.data.dao.AbstractUpdatableDao;
+import edu.hm.weidacher.softarch.shareit.data.dao.simple.SimpleAbstractUpdatableDao;
 import edu.hm.weidacher.softarch.shareit.data.dao.Dao;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractModel;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractUpdatableModel;
@@ -54,12 +54,12 @@ public class DaosAcquisitionTest {
 	assertThat(dao, new TypeSafeMatcher<Dao<Book>>() {
 	    @Override
 	    protected boolean matchesSafely(Dao<Book> bookDao) {
-		return bookDao instanceof AbstractUpdatableDao;
+		return bookDao instanceof SimpleAbstractUpdatableDao;
 	    }
 
 	    @Override
 	    public void describeTo(Description description) {
-	        description.appendText("AbstractUpdatableDao");
+	        description.appendText("SimpleAbstractUpdatableDao");
 	    }
 	});
     }
@@ -84,12 +84,12 @@ public class DaosAcquisitionTest {
 	assertThat(dao, new TypeSafeMatcher<Dao<Book>>() {
 	    @Override
 	    protected boolean matchesSafely(Dao<Book> bookDao) {
-		return bookDao instanceof AbstractUpdatableDao;
+		return bookDao instanceof SimpleAbstractUpdatableDao;
 	    }
 
 	    @Override
 	    public void describeTo(Description description) {
-		description.appendText("AbstractUpdatableDao");
+		description.appendText("SimpleAbstractUpdatableDao");
 	    }
 	});
     }

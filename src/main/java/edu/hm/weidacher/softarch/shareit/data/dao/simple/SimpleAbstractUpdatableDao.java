@@ -1,7 +1,8 @@
-package edu.hm.weidacher.softarch.shareit.data.dao;
+package edu.hm.weidacher.softarch.shareit.data.dao.simple;
 
 import java.util.UUID;
 
+import edu.hm.weidacher.softarch.shareit.data.dao.UpdatableDao;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractUpdatableModel;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 
@@ -11,13 +12,13 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
  * @param <T> declares the model, the dao handles
  * @author Simon Weidacher <weidache@hm.edu>
  */
-public abstract class AbstractUpdatableDao<T extends AbstractUpdatableModel> extends AbstractDao<T> implements UpdatableDao<T> {
+public abstract class SimpleAbstractUpdatableDao<T extends AbstractUpdatableModel> extends SimpleAbstractDao<T> implements UpdatableDao<T> {
 
     /**
      * Ctor.
      * @param clazz declares the model, the dao handles
      */
-    protected AbstractUpdatableDao(Class<T> clazz) {
+    protected SimpleAbstractUpdatableDao(Class<T> clazz) {
         super(clazz);
     }
 

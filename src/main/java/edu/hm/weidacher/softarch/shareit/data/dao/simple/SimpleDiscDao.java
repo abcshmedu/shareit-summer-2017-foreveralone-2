@@ -1,6 +1,5 @@
 package edu.hm.weidacher.softarch.shareit.data.dao.simple;
 
-import edu.hm.weidacher.softarch.shareit.data.dao.AbstractUpdatableDao;
 import edu.hm.weidacher.softarch.shareit.data.dao.DiscDao;
 import edu.hm.weidacher.softarch.shareit.data.model.Disc;
 
@@ -9,7 +8,7 @@ import edu.hm.weidacher.softarch.shareit.data.model.Disc;
  *
  * @author Simon Weidacher <weidache@hm.edu>
  */
-public class SimpleDiscDao extends AbstractUpdatableDao<Disc> implements DiscDao {
+public class SimpleDiscDao extends SimpleAbstractUpdatableDao<Disc> implements DiscDao {
 
     /**
      * Ctor.

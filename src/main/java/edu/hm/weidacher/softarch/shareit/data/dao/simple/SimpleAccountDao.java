@@ -1,13 +1,12 @@
 package edu.hm.weidacher.softarch.shareit.data.dao.simple;
 
-import edu.hm.weidacher.softarch.shareit.data.dao.AbstractDao;
 import edu.hm.weidacher.softarch.shareit.data.dao.AccountDao;
 import edu.hm.weidacher.softarch.shareit.data.model.Account;
 
 /**
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
-public class SimpleAccountDao extends AbstractDao<Account> implements AccountDao {
+public class SimpleAccountDao extends SimpleAbstractDao<Account> implements AccountDao {
 
     /**
      * Ctor.

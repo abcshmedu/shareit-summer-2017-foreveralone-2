@@ -1,6 +1,5 @@
 package edu.hm.weidacher.softarch.shareit.data.dao.simple;
 
-import edu.hm.weidacher.softarch.shareit.data.dao.AbstractUpdatableDao;
 import edu.hm.weidacher.softarch.shareit.data.dao.CopyDao;
 import edu.hm.weidacher.softarch.shareit.data.model.Copy;
 
@@ -9,7 +8,7 @@ import edu.hm.weidacher.softarch.shareit.data.model.Copy;
  *
  * @author Simon Weidacher <weidache@hm.edu>
  */
-public class SimpleCopyDao extends AbstractUpdatableDao<Copy> implements CopyDao {
+public class SimpleCopyDao extends SimpleAbstractUpdatableDao<Copy> implements CopyDao {
 
     /**
      * Ctor.

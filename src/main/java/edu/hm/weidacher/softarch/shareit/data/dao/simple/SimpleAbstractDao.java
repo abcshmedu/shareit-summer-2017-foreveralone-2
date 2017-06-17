@@ -1,4 +1,4 @@
-package edu.hm.weidacher.softarch.shareit.data.dao;
+package edu.hm.weidacher.softarch.shareit.data.dao.simple;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -8,6 +8,7 @@ import java.util.function.Function;
 
 import javax.inject.Inject;
 
+import edu.hm.weidacher.softarch.shareit.data.dao.Dao;
 import edu.hm.weidacher.softarch.shareit.data.database.Database;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractModel;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
@@ -20,10 +21,10 @@ import edu.hm.weidacher.softarch.shareit.util.di.DIUtil;
  * @param <T> declares the model, the dao handles
  * @author Simon Weidacher <weidache@hm.edu>
  */
-public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
+public abstract class SimpleAbstractDao<T extends AbstractModel> implements Dao<T> {
 
     /**
-     * The .class object representing the model-type this AbstractDao handles.
+     * The .class object representing the model-type this SimpleAbstractDao handles.
      */
     private final Class<T> modelClass;
 
@@ -43,7 +44,7 @@ public abstract class AbstractDao<T extends AbstractModel> implements Dao<T> {
      *
      * @param clazz .class object representing the modeltype
      */
-    protected AbstractDao(Class<T> clazz) {
+    protected SimpleAbstractDao(Class<T> clazz) {
 	modelClass = clazz;
 
 	// activate DI manually
