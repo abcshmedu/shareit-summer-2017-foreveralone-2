@@ -35,16 +35,25 @@ public abstract class AbstractHibernateUpdatableDao<T extends AbstractUpdatableM
 	    throw new NullPointerException("Entity's ID may not be null.");
 	}
 
-	final T persistedEntity = getSession().get(getModelClass(), model.getId());
+	getSession().beginTransaction();
 
-	if (persistedEntity == null) {
-	    throw new PersistenceException(String.format(
-	        "No entity was present under the ID %s during update.", model.getId().toString()));
+	try {
+
+	    final T persistedEntity = getSession().get(getModelClass(), model.getId());
+
+	    if (persistedEntity == null) {
+		throw new PersistenceException(String.format(
+		    "No entity was present under the ID %s during update.", model.getId().toString()));
+	    }
+
+	    persistedEntity.mergeWith(model); // merge them
+
+	    getSession().update(persistedEntity);
+
+	} finally {
+	    getSession().close();
 	}
 
-	persistedEntity.mergeWith(model); // merge them
-
-	getSession().update(persistedEntity);
     }
 
     /**
@@ -60,15 +69,21 @@ public abstract class AbstractHibernateUpdatableDao<T extends AbstractUpdatableM
 	    throw new NullPointerException("ID may not be null.");
 	}
 
-	final T persistedEntity = getSession().get(getModelClass(), model.getId());
+	try {
 
-	if (persistedEntity == null) {
-	    throw new PersistenceException(String.format(
-		"No entity was present under the ID %s during update.", model.getId().toString()));
+	    final T persistedEntity = getSession().get(getModelClass(), model.getId());
+
+	    if (persistedEntity == null) {
+		throw new PersistenceException(String.format(
+		    "No entity was present under the ID %s during update.", model.getId().toString()));
+	    }
+
+	    persistedEntity.mergeWith(model); // merge them
+
+	    getSession().update(persistedEntity);
+
+	} finally {
+	    getSession().close();
 	}
-
-	persistedEntity.mergeWith(model); // merge them
-
-	getSession().update(persistedEntity);
     }
 }

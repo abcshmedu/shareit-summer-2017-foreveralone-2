@@ -1,6 +1,7 @@
 package edu.hm.weidacher.softarch.shareit.data.dao.hibernate;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
 
@@ -82,12 +83,16 @@ public abstract class AbstractHibernateDao<T extends AbstractModel> implements D
     @Override
     public UUID store(T model) throws PersistenceException {
         try {
+            getSession().beginTransaction();
+
             getSession().persist(model);
 
             // now, the id should be set
 	    return model.getId();
 	} catch (Exception e) {
             throw new PersistenceException("Exception caught persisting entity " + model.toString(), e);
+	} finally {
+	    getSession().close(); // end transaction
 	}
     }
 
@@ -105,12 +110,15 @@ public abstract class AbstractHibernateDao<T extends AbstractModel> implements D
 	    final T entity = getById(id);
 
 	    if (entity != null) {
+	        getSession().beginTransaction();
 		getSession().delete(entity);
 	    }
 
 	    return entity;
 	} catch (Exception e) {
             throw new PersistenceException("Error deleting entity by ID: " + id.toString(), e);
+	} finally {
+            getSession().close();
 	}
     }
 
@@ -121,12 +129,18 @@ public abstract class AbstractHibernateDao<T extends AbstractModel> implements D
      */
     @Override
     public Collection<T> getAll() {
+        getSession().beginTransaction();
+
 	final CriteriaQuery<T> query = getSession().getCriteriaBuilder()
 	    .createQuery(modelClass);
 
 	final Root<T> from = query.from(modelClass);
 
-	return getSession().createQuery(query.select(from)).getResultList();
+	final List<T> resultList = getSession().createQuery(query.select(from)).getResultList();
+
+	getSession().close();
+
+	return resultList;
     }
 
     /**
