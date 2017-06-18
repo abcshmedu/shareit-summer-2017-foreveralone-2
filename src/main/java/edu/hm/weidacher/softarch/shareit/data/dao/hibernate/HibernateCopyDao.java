@@ -4,17 +4,16 @@ import edu.hm.weidacher.softarch.shareit.data.dao.CopyDao;
 import edu.hm.weidacher.softarch.shareit.data.model.Copy;
 
 /**
+ * Dao that handles Copy entities through hibernate.
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
 public class HibernateCopyDao extends AbstractHibernateUpdatableDao<Copy> implements CopyDao {
 
     /**
      * Ctor.
-     *
-     * @param modelClass the class handled through the dao
      */
-    public HibernateCopyDao(Class<Copy> modelClass) {
-	super(modelClass);
+    public HibernateCopyDao() {
+	super(Copy.class);
     }
 
 }
