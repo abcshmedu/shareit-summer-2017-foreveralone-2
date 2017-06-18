@@ -35,7 +35,7 @@ public abstract class AbstractHibernateUpdatableDao<T extends AbstractUpdatableM
 	    throw new NullPointerException("Entity's ID may not be null.");
 	}
 
-	getSession().beginTransaction();
+	beginTransaction();
 
 	try {
 
@@ -51,7 +51,7 @@ public abstract class AbstractHibernateUpdatableDao<T extends AbstractUpdatableM
 	    getSession().update(persistedEntity);
 
 	} finally {
-	    getSession().close();
+	    commitTransaction();
 	}
 
     }
@@ -70,6 +70,7 @@ public abstract class AbstractHibernateUpdatableDao<T extends AbstractUpdatableM
 	}
 
 	try {
+	    beginTransaction();
 
 	    final T persistedEntity = getSession().get(getModelClass(), model.getId());
 
@@ -83,7 +84,7 @@ public abstract class AbstractHibernateUpdatableDao<T extends AbstractUpdatableM
 	    getSession().update(persistedEntity);
 
 	} finally {
-	    getSession().close();
+	    commitTransaction();
 	}
     }
 }

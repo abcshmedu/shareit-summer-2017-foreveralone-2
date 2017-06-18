@@ -83,7 +83,7 @@ public abstract class AbstractHibernateDao<T extends AbstractModel> implements D
     @Override
     public UUID store(T model) throws PersistenceException {
         try {
-            getSession().beginTransaction();
+            beginTransaction();
 
             getSession().persist(model);
 
@@ -92,7 +92,7 @@ public abstract class AbstractHibernateDao<T extends AbstractModel> implements D
 	} catch (Exception e) {
             throw new PersistenceException("Exception caught persisting entity " + model.toString(), e);
 	} finally {
-	    getSession().close(); // end transaction
+	    commitTransaction();
 	}
     }
 
@@ -110,7 +110,7 @@ public abstract class AbstractHibernateDao<T extends AbstractModel> implements D
 	    final T entity = getById(id);
 
 	    if (entity != null) {
-	        getSession().beginTransaction();
+	        beginTransaction();
 		getSession().delete(entity);
 	    }
 
@@ -118,7 +118,7 @@ public abstract class AbstractHibernateDao<T extends AbstractModel> implements D
 	} catch (Exception e) {
             throw new PersistenceException("Error deleting entity by ID: " + id.toString(), e);
 	} finally {
-            getSession().close();
+            commitTransaction();
 	}
     }
 
@@ -129,7 +129,7 @@ public abstract class AbstractHibernateDao<T extends AbstractModel> implements D
      */
     @Override
     public Collection<T> getAll() {
-        getSession().beginTransaction();
+	beginTransaction();
 
 	final CriteriaQuery<T> query = getSession().getCriteriaBuilder()
 	    .createQuery(modelClass);
@@ -138,7 +138,7 @@ public abstract class AbstractHibernateDao<T extends AbstractModel> implements D
 
 	final List<T> resultList = getSession().createQuery(query.select(from)).getResultList();
 
-	getSession().close();
+	commitTransaction();
 
 	return resultList;
     }
@@ -159,5 +159,22 @@ public abstract class AbstractHibernateDao<T extends AbstractModel> implements D
      */
     public Session getSession() {
 	return session;
+    }
+
+    /**
+     * Start a transaction.
+     */
+    protected void beginTransaction() {
+        getSession().beginTransaction();
+    }
+
+    /**
+     * Commit a transaction.
+     *
+     * This will first flush and then close the session.
+     */
+    protected void commitTransaction() {
+        getSession().flush();
+        getSession().close();
     }
 }
