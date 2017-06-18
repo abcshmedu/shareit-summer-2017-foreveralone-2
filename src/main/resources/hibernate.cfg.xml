@@ -14,8 +14,13 @@
 
         <property name="current_session_context_class">thread</property>
         <property name="show_sql">true</property>
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">create-drop</property>
         <property name="transaction.auto_close_session">true</property>
+
+        <mapping class="edu.hm.weidacher.softarch.shareit.data.model.Disc" />
+        <mapping class="edu.hm.weidacher.softarch.shareit.data.model.Copy" />
+        <mapping class="edu.hm.weidacher.softarch.shareit.data.model.Account" />
+        <mapping class="edu.hm.weidacher.softarch.shareit.data.model.Book" />
 
     </session-factory>
 
