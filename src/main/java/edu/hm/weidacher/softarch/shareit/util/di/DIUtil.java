@@ -1,6 +1,5 @@
 package edu.hm.weidacher.softarch.shareit.util.di;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 import com.google.inject.Guice;
