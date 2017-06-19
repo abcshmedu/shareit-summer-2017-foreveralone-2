@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import edu.hm.weidacher.softarch.shareit.data.dao.Dao;
 import edu.hm.weidacher.softarch.shareit.data.database.Database;
+import edu.hm.weidacher.softarch.shareit.data.database.DatabaseFactory;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractModel;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 import edu.hm.weidacher.softarch.shareit.util.di.DIUtil;
@@ -29,12 +30,6 @@ public abstract class SimpleAbstractDao<T extends AbstractModel> implements Dao<
     private final Class<T> modelClass;
 
     /**
-     * Database, containing all model-collections.
-     */
-    @Inject
-    private Database databaseContainer;
-
-    /**
      * Collection containing all persisted objects of the model.
      */
     private Collection<T> database;
@@ -46,10 +41,7 @@ public abstract class SimpleAbstractDao<T extends AbstractModel> implements Dao<
      */
     protected SimpleAbstractDao(Class<T> clazz) {
 	modelClass = clazz;
-
-	// activate DI manually
-	// TODO replace manual activation with container-managed activation (Jersey Guice to HK2 brigde)
-	DIUtil.getInjectorStatic().injectMembers(this);
+	this.database = DatabaseFactory.getDatabase().getCollectionForType(modelClass);
     }
 
     /**
@@ -105,22 +97,21 @@ public abstract class SimpleAbstractDao<T extends AbstractModel> implements Dao<
      * @param entity the entity to persist
      * @return id of the created entity
      * @throws PersistenceException when a entity has already been persisted under the id of the entity
-     * 					or the entity has no id attached
      */
     @Override
     public UUID store(T entity) throws PersistenceException {
+	entity.validate();
+
         // instantiate a new entity using copy constructor
 	final T copiedEntity = copyEntity(entity);
 
-	entity.validate();
+	copiedEntity.setId(UUID.randomUUID()); // no persistence provider here... need my own id
 
-	final UUID id = validateIdPresent(copiedEntity);
-
-	if (getById(id) != null) {
+	if (getById(copiedEntity.getId()) != null) {
 	    throw new PersistenceException("Model already present under the id!");
 	}
 
-	preStore(entity);
+	preStore(copiedEntity);
 
 	getDatabaseWritable().add(copiedEntity);
 	return copiedEntity.getId();
@@ -170,9 +161,9 @@ public abstract class SimpleAbstractDao<T extends AbstractModel> implements Dao<
      * @return a collection with write operations
      */
     private Collection<T> getDatabaseWritable() {
-        if (database == null) {
+        /*if (database == null) {
             database = databaseContainer.getCollectionForType(modelClass); // init on first call
-	}
+	}*/
         return database;
     }
 

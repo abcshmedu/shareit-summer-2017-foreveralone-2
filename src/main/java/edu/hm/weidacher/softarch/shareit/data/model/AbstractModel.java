@@ -46,6 +46,14 @@ public abstract class AbstractModel implements Serializable {
     }
 
     /**
+     * Sets the id of the entity.
+     * @param id id
+     */
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    /**
      * Returns the date of creation.
      *
      * @return date
