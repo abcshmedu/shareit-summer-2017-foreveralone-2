@@ -48,7 +48,5 @@ public class SimpleBookDao extends SimpleAbstractUpdatableDao<Book> implements B
     @Override
     protected void preStore(Book model) {
 	super.preStore(model);
-
-	model.setIsbn(IsbnUtil.normalize(model.getIsbn()));
     }
 }

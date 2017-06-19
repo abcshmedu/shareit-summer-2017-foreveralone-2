@@ -39,7 +39,7 @@ public class Book extends Medium {
     public Book(String title, String author, String isbn) {
 	super(title);
 	this.author = author;
-	this.isbn = isbn;
+	this.isbn = IsbnUtil.normalize(isbn);
     }
 
     /**
@@ -127,7 +127,7 @@ public class Book extends Medium {
      * @param isbn the new isbn
      */
     public void setIsbn(String isbn) {
-	this.isbn = isbn;
+	this.isbn = IsbnUtil.normalize(isbn);
 	update();
     }
 
