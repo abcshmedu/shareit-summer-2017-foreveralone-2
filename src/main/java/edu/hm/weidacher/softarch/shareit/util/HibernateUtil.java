@@ -28,7 +28,7 @@ public class HibernateUtil implements ServletContextListener {
 
     /**
      * Hibernate SessionFactory.
-     * Users can claim an EntitiyManager (Session) from it.
+     * Users can claim an EntityManager (Session) from it.
      */
     private static SessionFactory SESSION_FACTORY = new Configuration().configure().buildSessionFactory();
 
@@ -43,7 +43,7 @@ public class HibernateUtil implements ServletContextListener {
     /**
      * Closes the SessionFactory.
      */
-    public static void shutdown () {
+    private static void shutdown () {
         SESSION_FACTORY.close();
     }
 
@@ -53,7 +53,7 @@ public class HibernateUtil implements ServletContextListener {
 
     /**
      * Called when the application-server boots.
-     * @param servletContextEvent contexy
+     * @param servletContextEvent context
      */
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
