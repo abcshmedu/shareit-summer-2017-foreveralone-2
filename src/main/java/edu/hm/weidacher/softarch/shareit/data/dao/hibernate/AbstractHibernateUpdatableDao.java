@@ -72,7 +72,7 @@ public abstract class AbstractHibernateUpdatableDao<T extends AbstractUpdatableM
 	try {
 	    beginTransaction();
 
-	    final T persistedEntity = getSession().get(getModelClass(), model.getId());
+	    final T persistedEntity = getSession().get(getModelClass(), id);
 
 	    if (persistedEntity == null) {
 		throw new PersistenceException(String.format(

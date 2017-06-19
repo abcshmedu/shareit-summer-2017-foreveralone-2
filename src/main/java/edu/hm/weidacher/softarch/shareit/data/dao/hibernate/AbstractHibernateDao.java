@@ -86,6 +86,12 @@ public abstract class AbstractHibernateDao<T extends AbstractModel> implements D
      */
     @Override
     public UUID store(T model) throws PersistenceException {
+        if (model == null) {
+            throw new PersistenceException("Model may not be null");
+	}
+
+	model.validate();
+
         try {
             beginTransaction();
 
