@@ -5,15 +5,10 @@ import java.util.Collections;
 import java.util.UUID;
 import java.util.function.Function;
 
-
-import javax.inject.Inject;
-
 import edu.hm.weidacher.softarch.shareit.data.dao.Dao;
-import edu.hm.weidacher.softarch.shareit.data.database.Database;
 import edu.hm.weidacher.softarch.shareit.data.database.DatabaseFactory;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractModel;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
-import edu.hm.weidacher.softarch.shareit.util.di.DIUtil;
 
 /**
  * Abstract Dao class.

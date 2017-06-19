@@ -134,25 +134,25 @@ public class AuthenticationResource extends AbstractResource {
 	}
 
 	// check for token
-	if (authorizationRequest.token == null) {
+	if (authorizationRequest.getToken() == null) {
             return error("No token given", Response.Status.UNAUTHORIZED);
 	}
 
 	// strip leading "Bearer"
-	authorizationRequest.token = authorizationRequest.token.replaceFirst("Bearer ", "");
+	authorizationRequest.setToken(authorizationRequest.getToken().replaceFirst("Bearer ", ""));
 
 	boolean authorized = false;
 
 	// authorize by role
-	if (authorizationRequest.role != null) {
-            authorized = AuthenticationUtil.authorizeRole(authorizationRequest.token, authorizationRequest.role);
+	if (authorizationRequest.getRole() != null) {
+            authorized = AuthenticationUtil.authorizeRole(authorizationRequest.getToken(), authorizationRequest.getRole());
 	}
 
 	// authorize by user-id
-	else if (authorizationRequest.user != null) {
-	    final Account authorizationTarget = accountDao.getById(authorizationRequest.user);
+	else if (authorizationRequest.getUser() != null) {
+	    final Account authorizationTarget = accountDao.getById(authorizationRequest.getUser());
 
-	    authorized = AuthenticationUtil.authorizePrivate(authorizationRequest.token, authorizationTarget);
+	    authorized = AuthenticationUtil.authorizePrivate(authorizationRequest.getToken(), authorizationTarget);
 	}
 
 	// nothing to authorize against given
@@ -167,7 +167,12 @@ public class AuthenticationResource extends AbstractResource {
 	}
     }
 
-    private String getTokenMap(String token){
+    /**
+     * Returns the token embedded in a JSON-Object.
+     * @param token jwt
+     * @return {token:jwt}
+     */
+    private String getTokenMap(String token) {
 	final Map<String, String> accessToken = Collections.singletonMap("accessToken", token);
 
 	return getGson().toJson(accessToken);

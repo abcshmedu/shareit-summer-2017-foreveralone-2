@@ -9,6 +9,7 @@ import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;
 /**
  * An abstract Dao that handles data through Hibernate.
  * All models accessed through subclasses of this dao can be modified in some way.
+ * @param <T> declares the model, the dao handles
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
 public abstract class AbstractHibernateUpdatableDao<T extends AbstractUpdatableModel> extends AbstractHibernateDao<T> implements UpdatableDao<T> {

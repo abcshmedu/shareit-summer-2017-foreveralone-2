@@ -13,16 +13,63 @@ public class AuthorizationRequestDto {
     /**
      * Token.
      */
-    public String token;
+    private String token;
 
     /**
      * User.
      */
-    public UUID user;
+    private UUID user;
 
     /**
      * Role.
      */
-    public Role role;
+    private Role role;
 
+    /**
+     * Return the token.
+     * @return token
+     */
+    public String getToken() {
+	return token;
+    }
+
+    /**
+     * Set the token.
+     * @param token token
+     */
+    public void setToken(String token) {
+	this.token = token;
+    }
+
+    /**
+     * Get the user.
+     * @return user
+     */
+    public UUID getUser() {
+	return user;
+    }
+
+    /**
+     * Set the user.
+     * @param user user
+     */
+    public void setUser(UUID user) {
+	this.user = user;
+    }
+
+    /**
+     * Get the role.
+     * @return role
+     */
+    public Role getRole() {
+	return role;
+    }
+
+    /**
+     * Set the role.
+     * @param role role
+     */
+    public void setRole(Role role) {
+	this.role = role;
+    }
 }

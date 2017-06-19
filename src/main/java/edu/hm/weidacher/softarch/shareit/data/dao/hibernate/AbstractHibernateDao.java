@@ -11,7 +11,6 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
 import edu.hm.weidacher.softarch.shareit.data.dao.Dao;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractModel;
@@ -20,6 +19,7 @@ import edu.hm.weidacher.softarch.shareit.util.di.DIUtil;
 
 /**
  * An abstract Dao that accesses Data through Hibernate.
+ * @param <T> declares the model, the dao handles
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
 public abstract class AbstractHibernateDao<T extends AbstractModel> implements Dao<T> {
@@ -40,8 +40,9 @@ public abstract class AbstractHibernateDao<T extends AbstractModel> implements D
 
     /**
      * Ctor.
+     * @param modelClass declares the model the dao handles
      */
-    public AbstractHibernateDao (Class<T> modelClass) {
+    public AbstractHibernateDao(Class<T> modelClass) {
 	this.modelClass = modelClass;
 	DIUtil.getInjectorStatic().injectMembers(this);
     }

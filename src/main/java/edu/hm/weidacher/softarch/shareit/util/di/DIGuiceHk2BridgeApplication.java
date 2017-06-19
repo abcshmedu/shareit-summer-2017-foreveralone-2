@@ -13,6 +13,10 @@ import org.jvnet.hk2.guice.bridge.api.GuiceIntoHK2Bridge;
  */
 public class DIGuiceHk2BridgeApplication extends ResourceConfig {
 
+    /**
+     * Configure the Guice - HK2 Bridge.
+     * @param serviceLocator service locator of the container
+     */
     @Inject
     public DIGuiceHk2BridgeApplication(ServiceLocator serviceLocator) {
 	System.out.println("Initializing DI Bridge");

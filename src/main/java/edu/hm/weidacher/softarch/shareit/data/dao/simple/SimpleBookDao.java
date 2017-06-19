@@ -2,7 +2,6 @@ package edu.hm.weidacher.softarch.shareit.data.dao.simple;
 
 import edu.hm.weidacher.softarch.shareit.data.dao.BookDao;
 import edu.hm.weidacher.softarch.shareit.data.model.Book;
-import edu.hm.weidacher.softarch.shareit.util.IsbnUtil;
 
 /**
  * A Dao for the book model.

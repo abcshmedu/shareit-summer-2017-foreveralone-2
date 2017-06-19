@@ -30,9 +30,9 @@ public class HibernateUtil implements ServletContextListener {
      * Hibernate SessionFactory.
      * Users can claim an EntityManager (Session) from it.
      */
-    private static SessionFactory SESSION_FACTORY = new Configuration().configure().buildSessionFactory();
+    private static final SessionFactory SESSION_FACTORY = new Configuration().configure().buildSessionFactory();
 
-    /**
+    /**gi
      * Returns the SessionFactory.
      * @return sessionFactory
      */
@@ -43,10 +43,14 @@ public class HibernateUtil implements ServletContextListener {
     /**
      * Closes the SessionFactory.
      */
-    private static void shutdown () {
+    private static void shutdown() {
         SESSION_FACTORY.close();
     }
 
+    /**
+     * Returns a Session provider.
+     * @return providing the session like a champ
+     */
     public static Provider<Session> getSessionProvider() {
 	return () -> getSessionFactory().getCurrentSession();
     }
@@ -70,27 +74,4 @@ public class HibernateUtil implements ServletContextListener {
 	LOG.info("Hibernate Context destroyed");
     }
 
-/*    ***
-     * Initialize the EntityManagerFactory.
-     *
-     * @see <a href="https://stackoverflow.com/questions/30124826/creating-entitymanagerfactory-from-hibernate-configuration#30125601">source</a>
-     *
-     * @param configuration configuration -> must be configured
-     * @return emf
-     *//*
-    private static EntityManagerFactory createEntityManagerFactory(Configuration configuration) {
-	Properties p = configuration.getProperties();
-
-	// convert to Map
-	Map<String, String> pMap = new HashMap<>();
-	Enumeration<?> e = p.propertyNames();
-	while (e.hasMoreElements()) {
-	    String s = (String) e.nextElement();
-	    pMap.put(s, p.getProperty(s));
-	}
-
-	// create EntityManagerFactory
-
-	return Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME, pMap);
-    }*/
 }

@@ -3,8 +3,6 @@ package edu.hm.weidacher.softarch.shareit.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Key;
-import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -33,7 +31,7 @@ import io.jsonwebtoken.SignatureException;
  *
  * @author Simon Weidacher <simon.weidacher@timebay.eu>
  */
-public class AuthenticationUtil {
+public abstract class AuthenticationUtil {
 
     /**
      * Secret key for signing JWT tokens.
@@ -52,7 +50,6 @@ public class AuthenticationUtil {
 
     /**
      * Admin account.
-     * TODO: put this guy in the database!
      */
     private static final Account ADMIN_ACCOUNT = new Account();
 
@@ -86,11 +83,19 @@ public class AuthenticationUtil {
     }
 
     /**
+     * Ctor.
+     * Prevent initialization.
+     */
+    private AuthenticationUtil() {
+        // private
+    }
+
+    /**
      * Creates a JWT authenticating the given account.
      * @param account account to sign
      * @return JSON object containing the JWT-string
      */
-    public static String createAuthenticationToken (Account account) {
+    public static String createAuthenticationToken(Account account) {
 
 	final Map<String, Object> claims = new HashMap<String, Object>() {{
 	    put("role", account.getRole().toString());
@@ -137,7 +142,7 @@ public class AuthenticationUtil {
      * @param role the lowest valid role
      * @return whether the given token legitimates access for the given role
      */
-    public static boolean authorizeRole (String token, Role role) {
+    public static boolean authorizeRole(String token, Role role) {
 	try {
 
 	    final Jws<Claims> jws = Jwts.parser()
@@ -177,7 +182,7 @@ public class AuthenticationUtil {
      * @param account account to authorize against
      * @return whether the given token legitimates access on the given account
      */
-    public static boolean authorizePrivate (String token, Account account) {
+    public static boolean authorizePrivate(String token, Account account) {
 
 	try {
 
@@ -224,6 +229,7 @@ public class AuthenticationUtil {
     /**
      * Utility class to laod the signing key from properties.
      */
+    // CHECKSTYLE:OFF
     private static class KeyLoadProxy {
 	byte[] key;
 	String algorithm;
@@ -232,4 +238,5 @@ public class AuthenticationUtil {
 	    return new SecretKeySpec(key, algorithm);
 	}
     }
+    // CHECKSTYLE:ON
 }

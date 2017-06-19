@@ -22,7 +22,7 @@ public class SimpleAccountDao extends SimpleAbstractDao<Account> implements Acco
      * @return account if present or null
      */
     @Override
-    public Account getByUsername (String username) {
+    public Account getByUsername(String username) {
 	return getByExtractor(Account::getUsername, username);
     }
 }

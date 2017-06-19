@@ -11,7 +11,7 @@ package edu.hm.weidacher.softarch.shareit.data.model;
 public enum Role {
 
     /**
-     * Typical user without any privileges
+     * Typical user without any privileges.
      */
     USER,
 

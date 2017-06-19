@@ -16,7 +16,6 @@ import javax.ws.rs.core.Response;
 import com.google.gson.JsonSyntaxException;
 
 import edu.hm.weidacher.softarch.shareit.data.dao.BookDao;
-import edu.hm.weidacher.softarch.shareit.data.dao.simple.SimpleBookDao;
 import edu.hm.weidacher.softarch.shareit.data.model.Book;
 import edu.hm.weidacher.softarch.shareit.data.model.Role;
 import edu.hm.weidacher.softarch.shareit.exceptions.PersistenceException;

@@ -113,8 +113,8 @@ public class AuthorizationInterceptor implements ContainerRequestFilter {
     private Response authorizeRole(String authenticationToken, Role minRole) {
 	final AuthorizationRequestDto authRequest = new AuthorizationRequestDto();
 
-	authRequest.token = authenticationToken;
-	authRequest.role = minRole;
+	authRequest.setToken(authenticationToken);
+	authRequest.setRole(minRole);
 
 	return new ResteasyClientBuilder().httpEngine(new URLConnectionEngine()).build()
 	    .target(Configuration.SSO_AUTHORIZE_PATH)
