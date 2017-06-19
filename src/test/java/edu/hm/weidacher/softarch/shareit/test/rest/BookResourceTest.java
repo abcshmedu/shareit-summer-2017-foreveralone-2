@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 
 import edu.hm.weidacher.softarch.shareit.data.model.Book;
 import edu.hm.weidacher.softarch.shareit.rest.BookResource;
+import edu.hm.weidacher.softarch.shareit.test.DependencyInjectionTestPreparation;
 
 
 /**
@@ -26,13 +27,14 @@ import edu.hm.weidacher.softarch.shareit.rest.BookResource;
  *
  * @author Simon Weidacher <weidache@hm.edu>
  */
-public class BookResourceTest {
+public class BookResourceTest extends DependencyInjectionTestPreparation {
 
     private BookResource sut;
     private Gson gson;
 
     @Before
     public void setup() {
+        setupDependencyInjection();
         sut = new BookResource();
         gson = new Gson();
     }

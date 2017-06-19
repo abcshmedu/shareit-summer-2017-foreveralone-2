@@ -100,6 +100,10 @@ public abstract class SimpleAbstractDao<T extends AbstractModel> implements Dao<
      */
     @Override
     public UUID store(T entity) throws PersistenceException {
+        if (entity == null) {
+	    throw new PersistenceException("Entity may not be null");
+	}
+
 	entity.validate();
 
         // instantiate a new entity using copy constructor

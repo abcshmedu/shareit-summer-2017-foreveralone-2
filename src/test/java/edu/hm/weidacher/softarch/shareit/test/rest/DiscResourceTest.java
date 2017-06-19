@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 
 import edu.hm.weidacher.softarch.shareit.data.model.Disc;
 import edu.hm.weidacher.softarch.shareit.rest.DiscResource;
+import edu.hm.weidacher.softarch.shareit.test.DependencyInjectionTestPreparation;
 
 
 /**
@@ -24,13 +25,14 @@ import edu.hm.weidacher.softarch.shareit.rest.DiscResource;
  *
  * @author Simon Weidacher <weidache@hm.edu>
  */
-public class DiscResourceTest {
+public class DiscResourceTest extends DependencyInjectionTestPreparation {
 
     private DiscResource sut;
     private Gson gson;
 
     @Before
     public void setup() {
+        setupDependencyInjection();
 	sut = new DiscResource();
 	gson = new Gson();
     }

@@ -34,12 +34,49 @@ public class DIUtil extends GuiceServletContextListener {
      */
     private static Injector injector;
 
-    /*
-      Initialize the injector.
-      Using a static initializer here to enable more complex initialization in the future without further refactorings.
+    /**
+     * Returns the injector.
+     *
+     * @return injector
      */
-    static {
-        injector = Guice.createInjector(new ServletModule() {
+    @Override
+    protected Injector getInjector() {
+	return getInjectorStatic();
+    }
+
+    /**
+     * Returns the injector.
+     * <p>
+     * Required for Guice <=> HL2 bridge.
+     *
+     * Performing a lazy initialization to prevent Hibernate from booting when it's not required.
+     *
+     * @return injector
+     */
+    public static Injector getInjectorStatic() {
+	if (injector == null) {
+	    initializeProductionInjector();
+	}
+
+	return injector;
+    }
+
+    /**
+     * Returns, whether the injector has been initialized yet.
+     * @return is injector initialized?
+     */
+    public static boolean isInjectorInitialized() {
+	return injector != null;
+    }
+
+    /**
+     * Initialize the production injector
+     */
+    private static void initializeProductionInjector() {
+	System.out.println("Initializing production injector");
+
+	// set the new injector
+	setInjectorStatic(Guice.createInjector(new ServletModule() {
 
 	    /**
 	     * Configure all bindings for the injector.
@@ -47,7 +84,7 @@ public class DIUtil extends GuiceServletContextListener {
 	    @Override
 	    protected void configureServlets() {
 		bind(Database.class).to(SimpleDatabase.class);
-                bind(Datastore.class).to(SimpleDatastore.class);
+		bind(Datastore.class).to(SimpleDatastore.class);
 		bind(Session.class).toProvider(HibernateUtil.getSessionProvider());
 		bind(SessionFactory.class).toInstance(HibernateUtil.getSessionFactory());
 
@@ -56,32 +93,14 @@ public class DIUtil extends GuiceServletContextListener {
 		bind(AccountDao.class).to(HibernateAccountDao.class);
 		bind(DiscDao.class).to(HibernateDiscDao.class);
 	    }
-
-	});
+	}));
     }
 
     /**
-     * Returns the injector.
-     * @return injector
-     */
-    @Override
-    protected Injector getInjector() {
-	return injector;
-    }
-
-    /**
-     * Returns the injector.
+     * Sets the injector once.
      *
-     * Required for guice <=> HL2 bridge.
+     * When testing invoke this before any other access to this Util to prevent booting Hibernate.
      *
-     * @return injector
-     */
-    public static Injector getInjectorStatic() {
-        return injector;
-    }
-
-    /**
-     * Reset the injector.
      * @param fresh injector
      */
     public static void setInjectorStatic(Injector fresh) {
