@@ -1,9 +1,11 @@
 package edu.hm.weidacher.softarch.shareit.util.di;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Provider;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
 
@@ -31,7 +33,7 @@ public class DIUtil extends GuiceServletContextListener {
     /**
      * The injector.
      */
-    private static final Injector injector;
+    private static Injector injector;
 
     /*
       Initialize the injector.
@@ -48,6 +50,7 @@ public class DIUtil extends GuiceServletContextListener {
 		bind(Database.class).to(SimpleDatabase.class);
                 bind(Datastore.class).to(SimpleDatastore.class);
 		bind(Session.class).toProvider(HibernateUtil.getSessionProvider());
+		bind(SessionFactory.class).toInstance(HibernateUtil.getSessionFactory());
 
 		bind(BookDao.class).to(HibernateBookDao.class);
 		bind(CopyDao.class).to(HibernateCopyDao.class);
@@ -76,5 +79,13 @@ public class DIUtil extends GuiceServletContextListener {
      */
     public static Injector getInjectorStatic() {
         return injector;
+    }
+
+    /**
+     * Reset the injector.
+     * @param fresh injector
+     */
+    public static void setInjectorStatic(Injector fresh) {
+	injector = fresh;
     }
 }

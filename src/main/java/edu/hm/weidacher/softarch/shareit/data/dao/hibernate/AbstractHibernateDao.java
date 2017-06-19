@@ -10,6 +10,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import edu.hm.weidacher.softarch.shareit.data.dao.Dao;
 import edu.hm.weidacher.softarch.shareit.data.model.AbstractModel;
@@ -26,8 +28,10 @@ public abstract class AbstractHibernateDao<T extends AbstractModel> implements D
      * The hibernate session.
      * All persistence calls are processed through the session.
      */
-    @Inject
     private Session session;
+
+    @Inject
+    private SessionFactory sessionFactory;
 
     /**
      * Class, this Dao handles.
@@ -158,6 +162,11 @@ public abstract class AbstractHibernateDao<T extends AbstractModel> implements D
      * @return the session
      */
     public Session getSession() {
+        if (session == null || !session.isOpen()) {
+	    // lazily create a new session
+            session = sessionFactory.getCurrentSession();
+	}
+
 	return session;
     }
 
@@ -165,7 +174,7 @@ public abstract class AbstractHibernateDao<T extends AbstractModel> implements D
      * Start a transaction.
      */
     protected void beginTransaction() {
-        getSession().beginTransaction();
+	getSession().beginTransaction();
     }
 
     /**
@@ -174,7 +183,9 @@ public abstract class AbstractHibernateDao<T extends AbstractModel> implements D
      * This will first flush and then close the session.
      */
     protected void commitTransaction() {
-        getSession().flush();
-        getSession().close();
+	getSession().getTransaction().commit();
+
+	// session closed. set it to null to enable acquiring a new session when it's required
+	session = null;
     }
 }
