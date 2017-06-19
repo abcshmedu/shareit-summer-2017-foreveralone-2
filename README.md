@@ -1,4 +1,15 @@
-# Starter Code für 2. Pratkikumsaufgabe Software-Architektur Sommer 2017
+# ShareIt Anwendung
+
+Von Simon Weidacher
+Mat# 14492913
+
+## Wichtige Hinweise
+
+* Der Authentication-Service wurde nicht als "klassischer" Microservice implementiert, sondern nur als eigenständige Ressource.
+Um eine Migration zum Microservice vorzubereiten greift diese als einzige auf das Modell `Account` zu (und sonst auf keine andere Tabelle).
+Ausserdem findet die Kommunikation zu anderen Services ausschließlich über HTTP-Requests statt.
+* Es wurden keine Mockobjekte zum Testen generiert. Statessen habe ich meine simplen Datenhaltungsstrategien aus der ersten Abgabe bei den betreffenden
+Tests injiziert.
 
 ## Deployment
 
@@ -12,7 +23,7 @@ Alle mit IMMUTABLE gekennzeichneten Felder können nicht geändert werden. Alle 
 ```javascript
 {
 	"author" : "Astrid Lindgren", // Author des Buches
-	"isbn" : "sjfi543f838200fi", // ISBN des Buches
+	"isbn" : "sjfi543f838200fi", // ISBN des Buches, normalisiert (ohne Bindestriche)
 	"title" : "Wir Kinder vom Bahnhof Zoo", // Titel des Buches
 	"lastUpdate" : "May 1, 2017 10:32:53 AM", // Zeit der letzten Änderung - IMMUTABLE
 	"id" : "290a7943-8306-4b26-b004-68cf1f9b15ee", // interner identifier - IMMUTABLE
@@ -54,7 +65,7 @@ Für Copy und Kopie wird synonym zu Exemplar verwendet.
 
 |Pfad|Methode|Parameter|Antwort|Beschreibung|
 |----|-------|------------|---------|------------|
-|`/books`|GET| - |200 OK - `[Buch]`|Alle Exemplare aller Bücher abfragen|
+|`/books`|GET| - |200 OK - `[Buch]`|<ul><li>Alle Exemplare aller Bücher abfragen</li></ul>|
 |`/books/{isbn}`|POST|body: `Copy`|<ul><li>201 CREATED + Location Header</li><li>400 BAD REQUEST - Modell der Copy fehlerhaft</li></ul>|Ein Exemplar anlegen|
 |`/books/{isbn}`|GET|`isbn` - ISBN|<ul><li>200 OK - `[Buch]`</li><li>404 NOT FOUND - Kein Buch unter der ISBN angelegt </li><li>400 BAD REQUEST - ISBN syntaktisch ungültig</li></ul>|Alle Exemplare eines Buches abfragen|
 |`/books/{isbn}/{id}`|GET|<ul><li>`isbn`: ISBN des Buches</li><li>`id` : identifier der Kopie</li></ul>|<ul><li>200 OK - `Buch`</li><li>400 BAD REQUEST - ISBN oder ID syntaktisch inkorrekt</li><li>404 NOT FOUND - Kein Buch unter `isbn` oder keine Kopie für das Buch unter `isbn` unter `id`</li></ul>|Eine spezielle Kopie eines Buches abfragen.|
